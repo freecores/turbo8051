@@ -94,80 +94,80 @@
 //
 
 
-`define OC8051_ALU_NOP 4'b0000
-`define OC8051_ALU_ADD 4'b0001
-`define OC8051_ALU_SUB 4'b0010
-`define OC8051_ALU_MUL 4'b0011
-`define OC8051_ALU_DIV 4'b0100
-`define OC8051_ALU_DA 4'b0101
-`define OC8051_ALU_NOT 4'b0110
-`define OC8051_ALU_AND 4'b0111
-`define OC8051_ALU_XOR 4'b1000
-`define OC8051_ALU_OR 4'b1001
-`define OC8051_ALU_RL 4'b1010
-`define OC8051_ALU_RLC 4'b1011
-`define OC8051_ALU_RR 4'b1100
-`define OC8051_ALU_RRC 4'b1101
-`define OC8051_ALU_INC 4'b1110
-`define OC8051_ALU_XCH 4'b1111
+`define OC8051_ALU_NOP  4'b0000
+`define OC8051_ALU_ADD  4'b0001
+`define OC8051_ALU_SUB  4'b0010
+`define OC8051_ALU_MUL  4'b0011
+`define OC8051_ALU_DIV  4'b0100
+`define OC8051_ALU_DA   4'b0101
+`define OC8051_ALU_NOT  4'b0110
+`define OC8051_ALU_AND  4'b0111
+`define OC8051_ALU_XOR  4'b1000
+`define OC8051_ALU_OR   4'b1001
+`define OC8051_ALU_RL   4'b1010
+`define OC8051_ALU_RLC  4'b1011
+`define OC8051_ALU_RR   4'b1100
+`define OC8051_ALU_RRC  4'b1101
+`define OC8051_ALU_INC  4'b1110
+`define OC8051_ALU_XCH  4'b1111
 
 //
 // sfr addresses
 //
 
-`define OC8051_SFR_ACC 8'he0 //accumulator
-`define OC8051_SFR_B 8'hf0 //b register
-`define OC8051_SFR_PSW 8'hd0 //program status word
-`define OC8051_SFR_P0 8'h80 //port 0
-`define OC8051_SFR_P1 8'h90 //port 1
-`define OC8051_SFR_P2 8'ha0 //port 2
-`define OC8051_SFR_P3 8'hb0 //port 3
+`define OC8051_SFR_ACC     8'he0 //accumulator
+`define OC8051_SFR_B       8'hf0 //b register
+`define OC8051_SFR_PSW     8'hd0 //program status word
+`define OC8051_SFR_P0      8'h80 //port 0
+`define OC8051_SFR_P1      8'h90 //port 1
+`define OC8051_SFR_P2      8'ha0 //port 2
+`define OC8051_SFR_P3      8'hb0 //port 3
 `define OC8051_SFR_DPTR_LO 8'h82 // data pointer high bits
 `define OC8051_SFR_DPTR_HI 8'h83 // data pointer low bits
-`define OC8051_SFR_IP0 8'hb8 // interrupt priority
-`define OC8051_SFR_IEN0 8'ha8 // interrupt enable 0
-`define OC8051_SFR_TMOD 8'h89 // timer/counter mode
-`define OC8051_SFR_TCON 8'h88 // timer/counter control
-`define OC8051_SFR_TH0 8'h8c // timer/counter 0 high bits
-`define OC8051_SFR_TL0 8'h8a // timer/counter 0 low bits
-`define OC8051_SFR_TH1 8'h8d // timer/counter 1 high bits
-`define OC8051_SFR_TL1 8'h8b // timer/counter 1 low bits
+`define OC8051_SFR_IP0     8'hb8 // interrupt priority
+`define OC8051_SFR_IEN0    8'ha8 // interrupt enable 0
+`define OC8051_SFR_TMOD    8'h89 // timer/counter mode
+`define OC8051_SFR_TCON    8'h88 // timer/counter control
+`define OC8051_SFR_TH0     8'h8c // timer/counter 0 high bits
+`define OC8051_SFR_TL0     8'h8a // timer/counter 0 low bits
+`define OC8051_SFR_TH1     8'h8d // timer/counter 1 high bits
+`define OC8051_SFR_TL1     8'h8b // timer/counter 1 low bits
 
-`define OC8051_SFR_SCON 8'h98 // serial control 0
-`define OC8051_SFR_SBUF 8'h99 // serial data buffer 0
-`define OC8051_SFR_SADDR 8'ha9 // serila address register 0
-`define OC8051_SFR_SADEN 8'hb9 // serila address enable 0
+`define OC8051_SFR_SCON    8'h98 // serial control 0
+`define OC8051_SFR_SBUF    8'h99 // serial data buffer 0
+`define OC8051_SFR_SADDR   8'ha9 // serila address register 0
+`define OC8051_SFR_SADEN   8'hb9 // serila address enable 0
 
-`define OC8051_SFR_PCON 8'h87 // power control
-`define OC8051_SFR_SP 8'h81 // stack pointer
+`define OC8051_SFR_PCON    8'h87 // power control
+`define OC8051_SFR_SP      8'h81 // stack pointer
 
 
 
-`define OC8051_SFR_IE 8'ha8 // interrupt enable
-`define OC8051_SFR_IP 8'hb7 // interrupt priority
+`define OC8051_SFR_IE      8'ha8 // interrupt enable
+`define OC8051_SFR_IP      8'hb7 // interrupt priority
 
-`define OC8051_SFR_RCAP2H 8'hcb // timer 2 capture high
-`define OC8051_SFR_RCAP2L 8'hca // timer 2 capture low
+`define OC8051_SFR_RCAP2H  8'hcb // timer 2 capture high
+`define OC8051_SFR_RCAP2L  8'hca // timer 2 capture low
 
-`define OC8051_SFR_T2CON 8'hc8 // timer 2 control register
-`define OC8051_SFR_TH2 8'hcd // timer 2 high
-`define OC8051_SFR_TL2 8'hcc // timer 2 low
+`define OC8051_SFR_T2CON   8'hc8 // timer 2 control register
+`define OC8051_SFR_TH2     8'hcd // timer 2 high
+`define OC8051_SFR_TL2     8'hcc // timer 2 low
 
 
 
 //
 // sfr bit addresses
 //
-`define OC8051_SFR_B_ACC 5'b11100 //accumulator
-`define OC8051_SFR_B_PSW 5'b11010 //program status word
-`define OC8051_SFR_B_P0  5'b10000 //port 0
-`define OC8051_SFR_B_P1  5'b10010 //port 1
-`define OC8051_SFR_B_P2  5'b10100 //port 2
-`define OC8051_SFR_B_P3  5'b10110 //port 3
-`define OC8051_SFR_B_B   5'b11110 // b register
-`define OC8051_SFR_B_IP  5'b10111 // interrupt priority control 0
-`define OC8051_SFR_B_IE  5'b10101 // interrupt enable control 0
-`define OC8051_SFR_B_SCON 5'b10011 // serial control
+`define OC8051_SFR_B_ACC   5'b11100 //accumulator
+`define OC8051_SFR_B_PSW   5'b11010 //program status word
+`define OC8051_SFR_B_P0    5'b10000 //port 0
+`define OC8051_SFR_B_P1    5'b10010 //port 1
+`define OC8051_SFR_B_P2    5'b10100 //port 2
+`define OC8051_SFR_B_P3    5'b10110 //port 3
+`define OC8051_SFR_B_B     5'b11110 // b register
+`define OC8051_SFR_B_IP    5'b10111 // interrupt priority control 0
+`define OC8051_SFR_B_IE    5'b10101 // interrupt enable control 0
+`define OC8051_SFR_B_SCON  5'b10011 // serial control
 `define OC8051_SFR_B_TCON  5'b10001 // timer/counter control
 `define OC8051_SFR_B_T2CON 5'b11001 // timer/counter2 control
 
@@ -190,14 +190,14 @@
 `define OC8051_AJMP 8'bxxx0_0001 // absolute jump
 
 //op_code [7:3]
-`define OC8051_ADD_R 8'b0010_1xxx // add A=A+Rx
+`define OC8051_ADD_R  8'b0010_1xxx // add A=A+Rx
 `define OC8051_ADDC_R 8'b0011_1xxx // add A=A+Rx+c
-`define OC8051_ANL_R 8'b0101_1xxx // and A=A^Rx
+`define OC8051_ANL_R  8'b0101_1xxx // and A=A^Rx
 `define OC8051_CJNE_R 8'b1011_1xxx // compare and jump if not equal; Rx<>constant
-`define OC8051_DEC_R 8'b0001_1xxx // decrement reg Rn=Rn-1
+`define OC8051_DEC_R  8'b0001_1xxx // decrement reg Rn=Rn-1
 `define OC8051_DJNZ_R 8'b1101_1xxx // decrement and jump if not zero
-`define OC8051_INC_R 8'b0000_1xxx // increment Rn
-`define OC8051_MOV_R 8'b1110_1xxx // move A=Rn
+`define OC8051_INC_R  8'b0000_1xxx // increment Rn
+`define OC8051_MOV_R  8'b1110_1xxx // move A=Rn
 `define OC8051_MOV_AR 8'b1111_1xxx // move Rn=A
 `define OC8051_MOV_DR 8'b1010_1xxx // move Rn=(direct)
 `define OC8051_MOV_CR 8'b0111_1xxx // move Rn=constant
