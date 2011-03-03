@@ -87,7 +87,7 @@ foreach risc_ext_test ($risc_ext_tests)
 	@ i += 1;
 	#echo ""
 
-	\cp ../test/dat/${risc_ext_test}.dat ./dat/oc8051_xrom.in
+	\cp ../testcase/dat/${risc_ext_test}.dat ./dat/oc8051_xrom.in
 	simv +DUMP +define+EXTERNAL_ROM  > ../log/run.log
 	if ($status != 0) then
 	  cat ../log/run.log
@@ -118,7 +118,7 @@ foreach risc_int_test ($risc_int_tests)
 	@ i += 1;
 	#echo ""
 
-	\cp ../test/dat/${risc_int_test}.dat ./dat/oc8051_xrom.in
+	\cp ../testcase/dat/${risc_int_test}.dat ./dat/oc8051_xrom.in
 	simv +DUMP +define+INTERNAL_ROM  > ../log/run.log
 	if ($status != 0) then
 	  cat ../log/run.log
