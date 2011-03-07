@@ -63,11 +63,13 @@ module  g_mac_top (
                     app_txfifo_wren_i,
                     app_txfifo_wrdata_i,
                     app_txfifo_full_o,
+                    app_txfifo_afull_o,
                     app_txfifo_space_o,
 
                     // Application TX FIFO Interface
                     app_rxfifo_rden_i,
                     app_rxfifo_empty_o,
+                    app_rxfifo_aempty_o,
                     app_rxfifo_cnt_o,
                     app_rxfifo_rdata_o,
 
@@ -140,11 +142,13 @@ input                    app_send_jam_i;
 input                    app_txfifo_wren_i;
 input  [8:0]             app_txfifo_wrdata_i;
 output                   app_txfifo_full_o;
+output                   app_txfifo_afull_o;
 output [AW:0]            app_txfifo_space_o;
 
 // Application TX FIFO Interface
 input                    app_rxfifo_rden_i;
 output                   app_rxfifo_empty_o;
+output                   app_rxfifo_aempty_o;
 output [AW:0]            app_rxfifo_cnt_o;
 output [8:0]             app_rxfifo_rdata_o;
 
@@ -285,12 +289,14 @@ async_fifo #(W,DP,0,0) u_mac_txfifo  (
                    .wr_en                    (app_txfifo_wren_i),
                    .wr_data                  (app_txfifo_wrdata_i),
                    .full                     (app_txfifo_full_o), // sync'ed to wr_clk
+                   .afull                    (app_txfifo_afull_o), // sync'ed to wr_clk
                    .wr_total_free_space      (app_txfifo_space_o),
 
                    .rd_clk                   (phy_tx_clk),
                    .rd_reset_n               (tx_reset_n),
                    .rd_en                    (tx_fifo_rd),
                    .empty                    (tx_fifo_empty),  // sync'ed to rd_clk
+                   .aempty                   (tx_fifo_aempty), // sync'ed to rd_clk
                    .rd_total_aval            (tx_fifo_aval),
                    .rd_data                  (tx_fifo_data)
                    );
@@ -301,12 +307,14 @@ async_fifo #(W,DP,0,0) u_mac_rxfifo (
                    .wr_en                    (rx_fifo_wr_o),
                    .wr_data                  (rx_fifo_data_o),
                    .full                     (rx_fifo_full_i), // sync'ed to wr_clk
+                   .afull                    (rx_fifo_afull_i), // sync'ed to wr_clk
                    .wr_total_free_space      (),
 
                    .rd_clk                   (app_clk),
                    .rd_reset_n               (app_reset_n),
                    .rd_en                    (app_rxfifo_rden_i),
                    .empty                    (app_rxfifo_empty_o),  // sync'ed to rd_clk
+                   .aempty                   (app_rxfifo_aempty_o), // sync'ed to rd_clk
                    .rd_total_aval            (app_rxfifo_cnt_o),
                    .rd_data                  (app_rxfifo_rdata_o)
                    );

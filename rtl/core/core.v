@@ -399,11 +399,13 @@ g_mac_top u_eth_dut (
           .app_txfifo_wren_i            (!app_rxfifo_empty_o   ),
           .app_txfifo_wrdata_i          (app_rxfifo_rddata_o   ),
           .app_txfifo_full_o            (                      ),
+          .app_txfifo_afull_o           (                      ),
           .app_txfifo_space_o           (                      ),
 
           // Application TX FIFO Interface
           .app_rxfifo_rden_i            (!app_rxfifo_empty_o   ),
           .app_rxfifo_empty_o           (app_rxfifo_empty_o    ),
+          .app_rxfifo_aempty_o          (                      ),
           .app_rxfifo_cnt_o             (                      ),
           .app_rxfifo_rdata_o           (app_rxfifo_rddata_o   ),
 
