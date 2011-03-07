@@ -211,15 +211,41 @@ wire    [3:0]    reg_spi_be             ;
 wire    [31:0]   reg_spi_rdata          ;
 wire             reg_spi_ack            ;
 
-wire [31:0]     wb_xram_wdata           ; // ram data input
+wire [31:0]      wb_xram_wdata           ; // ram data input
 
 wire    [3:0]    wb_xrom_be            ;
 wire    [3:0]    wb_xram_be            ;
 
-wire    [7:0]    p0;
-wire    [7:0]    p1;
-wire    [7:0]    p2;
-wire    [7:0]    p3;
+wire    [7:0]    p0              ;
+wire    [7:0]    p1              ;
+wire    [7:0]    p2              ;
+wire    [7:0]    p3              ;
+
+wire [3:0]       wbgt_taddr      ;
+wire [31:0]      wbgt_din        ;
+wire [31:0]      wbgt_dout       ;
+wire [12:0]      wbgt_addr       ;
+wire [3:0]       wbgt_be         ;
+wire             wbgt_we         ;
+wire             wbgt_ack        ;
+wire             wbgt_stb        ;
+wire             wbgt_cyc        ;
+
+wire [3:0]       wbgr_taddr      ;
+wire [31:0]      wbgr_din        ;
+wire [31:0]      wbgr_dout       ;
+wire [12:0]      wbgr_addr       ;
+wire [3:0]       wbgr_be         ;
+wire             wbgr_we         ;
+wire             wbgr_ack        ;
+wire             wbgr_stb        ;
+wire             wbgr_cyc        ;
+
+wire [8:0]       app_txfifo_wrdata_i;
+wire [15:0]      app_txfifo_addr;
+wire [15:0]      app_rxfifo_addr;
+wire [15:0]      app_txfifo_req_len;
+
 
 assign reg_rdata = (reg_mac_ack)  ? reg_mac_rdata :
                    (reg_uart_ack) ? reg_uart_rdata :
@@ -272,7 +298,7 @@ assign     wbd_risc_rdata = (wbd_risc_adr[1:0] == 2'b00) ? wb_master2_rdata[7:0]
 
 wire [3:0] wbd_tar_id     = wbd_risc_adr[15:13] +1;
 
-wb_crossbar #(5,3,32,4,13,4) u_wb_crossbar (
+wb_crossbar #(5,5,32,4,13,4) u_wb_crossbar (
 
               .rst_n                    (gen_resetn           ), 
               .clk                      (app_clk              ),
@@ -281,33 +307,52 @@ wb_crossbar #(5,3,32,4,13,4) u_wb_crossbar (
     // Master Interface Signal
               .wbd_taddr_master         ({4'b0000,
                                           wbd_tar_id,
-                                          ext_reg_tid}),
+                                          ext_reg_tid,
+                                          wbgt_taddr,
+                                          wbgr_taddr}),
               .wbd_din_master           ({32'h0 ,
                                           {wbd_risc_wdata[7:0],
                                           wbd_risc_wdata[7:0],
                                           wbd_risc_wdata[7:0],
                                           wbd_risc_wdata[7:0]},
-                                          ext_reg_wdata 
-                                         }),
+                                          ext_reg_wdata,
+                                          wbgt_din,
+                                          wbgr_din}
+                                         ),
               .wbd_dout_master          ({wbi_risc_rdata,
                                           wb_master2_rdata,
-                                          ext_reg_rdata} ),
+                                          ext_reg_rdata,
+                                          wbgt_dout,
+                                          wbgr_dout}
+                                           ),
               .wbd_adr_master           ({wbi_risc_adr[12:0],
                                           wbd_risc_adr[12:0],
-                                          ext_reg_addr[12:0]}), 
+                                          ext_reg_addr[12:0],
+                                          wbgt_addr,
+                                          wbgr_addr}
+                                          ), 
               .wbd_be_master            ({4'b1111,
                                           wb_master2_be,
-                                          ext_reg_be}  ), 
-              .wbd_we_master            ({1'b0,wbd_risc_we,ext_reg_wr}   ), 
+                                          ext_reg_be,
+                                          wbgt_be,
+                                          wbgr_be}
+                                           ), 
+              .wbd_we_master            ({1'b0,wbd_risc_we,ext_reg_wr,
+                                         wbgt_we,wbgr_we}   ), 
               .wbd_ack_master           ({wbi_risc_ack,
                                           wbd_risc_ack,
-                                          ext_reg_ack} ),
+                                          ext_reg_ack,
+                                          wbgt_ack,
+                                          wbgr_ack} ),
               .wbd_stb_master           ({wbi_risc_stb,
                                           wbd_risc_stb,
-                                          ext_reg_cs} ), 
+                                          ext_reg_cs,
+                                          wbgt_stb,
+                                          wbgr_stb} ), 
               .wbd_cyc_master           ({wbi_risc_stb|wbi_risc_ack,
                                           wbd_risc_stb|wbd_risc_ack,
-                                          ext_reg_cs|ext_reg_ack}), 
+                                          ext_reg_cs|ext_reg_ack,
+                                          wbgt_cyc,wbgr_cyc}), 
               .wbd_err_master           (),
               .wbd_rty_master           (),
  
@@ -396,16 +441,16 @@ g_mac_top u_eth_dut (
           .app_send_jam_i               (1'b0                  ),
 
           // Application RX FIFO Interface
-          .app_txfifo_wren_i            (!app_rxfifo_empty_o   ),
-          .app_txfifo_wrdata_i          (app_rxfifo_rddata_o   ),
-          .app_txfifo_full_o            (                      ),
-          .app_txfifo_afull_o           (                      ),
+          .app_txfifo_wren_i            (app_txfifo_wren_i   ),
+          .app_txfifo_wrdata_i          (app_txfifo_wrdata_i ),
+          .app_txfifo_full_o            (app_txfifo_full_o   ),
+          .app_txfifo_afull_o           (app_txfifo_afull_o  ),
           .app_txfifo_space_o           (                      ),
 
           // Application TX FIFO Interface
-          .app_rxfifo_rden_i            (!app_rxfifo_empty_o   ),
+          .app_rxfifo_rden_i            (app_rxfifo_rden_i   ),
           .app_rxfifo_empty_o           (app_rxfifo_empty_o    ),
-          .app_rxfifo_aempty_o          (                      ),
+          .app_rxfifo_aempty_o          (app_rxfifo_aempty_o   ),
           .app_rxfifo_cnt_o             (                      ),
           .app_rxfifo_rdata_o           (app_rxfifo_rddata_o   ),
 
@@ -432,6 +477,85 @@ g_mac_top u_eth_dut (
 
 
 assign MDIO = (mdio_out_en) ? mdio_out : 1'bz;
+
+
+dpath_ctrl m_dpath_ctrl (
+           .rst_n               ( gen_resetn             ), 
+           .clk                 ( app_clk                ),
+
+    // gmac core to memory write interface
+           .g_rx_mem_rd         ( app_rxfifo_rden_i      ),
+           .g_rx_mem_eop        ( app_rxfifo_rddata_o[8] ) ,
+           .g_rx_mem_addr       ( app_rxfifo_addr        ) ,
+
+    // Memory to gmac core interface
+           .g_tx_mem_wr         ( app_txfifo_wren_i      ),
+           .g_tx_mem_eop        ( app_txfifo_wrdata_i[8] ),
+           .g_tx_mem_addr       ( app_txfifo_addr        ),
+           .g_tx_mem_req        ( app_txfifo_req         ),
+           .g_tx_mem_req_length ( app_txfifo_req_len     ),
+           .g_tx_mem_ack        ( app_txfifo_ack         )
+
+      );
+
+
+wb_rd_mem2mem #(32,4,13,4) u_wb_gmac_tx (
+
+          .rst_n               ( gen_resetn   ),
+          .clk                 ( app_clk      ),
+
+
+    // Master Interface Signal
+          .mem_req             ( app_txfifo_req     ),
+          .mem_txfr            ( app_txfifo_req_len ) ,
+          .mem_ack             ( app_txfifo_ack     ),
+          .mem_taddr           ( 1                  ),
+          .mem_addr            ( app_txfifo_addr    ),
+          .mem_full            (app_txfifo_full_o   ),
+          .mem_afull           (app_txfifo_afull_o  ),
+          .mem_wr              (app_txfifo_wren_i   ), 
+          .mem_din             (app_txfifo_wrdata_i[7:0] ),
+ 
+    // Slave Interface Signal
+          .wbo_dout            ( wbgt_dout          ),
+          .wbo_taddr           ( wbgt_taddr         ),
+          .wbo_addr            ( wbgt_addr          ),
+          .wbo_be              ( wbgt_be            ),
+          .wbo_we              ( wbgt_we            ),
+          .wbo_ack             ( wbgt_ack           ),
+          .wbo_stb             ( wbgt_stb           ), 
+          .wbo_cyc             ( wbgt_cyc           ), 
+          .wbo_err             ( wbgt_err           ),
+          .wbo_rty             ( wbgt_rty           )
+         );
+
+
+wb_wr_mem2mem #(32,4,13,4) u_wb_gmac_rx(
+
+          .rst_n               ( gen_resetn   ), 
+          .clk                 ( app_clk      ),
+
+
+    // Master Interface Signal
+          .mem_taddr           ( 1                    ),
+          .mem_addr            ( app_rxfifo_addr      ),
+          .mem_empty           (app_rxfifo_empty_o    ),
+          .mem_aempty          (app_rxfifo_aempty_o   ),
+          .mem_rd              (app_rxfifo_rden_i     ), 
+          .mem_dout            (app_rxfifo_rddata_o[7:0]),
+ 
+    // Slave Interface Signal
+          .wbo_din             ( wbgr_din     ), 
+          .wbo_taddr           ( wbgr_taddr   ), 
+          .wbo_addr            ( wbgr_addr    ), 
+          .wbo_be              ( wbgr_be      ), 
+          .wbo_we              ( wbgr_we      ), 
+          .wbo_ack             ( wbgr_ack     ),
+          .wbo_stb             ( wbgr_stb     ), 
+          .wbo_cyc             ( wbgr_cyc     ), 
+          .wbo_err             ( wbgr_err     ),
+          .wbo_rty             ( wbgr_rty     )
+         );
 
 //-------------------------------------
 // UART core instantiation
