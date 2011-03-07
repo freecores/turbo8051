@@ -146,7 +146,7 @@ module async_fifo (wr_clk,
     end
 
     assign full  = (WR_FAST == 1) ? full_c : full_q;
-    assign afull = full_c;
+    assign afull = afull_c;
 
     always @(posedge wr_clk) begin
 	if (wr_en) begin
