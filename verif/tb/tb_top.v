@@ -174,6 +174,15 @@ core  u_core (
 
              . reset_n             (reset_n            ),
              . fastsim_mode        (1'b1               ),
+
+          `ifdef INTERNAL_ROM
+             . mastermode          (1'b1               ),
+          `elsif EXTERNAL_ROM
+             . mastermode          (1'b1               ),
+          `else
+             . mastermode          (1'b0               ),
+          `endif
+
              . xtal_clk            (xtal_clk           ),
              . clkout              (app_clk            ),
              . reset_out_n         (reset_out_n        ),
