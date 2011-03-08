@@ -44,10 +44,11 @@
 module clkgen (
                reset_n      ,
                fastsim_mode ,
+               mastermode   ,
                xtal_clk     ,
                clkout       ,
                gen_resetn   ,
-               gen_reset    ,
+               risc_reset   ,
                app_clk      ,
                uart_ref_clk 
               );
@@ -56,10 +57,11 @@ module clkgen (
 
 input	        reset_n        ; // Async reset signal
 input         fastsim_mode   ; // fast sim mode = 1
+input         mastermode     ; // 1 : Risc master mode
 input	        xtal_clk       ; // Xtal clock-25Mhx 
 output	      clkout         ; // clock output, 250Mhz
 output        gen_resetn     ; // internally generated reset
-output        gen_reset      ; // internally generated reset
+output        risc_reset      ; // internally generated reset
 output        app_clk        ; // application clock
 output        uart_ref_clk   ; // uart 16x Ref clock
 
@@ -68,11 +70,12 @@ wire          hard_reset_st  ;
 wire          configure_st   ;
 wire          wait_pll_st    ;
 wire          run_st         ;
+wire          slave_run_st   ;
 reg           pll_done       ;
 reg [11:0] 	  pll_count      ;
-reg [1:0] 	  clkgen_ps      ;
+reg [2:0] 	  clkgen_ps      ;
 reg           gen_resetn     ; // internally generated reset
-reg           gen_reset      ; // internally generated reset
+reg           risc_reset      ; // internally generated reset
 
 
 assign        clkout = app_clk;
@@ -133,14 +136,17 @@ end
 always @(posedge xtal_clk or negedge reset_n )
 begin
    if (!reset_n) begin
-      gen_resetn <=  0;
-      gen_reset  <=  1;
+      gen_resetn  <=  0;
+      risc_reset  <=  1;
    end else if(run_st ) begin
-      gen_resetn <=  1;
-      gen_reset  <=  0;
+      gen_resetn  <=  1;
+      risc_reset  <=  0;
+   end else if(slave_run_st ) begin
+      gen_resetn  <=  1;
+      risc_reset  <=  1; // Keet Risc in Reset
    end else begin
-      gen_resetn <=  0;
-      gen_reset  <=  1;
+      gen_resetn  <=  0;
+      risc_reset  <=  1;
    end
 end
 
@@ -151,15 +157,17 @@ end
 /*****************************************
    Define Clock Gen stat machine state
 *****************************************/
-`define HARD_RESET      2'b00
-`define CONFIGURE       2'b01
-`define WAIT_PLL        2'b10
-`define RUN            	2'b11
+`define HARD_RESET      3'b000
+`define CONFIGURE       3'b001
+`define WAIT_PLL        3'b010
+`define RUN            	3'b011
+`define SLAVE_RUN       3'b100
 
 assign hard_reset_st     = (clkgen_ps == `HARD_RESET);
 assign configure_st      = (clkgen_ps == `CONFIGURE);
 assign wait_pll_st       = (clkgen_ps == `WAIT_PLL);
 assign run_st            = (clkgen_ps == `RUN);
+assign slave_run_st      = (clkgen_ps == `SLAVE_RUN);
 
 always @(posedge xtal_clk or negedge reset_n)
 begin
@@ -175,8 +183,12 @@ begin
              clkgen_ps <= `WAIT_PLL;
 
          `WAIT_PLL:	
-           if (pll_done) 
-             clkgen_ps <= `RUN;
+           if (pll_done) begin
+              if ( mastermode )
+		             clkgen_ps <= `RUN;
+	            else
+		             clkgen_ps <= `SLAVE_RUN;
+          end
       endcase
    end
 end
