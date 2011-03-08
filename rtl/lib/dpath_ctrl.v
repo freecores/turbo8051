@@ -85,7 +85,8 @@ reg    [15:0] g_tx_mem_req_length   ;
 reg    [15:0] rx_plen               ;
 reg    [15:0] tx_plen               ;
 reg           g_tx_mem_req          ;
-reg           g_tx_mem_eop          ;
+
+wire     g_tx_mem_eop =  ((tx_plen +1) == g_tx_mem_req_length) ? 1'b1 : 1'b0;
  
 
 always @(negedge rst_n or posedge clk) begin
@@ -94,7 +95,6 @@ always @(negedge rst_n or posedge clk) begin
       g_tx_mem_addr <= 0;
       rx_plen       <= 0;
       tx_plen       <= 0;
-      g_tx_mem_eop  <= 0;
    end
    else begin
       //-----------------------------
@@ -103,7 +103,7 @@ always @(negedge rst_n or posedge clk) begin
       if(g_rx_mem_rd) begin
          g_rx_mem_addr <= g_rx_mem_addr+1;
          if(g_rx_mem_eop) rx_plen <= 0;
-            rx_plen       <= rx_plen +1;
+         else rx_plen <= rx_plen +1;
       end
       //------------------------
       // Generate Tx Request at last transfer of RX Req
@@ -123,10 +123,8 @@ always @(negedge rst_n or posedge clk) begin
          g_tx_mem_addr <= g_tx_mem_addr+1;
          if(g_tx_mem_req_length == (tx_plen +1)) begin
            tx_plen      <= 0;
-           g_tx_mem_eop <= 1;
          end else begin
            tx_plen       <= tx_plen +1;
-           g_tx_mem_eop <= 0;
          end
       end
    end

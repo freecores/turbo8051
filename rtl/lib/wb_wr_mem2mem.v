@@ -179,7 +179,8 @@ reg                  wbo_cyc   ;
 reg [D_WD-1:0]       wbo_din   ;
 reg                  state     ;
 
-wire      mem_rd    = wbo_ack;
+reg                  mem_rd ;
+
 
 always @(negedge rst_n or posedge clk) begin
    if(rst_n == 0) begin
@@ -190,6 +191,7 @@ always @(negedge rst_n or posedge clk) begin
       wbo_be    <= 0;
       wbo_cyc   <= 0;
       wbo_din   <= 0;
+      mem_rd    <= 0;
       state     <= IDLE;
    end
    else begin
@@ -203,19 +205,24 @@ always @(negedge rst_n or posedge clk) begin
              wbo_be    <= 1 << mem_addr[1:0];
              wbo_cyc   <= 1;
              wbo_din   <= {mem_dout,mem_dout,mem_dout,mem_dout};
+             mem_rd    <= 1;
              state     <= XFR;
           end
        end
        XFR: begin
           if(wbo_ack) begin
-             wbo_addr  <= mem_taddr;
+             wbo_addr  <= mem_addr[14:2];
              wbo_be    <= 1 << mem_addr[1:0];
              wbo_din   <= {mem_dout,mem_dout,mem_dout,mem_dout};
-             if(mem_aempty) begin
+             if(mem_aempty || mem_empty) begin
                 wbo_stb   <= 1'b0;
                 wbo_cyc   <= 0;
                 state     <= IDLE;
+             end else begin
+               mem_rd <= 1;
              end
+          end else begin
+             mem_rd <= 0;
           end 
        end
       endcase

@@ -195,7 +195,9 @@ reg  [BE_WD-1:0]    wbo_be      ;
 reg                 wbo_cyc     ;
 reg                 mem_ack     ;
 
-wire                mem_wr       = wbo_ack;
+wire           mem_wr       = wbo_ack;
+// Generate Next Address, to fix the read to address inc issue
+wire [15:0]    taddr   = mem_addr+1;
 
 wire [7:0]          mem_din  = (mem_addr[1:0] == 2'b00) ? wbo_dout[7:0] :
                                (mem_addr[1:0] == 2'b01) ? wbo_dout[15:8] :
@@ -222,7 +224,7 @@ always @(negedge rst_n or posedge clk) begin
                 wbo_addr  <= mem_addr[14:2];
                 wbo_stb   <= 1'b1;
                 wbo_we    <= 1'b0;
-                wbo_be    <= {BE_WD{1'b1}};
+                wbo_be    <= 1 << mem_addr[1:0];
                 wbo_cyc   <= 1'b1;
                 mem_ack   <= 1;
                 state     <= TXFR;
@@ -232,7 +234,8 @@ always @(negedge rst_n or posedge clk) begin
             mem_ack     <= 0;
             if(wbo_ack) begin
                cnt      <= cnt-1;
-               wbo_addr  <= mem_addr[14:2];
+               wbo_addr  <= taddr[14:2];
+               wbo_be    <= 1 << taddr[1:0];
                if(cnt == 1) begin
                   wbo_stb   <= 1'b0;
                   wbo_cyc   <= 1'b0;
