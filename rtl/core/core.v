@@ -8,6 +8,7 @@ module core  (
 
              reset_n                ,
              fastsim_mode           ,
+             mastermode             ,
              xtal_clk               ,
              clkout                 ,
              reset_out_n            ,
@@ -85,6 +86,8 @@ module core  (
 //----------------------------------------
 input            reset_n               ; // Active Low Reset           
 input            fastsim_mode          ; // Fast Sim Mode
+input            mastermode            ; // 1 : Risc master mode
+
 input            xtal_clk              ; // xtal clock 25Mhz
 output           clkout                ; // clock output
 output           reset_out_n           ; // clock output
@@ -257,7 +260,11 @@ assign reg_ack = reg_mac_ack | reg_uart_ack | reg_spi_ack;
 assign reset_out_n = gen_resetn;
 
 
-assign wb_xram_adr[15:13] = 0;
+assign wb_xram_adr[15]  = 0;
+assign wb_xram_adr[1:0] = (wb_xram_be == 4'b0001) ? 2'b00 :
+                          (wb_xram_be == 4'b0010) ? 2'b01 :
+                          (wb_xram_be == 4'b0100) ? 2'b10 : 2'b11 ;
+
 assign wb_xrom_adr[15:13] = 0;
 
 //-------------------------------------------
@@ -266,10 +273,11 @@ assign wb_xrom_adr[15:13] = 0;
 clkgen u_clkgen (
                . reset_n                (reset_n               ),
                . fastsim_mode           (fastsim_mode          ),
+               . mastermode             (mastermode            ),
                . xtal_clk               (xtal_clk              ),
                . clkout                 (clkout                ),
                . gen_resetn             (gen_resetn            ),
-               . gen_reset              (gen_reset             ),
+               . risc_reset             (risc_reset            ),
                . app_clk                (app_clk               ),
                . uart_ref_clk           (uart_clk_16x          )
 
@@ -377,7 +385,7 @@ wb_crossbar #(5,5,32,4,13,4) u_wb_crossbar (
               .wbd_adr_slave            ({reg_mac_addr,
                                           reg_uart_addr,
                                           reg_spi_addr,
-                                          wb_xram_adr[12:0],
+                                          wb_xram_adr[14:2],
                                           wb_xrom_adr[12:0]}
                                         ), 
               .wbd_be_slave             ({reg_mac_be,
@@ -625,7 +633,7 @@ spi_core u_spi_core (
 `include "oc8051_defines.v"
 
 oc8051_top u_8051_core (
-          . wb_rst_i                    (gen_reset             ), 
+          . wb_rst_i                    (risc_reset            ), 
           . wb_clk_i                    (app_clk               ),
 
 //interface to instruction rom
