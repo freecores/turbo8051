@@ -131,6 +131,8 @@ reg  [3:0]         reg_be         ;
 wire  [31:0]        reg_rdata      ;
 wire                reg_ack        ;
 
+reg                 master_mode   ;
+reg                 ea_in   ;   // 1--> Internal Memory
 
 
 wire         spi_sck            ;
@@ -174,14 +176,7 @@ core  u_core (
 
              . reset_n             (reset_n            ),
              . fastsim_mode        (1'b1               ),
-
-          `ifdef INTERNAL_ROM
-             . mastermode          (1'b1               ),
-          `elsif EXTERNAL_ROM
-             . mastermode          (1'b1               ),
-          `else
-             . mastermode          (1'b0               ),
-          `endif
+             . mastermode          (master_mode        ),
 
              . xtal_clk            (xtal_clk           ),
              . clkout              (app_clk            ),
@@ -247,11 +242,7 @@ core  u_core (
                .wb_xram_stb        (wb_xram_stb        ),
                .wb_xram_cyc        (wb_xram_cyc        ),
 
-             `ifdef INTERNAL_ROM
-               .ea_in              (1'b1               ) // internal ROM
-             `else
-               .ea_in              (1'b0               ) // external ROM
-             `endif
+               .ea_in              (ea_in               ) // internal ROM
 
         );
 
@@ -411,6 +402,17 @@ initial begin
 end
 
 initial begin
+
+   if ( $test$plusargs("INTERNAL_ROM") )  begin
+      ea_in       = 1;
+      master_mode = 1;
+   end else if ( $test$plusargs("EXTERNAL_ROM") ) begin
+      ea_in       = 0;
+      master_mode = 1;
+   end else begin
+      ea_in       = 0;
+      master_mode = 0;
+   end
 
   `TB_GLBL.init;
    #1000 wait(reset_out_n == 1);

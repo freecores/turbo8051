@@ -19,7 +19,7 @@ task cpu_read;
       reg_be = 4'hF;
       reg_addr = address;
       @(posedge reg_ack);
-       read_data = #1 reg_rdata;
+       #1 read_data = reg_rdata;
       @(posedge app_clk);
           reg_cs  = 0;
       //$display ("Config-Read: Id: %h Addr = %h, Data = %h", block_id,address, read_data);
