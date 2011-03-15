@@ -172,7 +172,7 @@ wire          wb_xram_cyc        ; // data-ram cycle
 
 //----------------------------------------
 
-core  u_core (
+turbo8051  u_core (
 
              . reset_n             (reset_n            ),
              . fastsim_mode        (1'b1               ),
