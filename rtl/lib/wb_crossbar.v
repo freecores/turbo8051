@@ -154,7 +154,7 @@ input [(WB_MASTER * BE_WD)-1:0] wbd_be_master; // Byte Enable
                     // [DAT_O(63..0)] signal array during WRITE cycles. 
                     // Also see the [DAT_I(63..0)], [DAT_O(63..0)] and [STB_O] 
                     // signal descriptions.
-input [(WB_SLAVE * BE_WD)-1:0] wbd_be_slave; // Byte Enable  
+output [(WB_SLAVE * BE_WD)-1:0] wbd_be_slave; // Byte Enable  
                     // SEL_O(7..0) The select output array [SEL_O(7..0)] indicates 
                     // where valid data is expected on the [DAT_I(63..0)] signal 
                     // array during READ cycles, and where it is placed on the 
