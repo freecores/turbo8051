@@ -4,7 +4,7 @@
 // synopsys translate_on
 
 
-module core  (
+module turbo8051  (
 
              reset_n                ,
              fastsim_mode           ,
