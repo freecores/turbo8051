@@ -114,7 +114,6 @@ reg [7:0]        preq_len        ; // pending request length in bytes
 reg              wbd_we_o        ; // westbone write req
 reg [23:0]       wbd_adr_o       ; // westnone address
 reg              dma_ack_o       ; // dma ack
-reg              dma_done_o      ; // dma ack
 reg [7:0]        twbtrans        ; // total westbone transaction
 reg              dma_wr_o        ; // dma write request
 reg              dma_rd_o        ; // dma read request
