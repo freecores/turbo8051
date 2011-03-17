@@ -94,7 +94,6 @@ module g_mii_intf(
           cf_silent_mode,
 
                   // Signal from Application to transmit JAM
-          app_send_jam,
           df2rx_dfl_dn,
 
                   // Inputs from Transmit FSM
@@ -152,7 +151,6 @@ parameter RMII_JAM_COUNT     = 5'b1111;
   input       cf_mac_mode;                 // Mac Mode 0--> 10/100 Mode, 1--> 1000 Mode 
   input       cf_chk_rx_dfl;               // Check for Deferal 
   input       cf_silent_mode;              // PHY Inactive 
-  input       app_send_jam;                // Send a Jam Sequence (From the Application)
   input       df2rx_dfl_dn;                // Deferal Done in Rx Clock Domain 
   input       tx2mi_strt_preamble;         // Tx FSM indicates to MII to generate 
                                            // preamble on the line 
@@ -179,8 +177,6 @@ parameter RMII_JAM_COUNT     = 5'b1111;
   /*** REG & WIRE DECLARATIONS FOR LOCAL SIGNALS ***************/
 
   reg [4:0]  tx_preamble_cnt_val;
-  reg [4:0]  jam_count;
-  reg [4:0]  jam_count_reg;
 
 
   reg        strt_rcv_in;
@@ -202,14 +198,13 @@ parameter RMII_JAM_COUNT     = 5'b1111;
   
   parameter  mii_tx_idle_st =  4'd0, mii_tx_pre_st  =  4'd1,
              mii_tx_byte_st = 4'd2,  mii_tx_end_st = 4'd3,
-             mii_tx_jam_st = 4'd4, mii_tx_nibble_st = 4'd5,
+             mii_tx_nibble_st = 4'd5,
 	     mii_tx_nibble_end_st = 4'd6, mii_tx_dibit_st = 4'd7,
 	     mii_tx_dibit_end_st = 4'd8;
 
   reg [3:0]  mii_tx_cur_st;
   reg [3:0]  mii_tx_nxt_st;
   
-  wire       send_jam;
   wire       receive_detect;
   wire       pre_condition;
   wire       sfd_condition;
@@ -223,12 +218,9 @@ parameter RMII_JAM_COUNT     = 5'b1111;
   reg        tx_ext_in;
   reg        tx_pre_in;
   reg        tx_sfd_in;
-  reg        tx_jam_in;
   reg        tx_xfr_ack_in;
   reg        inc_preamble_cntr;
   reg        rst_preamble_cntr;
-  reg        inc_jam_cntr;
-  reg        rst_jam_cntr;
   reg [1:0]  tx_xfr_cnt, rx_xfr_cnt, tx_slot_xfr_cnt;
   reg        rx_dv;
   reg        rx_er;
@@ -308,8 +300,8 @@ parameter RMII_JAM_COUNT     = 5'b1111;
 
   always @(mii_tx_cur_st or tx2mi_strt_preamble or tx2mi_end_transmit or cf_mac_mode 
            or cf2mi_rmii_en or tx_preamble_cnt_val or byte_boundary_tx  
-	   or jam_count or tx_xfr_cnt or send_jam or receive_detect
-	   or receive_detect_pulse or jam_count_reg or jam_count or cfg_uni_mac_mode_change)
+	   or tx_xfr_cnt or receive_detect
+	   or receive_detect_pulse or cfg_uni_mac_mode_change)
     begin
       
       mii_tx_nxt_st = mii_tx_cur_st;
@@ -318,11 +310,8 @@ parameter RMII_JAM_COUNT     = 5'b1111;
       tx_sfd_in = 1'b0;
       tx_err_in = 1'b0;
       tx_ext_in = 1'b0;
-      tx_jam_in = 1'b0;
       inc_preamble_cntr = 1'b0;
       rst_preamble_cntr = 1'b0;
-      inc_jam_cntr = 1'b0;
-      rst_jam_cntr = 1'b0;
       tx_xfr_ack_in = 1'b0;
       
       casex(mii_tx_cur_st)       // synopsys parallel_case full_case
@@ -422,24 +411,6 @@ parameter RMII_JAM_COUNT     = 5'b1111;
               end
           end*/
  
-        mii_tx_jam_st:
-	   begin
-            if(jam_count == jam_count_reg)
-	      begin
-                tx_en_in = 1'b1;
-                tx_jam_in = 1'b1;
-		rst_jam_cntr = 1'b1;
-                mii_tx_nxt_st = mii_tx_idle_st;
-	      end
-            else
-	      begin
-                tx_en_in = 1'b1;
-                tx_jam_in = 1'b1;
-		inc_jam_cntr = 1'b1;
-                mii_tx_nxt_st = mii_tx_jam_st;
-	      end
-	   end
-
         mii_tx_end_st:
         // This state checks for the end of transfer 
         // and extend for carrier extension
@@ -590,29 +561,17 @@ parameter RMII_JAM_COUNT     = 5'b1111;
 	begin
 	  if (cf_mac_mode) 
              phy_txd[7:0] <= (tx_pre_in) ? 8'b01010101 : ((tx_sfd_in) ? 
-	                      8'b11010101 : ((tx_jam_in) ?  8'b11111111 : 
-			      ((tx_ext_in) ? 8'b00001111: tx2mi_tx_byte)));
+	                      8'b11010101 :  ((tx_ext_in) ? 8'b00001111: tx2mi_tx_byte));
 	  else if (!cf_mac_mode && !cf2mi_rmii_en) 
              phy_txd[3:0] <= (tx_pre_in) ? 4'b0101 : ((tx_sfd_in) ? 
-	                      4'b1101 : ((tx_jam_in) ?  4'b1111 : tx_nibble_in)) ;
+	                      4'b1101 : tx_nibble_in) ;
 	  else if (!cf_mac_mode && cf2mi_rmii_en) 
              phy_txd[1:0] <= (tx_pre_in) ? 2'b01 : ((tx_sfd_in) ? 
-	                      2'b11 : ((tx_jam_in) ?  2'b11 : tx_dibit_in)) ;
+	                      2'b11 : tx_dibit_in) ;
 	end
     end
   assign receive_detect_pulse = receive_detect && !d_receive_detect;
 
-  always @(posedge phy_tx_clk or negedge tx_reset_n)
-    begin
-      if(!tx_reset_n)
-        jam_count_reg <= 5'd0;
-      else if(cf_mac_mode) 
-        jam_count_reg <= GMII_JAM_COUNT; 
-      else if(cf2mi_rmii_en) 
-        jam_count_reg <= RMII_JAM_COUNT; 
-      else if(!cf2mi_rmii_en) 
-        jam_count_reg <= MII_JAM_COUNT; 
-    end
 
   always @(posedge phy_tx_clk or negedge tx_reset_n)
     begin
@@ -708,16 +667,6 @@ parameter RMII_JAM_COUNT     = 5'b1111;
         tx_preamble_cnt_val <= tx_preamble_cnt_val + 1;
     end
   
-  // Jam Counter 
-    always @(posedge phy_tx_clk or negedge tx_reset_n)
-      begin
-        if(!tx_reset_n)
-          jam_count <= 5'd0;
-        else if(rst_jam_cntr)
-          jam_count <= 5'd0;
-        else if(inc_jam_cntr)
-          jam_count <= jam_count + 1;
-      end
   
 
     always @(posedge phy_rx_clk or negedge rx_reset_n)
@@ -1007,14 +956,6 @@ parameter RMII_JAM_COUNT     = 5'b1111;
     end
 
 
- half_dup_dble_reg U_dble_reg0 (
-                 //outputs
-                 .sync_out_pulse(send_jam),
-                 //inputs
-                 .in_pulse(app_send_jam),
-                 .dest_clk(phy_tx_clk),
-                 .reset_n(tx_reset_n)
-             );
 
  half_dup_dble_reg U_dble_reg1 (
                  //outputs

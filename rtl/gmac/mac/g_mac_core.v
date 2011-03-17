@@ -50,9 +50,6 @@
                     app_reset_n,
 
                     app_clk,
-                    app_send_pause_i,
-                    app_send_pause_active_o,
-                    app_send_jam_i,
 
                  // Reg Bus Interface Signal
                     reg_cs,
@@ -127,9 +124,6 @@ input                    app_reset_n;
 // Application Clock Related Declaration
 //-----------------------------------------------------------------------
 input        app_clk;
-input        app_send_pause_i;
-output       app_send_pause_active_o;
-input        app_send_jam_i;
 
 // Conntrol Bus Sync with Application Clock
 //---------------------------------
@@ -251,8 +245,6 @@ wire [15:0] cf2rx_max_pkt_sz;
                     .rx_commit_wr                 (rx_commit_wr_o),
                     .commit_write_done            (rx_commit_write_done_o),
                     .rx_rewind_wr                 (rx_rewind_wr_o),
-                    //transistor interface
-                    .rx2tx_pause_tx               (rx2tx_pause_o),
                     //mii interface
                     .phy_rx_clk                   (phy_rx_clk),
                     .mi2rx_strt_rcv               (mi2rx_strt_rcv),
@@ -271,17 +263,12 @@ wire [15:0] cf2rx_max_pkt_sz;
                     .cf2rx_rx_ch_en               (cf2rx_ch_en),
                     .cf2rx_strp_pad_en            (cf2rx_strp_pad_en),
                     .cf2rx_snd_crc                (cf2rx_snd_crc),
-                    .cf2rx_pause_en               (cf2rx_pause_en),
                     .cf2rx_rcv_runt_pkt_en        (cf2rx_runt_pkt_en),
                     .cf_macmode                   (cf_mac_mode_o),
                     .cf2df_dfl_single_rx          (cf2df_dfl_single_rx),
                     .ap2rx_rx_fifo_err            (rx_fifo_error_i),
                     //A200 change Port added for crs based flow control
-                    .phy_crs                      (phy_crs),
-                    //A200 change crs flow control enable signal
-                    .crs_flow_control_enable      (cfg_crs_flow_ctrl_enb_i),
-                    //A200 change pause detected pulse for counter
-                    .pause_frame_detected         ()
+                    .phy_crs                      (phy_crs)
 	       );
    
     wire [4:0]  	cf2md_regad,cf2md_phyad;
@@ -382,14 +369,11 @@ assign int_mdio_in       = (mac_mdio_en == 1'b1) ? mdio_in         : 1'b0;
 
   wire [7:0]  cf2df_dfl_single;
   wire [47:0] cf_mac_sa;
-  wire [15:0] cf2tx_pause_quanta;
   wire        cf2tx_force_bad_fcs;
-  wire        cf2tx_tstate_mode;
   wire        set_fifo_undrn;
     
     g_tx_top U_tx_top                    (
                     .app_clk                      (app_clk) ,   
-                    .send_pause_active            (app_send_pause_active_o),
                     .set_fifo_undrn               (tx_set_fifo_undrn_o),
                     
                     //Outputs
@@ -414,21 +398,14 @@ assign int_mdio_in       = (mac_mdio_en == 1'b1) ? mdio_in         : 1'b0;
                     .phy_tx_en                    (phy_tx_en),
                     .phy_tx_er                    (phy_tx_er),
                     
-                    //application
-                    .app_send_pause               (app_send_pause_i),
-                    
-                    //rx_top
-                    .rx2tx_pause                  (rx2tx_pause_o),
                     
                     //configuration
-                    .cf2tx_tstate_mode            (cf2tx_tstate_mode),
                     .cf2tx_ch_en                  (cf2tx_ch_en),
                     .cf2df_dfl_single             (cf2df_dfl_single),
                     .cf2tx_pad_enable             (cf2tx_pad_enable),
                     .cf2tx_append_fcs             (cf2tx_append_fcs),
                     .cf_mac_mode                  (cf_mac_mode_o),
                     .cf_mac_sa                    (cf_mac_sa),
-                    .cf2tx_pause_quanta           (cf2tx_pause_quanta),
                     .cf2tx_force_bad_fcs          (cf2tx_force_bad_fcs),
                     
                     //FIFO data
@@ -517,10 +494,8 @@ assign int_mdio_in       = (mac_mdio_en == 1'b1) ? mdio_in         : 1'b0;
 
                   // Config In
                     .cfg_uni_mac_mode_change_i    (cfg_uni_mac_mode_change_i),
-                    .cfg_crs_flow_ctrl_enb_i      (cfg_crs_flow_ctrl_enb_i),
 
                     //CHANNEL enable
-                    .cf2tx_tstate_mode            (cf2tx_tstate_mode),
                     .cf2tx_ch_en                  (cf2tx_ch_en),
                     //CHANNEL CONTROL TX
                     .cf2df_dfl_single             (cf2df_dfl_single),
@@ -532,14 +507,10 @@ assign int_mdio_in       = (mac_mdio_en == 1'b1) ? mdio_in         : 1'b0;
                     .cf2rx_ch_en                  (cf2rx_ch_en),
                     .cf2rx_strp_pad_en            (cf2rx_strp_pad_en),
                     .cf2rx_snd_crc                (cf2rx_snd_crc),
-                    .cf2rx_pause_en               (cf2rx_pause_en),
-                    .cf2rx_addrchk_en             (),
                     .cf2rx_runt_pkt_en            (cf2rx_runt_pkt_en),
-                    .cf2af_broadcast_disable      (cf2af_broadcast_disable),
                     .cf_mac_sa                    (cf_mac_sa),
                     .cfg_ip_sa                    (cfg_ip_sa),
                     .cfg_mac_filter               (cfg_mac_filter),
-                    .cf2tx_pause_quanta           (cf2tx_pause_quanta),
                     .cf2tx_force_bad_fcs          (cf2tx_force_bad_fcs),
                     //MDIO CONTROL & DATA
                     .cf2md_datain                 (cf2md_datain),
@@ -589,7 +560,6 @@ assign int_mdio_in       = (mac_mdio_en == 1'b1) ? mdio_in         : 1'b0;
                     
                     // Signal from Application to transmit JAM
                     .df2rx_dfl_dn                 (df2rx_dfl_dn),
-                    .app_send_jam                 (app_send_jam_i),
                     
                     // Inputs from Transmit FSM
                     .tx2mi_strt_preamble          (tx2mi_strt_preamble),

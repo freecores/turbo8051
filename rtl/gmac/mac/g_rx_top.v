@@ -64,7 +64,6 @@
 		rx_commit_wr,
 		commit_write_done,
 		rx_rewind_wr,
-		rx2tx_pause_tx,
 	        mi2rx_strt_rcv,
 	        mi2rx_rcv_vld,
 	        mi2rx_rx_byte,
@@ -77,7 +76,6 @@
 	        cf2rx_rx_ch_en,
 	        cf2rx_strp_pad_en,
 	        cf2rx_snd_crc,
-	        cf2rx_pause_en,
 	        cf2df_dfl_single_rx,
 		cf2rx_rcv_runt_pkt_en,
 	        cf_macmode,
@@ -85,11 +83,7 @@
 		df2rx_dfl_dn,
 		ap2rx_rx_fifo_err,
       //A200 change Port added for crs based flow control
-      phy_crs,
-      //A200 change crs flow control enable signal
-      crs_flow_control_enable,
-      //A200 change pause detected pulse for counter
-      pause_frame_detected
+      phy_crs
 	       );
 
     input		app_reset_n;
@@ -115,7 +109,6 @@
     output		rx_commit_wr;
     output 		commit_write_done;
     output		rx_rewind_wr;
-    output		rx2tx_pause_tx;
     input               mi2rx_strt_rcv;
     input		mi2rx_rcv_vld;
     input [7:0]		mi2rx_rx_byte;
@@ -128,7 +121,6 @@
     input		cf2rx_rx_ch_en;
     input		cf2rx_strp_pad_en;
     input		cf2rx_snd_crc;
-    input		cf2rx_pause_en;
     input		cf2rx_rcv_runt_pkt_en;
     input		cf_macmode;
     input  [7:0]        cf2df_dfl_single_rx;
@@ -138,11 +130,7 @@
 
     //A200 change Port added for crs based flow control
     input            phy_crs;
-    //A200 change crs flow control enable signal
-    input            crs_flow_control_enable;
 
-    //A200 change pause detected pulse for counter
-    output           pause_frame_detected;
 
 
     g_rx_fsm u_rx_fsm(
@@ -164,8 +152,6 @@
 	      .rx2ap_commit_write(rx_commit_wr),
 	      .rx2ap_rewind_write(rx_rewind_wr),
 	      // To address filtering block
-	      // Pause control to Tx block
-	      .rx2tx_pause_tx(rx2tx_pause_tx),
 	      .commit_write_done(commit_write_done),      
              
 	      // Global Signals 
@@ -185,36 +171,17 @@
               // Signal from CRC check block
 	      .rc2rx_crc_ok(rc2rx_crc_ok),
 	      // Signals from Address filtering block
-	      .af2rx_pause_frame(af2rx_pause_frame),
               // Signals from Config Management Block
 	      .cf2rx_max_pkt_sz(cf2rx_max_pkt_sz),
 	      .cf2rx_rx_ch_en(cf2rx_rx_ch_en),
 	      .cf2rx_strp_pad_en(cf2rx_strp_pad_en),
 	      .cf2rx_snd_crc(cf2rx_snd_crc),
-	      .cf2rx_pause_en(cf2rx_pause_en),
 	      .cf2rx_rcv_runt_pkt_en(cf2rx_rcv_runt_pkt_en),
 	      .cf2rx_gigabit_xfr(cf_macmode), 
          //A200 change Port added for crs based flow control
-         .phy_crs(phy_crs),
-         //A200 change crs flow control enable signal
-         .crs_flow_control_enable(crs_flow_control_enable),
-         //A200 change pause detected pulse for counter
-         .pause_frame_detected(pause_frame_detected)
+         .phy_crs(phy_crs)
 	      );
 
-    g_ad_fltr u_ad_fltr(
-	    .phy_rx_clk(phy_rx_clk),
-	    .rx_reset_n(rx_reset_n),
-	    .app_clk(app_clk),
-            .scan_mode(scan_mode),
-    //MII Interface
-	    .mi2af_rcv_vld(mi2rx_rcv_vld),
-	    .mi2af_strt_rcv(mi2rx_strt_rcv),
-	    .mi2af_end_rcv(mi2rx_end_rcv),
-	    .mi2af_rx_data(mi2rx_rx_byte),
-    //RX_FSM Interface
-	    .af2rf_pause_frame(af2rx_pause_frame)
-	 );
  
   g_rx_crc32 u_rx_crc32 (
               // CRC Valid signal to rx_fsm

@@ -85,7 +85,6 @@ module g_cfg_mgmt (
 		            cf2mi_rmii_en,
 
                  cfg_uni_mac_mode_change_i,
-                 cfg_crs_flow_ctrl_enb_i,
 
 		             //CHANNEL enable
 		             cf2tx_ch_en,
@@ -99,18 +98,13 @@ module g_cfg_mgmt (
 		             cf2rx_ch_en,
 		             cf2rx_strp_pad_en,
 		             cf2rx_snd_crc,
-		             cf2rx_pause_en,
-		             cf2rx_addrchk_en,
 		             cf2rx_runt_pkt_en,
-		             cf2af_broadcast_disable,
 		             cf_mac_sa,
                  cfg_ip_sa,
                  cfg_mac_filter,
 
-		             cf2tx_pause_quanta,
 		             cf2rx_max_pkt_sz,
 		             cf2tx_force_bad_fcs,
-                 cf2tx_tstate_mode,
 		 //MDIO CONTROL & DATA
                  cf2md_datain,
                  cf2md_regad,
@@ -125,68 +119,62 @@ module g_cfg_mgmt (
    //---------------------------------
    // Reg Bus Interface Signal
    //---------------------------------
-   input             reg_cs         ;
-   input             reg_wr         ;
-   input [3:0]       reg_addr       ;
-   input [31:0]      reg_wdata      ;
-   input [3:0]       reg_be         ;
+   input             reg_cs           ;
+   input             reg_wr           ;
+   input [3:0]       reg_addr         ;
+   input [31:0]      reg_wdata        ;
+   input [3:0]       reg_be           ;
    
    // Outputs
-   output [31:0]     reg_rdata      ;
-   output            reg_ack        ;
+   output [31:0]     reg_rdata        ;
+   output            reg_ack          ;
 
-   input             rx_sts_vld     ; // rx status valid indication, sync w.r.t app clk
-   input [7:0]       rx_sts         ; // rx status bits
+   input             rx_sts_vld       ; // rx status valid indication, sync w.r.t app clk
+   input [7:0]       rx_sts           ; // rx status bits
 
-   input             tx_sts_vld     ; // tx status valid indication, sync w.r.t app clk
-   input             tx_sts         ; // tx status bits
+   input             tx_sts_vld       ; // tx status valid indication, sync w.r.t app clk
+   input             tx_sts           ; // tx status bits
 
   //List of Inputs
 
-  input		app_clk, app_reset_n;
-  input		md2cf_cmd_done;         // Read/Write MDIO completed
-  input		md2cf_status;             // MDIO transfer error
-  input [15:0]	md2cf_data;          // Data from PHY for a
-                                       // mdio read access
+  input		           app_clk          ; 
+  input               app_reset_n     ;
+  input		            md2cf_cmd_done  ;  // Read/Write MDIO completed
+  input		            md2cf_status    ;  // MDIO transfer error
+  input [15:0]	      md2cf_data      ;  // Data from PHY for a
+                                         // mdio read access
  
  
   //List of Outputs
-  output	cf2mi_rmii_en;         // Working in RMII when set to 1
-  output	cf_mac_mode;           // mac mode set this to 1 for 100Mbs/10Mbs
-  output	cf_chk_rx_dfl;             // Check for RX Deferal 
-  output [47:0]	cf_mac_sa;
-  output [31:0]	cfg_ip_sa;
-  output [31:0]	cfg_mac_filter;
-  output [15:0]	cf2tx_pause_quanta;
-  output	cf2tx_ch_en;              //enable the TX channel
-  output	cf_silent_mode;           // PHY Inactive 
-  output [7:0]	cf2df_dfl_single;            //number of clk ticks for dfl
-  output [7:0]	cf2df_dfl_single_rx;            //number of clk ticks for dfl
+  output	            cf2mi_rmii_en       ;  // Working in RMII when set to 1
+  output	            cf_mac_mode         ;  // mac mode set this to 1 for 100Mbs/10Mbs
+  output	            cf_chk_rx_dfl       ;  // Check for RX Deferal 
+  output [47:0]	      cf_mac_sa           ;
+  output [31:0]	      cfg_ip_sa           ;
+  output [31:0]	      cfg_mac_filter      ;
+  output	            cf2tx_ch_en         ;  //enable the TX channel
+  output	            cf_silent_mode      ;  //PHY Inactive 
+  output [7:0]	      cf2df_dfl_single    ;  //number of clk ticks for dfl
+  output [7:0]	      cf2df_dfl_single_rx ;  //number of clk ticks for dfl
   
-  output	cf2tx_tstate_mode;            //used for OFN's tstate enable on authentication interface
-  output	cf2tx_pad_enable;            //enable padding, < 64 bytes
-  output	cf2tx_append_fcs;            //append CRC for TX frames
-  output	cf2rx_ch_en;                 //Enable RX channel
-  output	cf2rx_strp_pad_en;        //strip the padded bytes on RX frame
-  output	cf2rx_snd_crc;            //send FCS to application, else strip
-                                       //the FCS before sending to application
-  output	cf2rx_pause_en;              //enable flow control for full duplex using
-                                       //pause control frames
-  output	cf2mi_loopback_en;           // TX to RX loop back enable
-  output	cf2rx_addrchk_en;         //check the destination address, filter
-  output	cf2rx_runt_pkt_en;       //don't throw packets less than 64 bytes
-  output        cf2af_broadcast_disable;
-  output [15:0]	cf2md_datain;
-  output [4:0]	cf2md_regad;
-  output [4:0]	cf2md_phyad;
-  output	cf2md_op;
-  output	cf2md_go;
+  output	            cf2tx_pad_enable    ;  //enable padding, < 64 bytes
+  output	            cf2tx_append_fcs;      //append CRC for TX frames
+  output	            cf2rx_ch_en;           //Enable RX channel
+  output	            cf2rx_strp_pad_en;     //strip the padded bytes on RX frame
+  output	            cf2rx_snd_crc;         //send FCS to application, else strip
+                                             //the FCS before sending to application
+  output	            cf2mi_loopback_en;     // TX to RX loop back enable
+  output	            cf2rx_runt_pkt_en;     //don't throw packets less than 64 bytes
+  output [15:0]	      cf2md_datain;
+  output [4:0]	      cf2md_regad;
+  output [4:0]	      cf2md_phyad;
+  output	            cf2md_op;
+  output	            cf2md_go;
 
-  output [15:0] cf2rx_max_pkt_sz;               //max rx packet size
-  output      	cf2tx_force_bad_fcs;            //force bad fcs on tx
+  output [15:0]       cf2rx_max_pkt_sz;      //max rx packet size
+  output      	      cf2tx_force_bad_fcs;   //force bad fcs on tx
 
-  output        cfg_uni_mac_mode_change_i;
-  output        cfg_crs_flow_ctrl_enb_i;
+  output              cfg_uni_mac_mode_change_i;
 
   
 // Wire assignments for output signals
@@ -231,13 +219,9 @@ module g_cfg_mgmt (
   wire [7:0]  mac_sa_out_4;
   wire [7:0]  mac_sa_out_5;
   wire [7:0]  mac_sa_out_6;
-  wire [7:0]  pause_quanta_out_1;
-  wire [7:0]  pause_quanta_out_2;
   wire [47:0] cf_mac_sa;
-  wire [15:0] cf2tx_pause_quanta;
   wire [15:0] cf2rx_max_pkt_sz;
   wire       cf2tx_force_bad_fcs;
-  wire       cf2tx_tstate_mode;
   reg        force_bad_fcs;
   reg        cont_force_bad_fcs;
   wire [31:0]  mdio_stat_out;
@@ -411,7 +395,6 @@ generic_register #(8,0  ) tx_cntrl_reg_2 (
   assign cf2tx_ch_en = tx_cntrl_out_1[0];
   assign cf2tx_pad_enable = tx_cntrl_out_1[3];
   assign cf2tx_append_fcs = tx_cntrl_out_1[4];
-  assign cf2tx_tstate_mode = tx_cntrl_out_1[6];
   assign cf2tx_force_bad_fcs = tx_cntrl_out_1[7];
 
 assign reg_0[15:0] = {tx_cntrl_out_2,tx_cntrl_out_1};
@@ -421,7 +404,6 @@ assign reg_0[15:0] = {tx_cntrl_out_2,tx_cntrl_out_1};
   // BIT[0] = Receive Channel Enable
   // BIT[1] = Strip Padding from the Receive data
   // BIT[2] = Send CRC along with data to the host
-  // BIT[3] = Enable pause frame detect
   // BIT[4] = Check RX Deferral
   // BIT[5] = Receive Address Check Enable
   // BIT[6] = Receive Runt Packet
@@ -441,11 +423,8 @@ assign reg_0[15:0] = {tx_cntrl_out_2,tx_cntrl_out_1};
   assign cf2rx_ch_en             = rx_cntrl_out_1[0];
   assign cf2rx_strp_pad_en       = rx_cntrl_out_1[1];
   assign cf2rx_snd_crc           = rx_cntrl_out_1[2];
-  assign cf2rx_pause_en          = rx_cntrl_out_1[3];
   assign cf_chk_rx_dfl           = rx_cntrl_out_1[4];
-  assign cf2rx_addrchk_en        = rx_cntrl_out_1[5];
   assign cf2rx_runt_pkt_en       = rx_cntrl_out_1[6];
-  assign cf2af_broadcast_disable = rx_cntrl_out_1[7];
 
 
 assign reg_1[7:0] = {rx_cntrl_out_1};
@@ -506,7 +485,6 @@ assign reg_2[15:0] = {dfl_params_rx_out,dfl_params1_out};
   assign cf2mi_rmii_en                = mac_mode_out[1];
   assign cf2mi_loopback_en            = mac_mode_out[2];
   assign cf_silent_mode               = mac_mode_out[5];
-  assign cfg_crs_flow_ctrl_enb_i      = mac_mode_out[6];
   assign cfg_uni_mac_mode_change_i    = mac_mode_out[7];
 
 
@@ -712,35 +690,9 @@ req_register #(0  ) u_mdio_req (
           );
 
   assign reg_8[15:0] = cf2rx_max_pkt_sz[15:0];
-  //========================================================================//
-  //Pause Quanta Register 24
-
-  generic_register #(8,0  ) pause_quanta_reg_1 (
-	      .we            ({8{sw_wr_en_9 & wr_be[0] }}),		 
-	      .data_in       (reg_wdata[7:0]    ),
-	      .reset_n       (app_reset_n         ),
-	      .clk           (app_clk             ),
-	      
-	      //List of Outs
-	      .data_out      (pause_quanta_out_1[7:0] )
-          );
-
-  generic_register #(8,0  ) pause_quanta_reg_2 (
-	      .we            ({8{sw_wr_en_9 & wr_be[1] }}),		 
-	      .data_in       (reg_wdata[15:8]    ),
-	      .reset_n       (app_reset_n         ),
-	      .clk           (app_clk             ),
-	      
-	      //List of Outs
-	      .data_out      (pause_quanta_out_2[7:0] )
-          );
 
 
-  assign cf2tx_pause_quanta = {pause_quanta_out_1 , pause_quanta_out_2};
-
-
-  assign reg_9[15:0] = cf2tx_pause_quanta;
-
+  assign reg_9 = 0; // free
 
 
 //-----------------------------------------------------------------------

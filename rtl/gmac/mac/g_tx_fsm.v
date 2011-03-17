@@ -86,25 +86,17 @@ module g_tx_fsm (
 		 //dfl and back
 		 df2tx_dfl_dn,
 		 
-		 //application
-		 app_send_pause,
-		 
 		 //FCS
 		 tc2tx_fcs,
 		 
 		 //Configuration
-		 cf2tx_tstate_mode,
 		 cf2tx_ch_en,
 		 cf2tx_pad_enable,
 		 cf2tx_append_fcs,
 		 cf_mac_mode,
 		 cf_mac_sa,
-		 cf2tx_pause_quanta,
 		 cf2tx_force_bad_fcs,
 
-		 //RX pause
-		 rx2tx_pause,
-                 send_pause_active_out,  
                  app_clk, 
                  set_fifo_undrn, 
 		 
@@ -124,14 +116,12 @@ parameter CORE_PAYLOAD_SIZE = 16'h3C ; //60 bytes =>
 
  
   input	       cf2tx_ch_en;           //transmit enable application clock
-  input	       cf2tx_tstate_mode;     //used for OFN's tstate enable on authentication interface
   input        app_tx_rdy;            //tx fifo management, enough buffer to tx
   input        tx_end_frame;          //Current DWORD marks end of frame 
   input [7:0]  app_tx_dt_in;          //double word data from the TX fifo mgmt
   input        app_tx_fifo_empty;     //TX fifo is empty, if there were a data
                                       //data request when app_tx_fifo_empty is asserted
                                       //would result in FIFO underrun and error cond
-  input        app_send_pause;
   input [31:0] tc2tx_fcs;
   
   //defferral inputs
@@ -145,14 +135,7 @@ parameter CORE_PAYLOAD_SIZE = 16'h3C ; //60 bytes =>
                                       //irrespective of this signal
   input        cf_mac_mode;           // 1 is GMII 0 10/100
   input [47:0] cf_mac_sa;
-  input [15:0] cf2tx_pause_quanta;
   input        cf2tx_force_bad_fcs;
-  //RX pause frame received
-  input        rx2tx_pause;           //in full duplex mode, the RX has received
-                                      //a pause frame, hence the TX is requested to
-                                      //hold transfers after the transmission of the
-                                      //current transfer. level signal
-                                      //from MII or RMII
   input        mi2tx_byte_ack;        //MII interface accepted last byte
   input        tx_clk;
   input        tx_reset_n;
@@ -180,7 +163,6 @@ parameter CORE_PAYLOAD_SIZE = 16'h3C ; //60 bytes =>
   input 	phy_tx_en;   // mfilardo ofn auth fix.
   
   input 	app_clk; 
-  output 	send_pause_active_out; 
   output    set_fifo_undrn; // Description: At GMII Interface ,
                             // abug after a transmit fifo underun was found.
                             // The packet after a packet that 
@@ -197,9 +179,6 @@ parameter CORE_PAYLOAD_SIZE = 16'h3C ; //60 bytes =>
   parameter 	dt_xfr_st =       12'b000000000001;
   parameter 	dt_pad_st =       12'b000000000010;
   parameter 	dt_fcs_st =       12'b000000000100;
-  parameter 	dt_pause_xfr_st = 12'b000010000000;
-  parameter 	dt_pause_pad_st = 12'b000100000000;
-  parameter 	dt_pause_fcs_st = 12'b001000000000;
   
    
   wire 		tx_commit_read; 
@@ -249,12 +228,7 @@ parameter CORE_PAYLOAD_SIZE = 16'h3C ; //60 bytes =>
   reg 		clr_first_dfl, set_first_dfl;
   
   wire 		tx_lst_xfr;
-  wire 		tx_pause_sync;
-  reg 		inc_pause_index, clr_pause_index;
-  reg 		send_pause_active;
-  wire 		send_pause_sync;
   
-  reg [4:0] 	pause_index;
   
   reg 		tx_lst_xfr_fcs_reg;
   wire [15:0] 	tx_byte_cntr_int;
@@ -263,19 +237,6 @@ parameter CORE_PAYLOAD_SIZE = 16'h3C ; //60 bytes =>
 
   reg           app_tx_rdy_dly;
 
-  reg           send_pause_active_s1; 
-  reg           send_pause_active_out; 
-
-  always @(posedge app_clk or negedge app_reset_n) begin 
-    if (!app_reset_n) begin
-      send_pause_active_s1 <= 1'b0;
-      send_pause_active_out <= 1'b0;
-    end
-    else begin
-      send_pause_active_s1 <= send_pause_active;
-      send_pause_active_out <= send_pause_active_s1;
-    end
-  end
 
   always @(posedge tx_clk or negedge tx_reset_n) begin
     if (!tx_reset_n) begin
@@ -300,8 +261,7 @@ parameter CORE_PAYLOAD_SIZE = 16'h3C ; //60 bytes =>
   assign 	tx_lst_xfr = tx_lst_xfr_dt || tx_lst_xfr_fcs; 
   
 //To take care of 1 less byte count when fcs is not appended.
-   assign tx_byte_cntr_int = ((curr_dt_st == dt_fcs_st)  || 
-                              (curr_dt_st == dt_pause_fcs_st)) ? tx_byte_cntr : tx_byte_cntr + 16'h1; 
+   assign tx_byte_cntr_int = (curr_dt_st == dt_fcs_st)  ? tx_byte_cntr : tx_byte_cntr + 16'h1; 
    
   always @(posedge tx_clk or negedge tx_reset_n)
     begin
@@ -325,15 +285,6 @@ parameter CORE_PAYLOAD_SIZE = 16'h3C ; //60 bytes =>
   
   
   
-  half_dup_dble_reg U_dble_reg1 (
-			//outputs
-			.sync_out_pulse(tx_pause_sync),
-			//inputs
-			.in_pulse(rx2tx_pause),
-			.dest_clk(tx_clk),
-			.reset_n(tx_reset_n)
-			);
-  
   half_dup_dble_reg U_dble_reg2 (
 			//outputs
 			.sync_out_pulse(tx_ch_en),
@@ -344,14 +295,6 @@ parameter CORE_PAYLOAD_SIZE = 16'h3C ; //60 bytes =>
 			);
   
   
-  half_dup_dble_reg U_dble_reg3 (
-			//outputs
-			.sync_out_pulse(send_pause_sync),
-			//inputs
-			.in_pulse(app_send_pause),
-			.dest_clk(tx_clk),
-			.reset_n(tx_reset_n)
-			);
 
   half_dup_dble_reg U_dble_reg4 (
 			//outputs
@@ -391,11 +334,11 @@ parameter CORE_PAYLOAD_SIZE = 16'h3C ; //60 bytes =>
   always @(curr_dt_st or mi2tx_byte_ack or app_tx_fifo_empty
 	   or tx_end_frame_reg or commit_read_sent
 	   or tx_byte_cntr or tx_fcs_dn_reg or cf2tx_pad_enable or tx_ch_en
-	   or df2tx_dfl_dn or tx_pause_sync or app_tx_rdy
+	   or df2tx_dfl_dn or app_tx_rdy
 	   or strt_fcs_reg 
 	   or tx_end_frame or tx_clk 
 	   or cf2tx_append_fcs 
-	   or app_tx_rdy_dly or send_pause_sync or pause_index or cur_idle_st_del)
+	   or app_tx_rdy_dly or cur_idle_st_del)
     begin
       nxt_dt_st = curr_dt_st;
       tx_fsm_rd = 0;
@@ -413,9 +356,6 @@ parameter CORE_PAYLOAD_SIZE = 16'h3C ; //60 bytes =>
       clr_fifo_undrn = 0;
       clr_first_dfl = 0;
       set_first_dfl = 0;
-      send_pause_active = 0;      
-      inc_pause_index = 0;      
-      clr_pause_index = 0;      
       case (curr_dt_st)
 	dt_idle_st :
 	  begin
@@ -428,22 +368,16 @@ parameter CORE_PAYLOAD_SIZE = 16'h3C ; //60 bytes =>
 	    //in the case of full duplex
 	    if (tx_ch_en) //config, channel enable
 	      begin
-		 if (send_pause_sync  && df2tx_dfl_dn)
-		 begin
-                     // this ifdef is a bug fix.  A pending pause can cause ifg to be 1 cycle short.  
-			nxt_dt_st = dt_pause_xfr_st;
-			strt_preamble = 1;
-		      end
-		 else if (app_tx_rdy && df2tx_dfl_dn && !tx_pause_sync)
-		 begin
-			tx_fsm_rd = 1;
-			nxt_dt_st = dt_xfr_st;
-			strt_preamble = 1;
-		 end 
-		 else
-		    nxt_dt_st = dt_idle_st;
+		       if (app_tx_rdy && df2tx_dfl_dn)
+		       begin
+		         tx_fsm_rd = 1;
+		         nxt_dt_st = dt_xfr_st;
+		         strt_preamble = 1;
+		       end 
+		       else
+		           nxt_dt_st = dt_idle_st;
 	      end // if (tx_ch_en)
-	    else
+	     else
 	      nxt_dt_st = dt_idle_st;
 	  end // case: dt_idle_st
 	
@@ -587,58 +521,6 @@ parameter CORE_PAYLOAD_SIZE = 16'h3C ; //60 bytes =>
 	      end // else: !if(tx_fcs_dn)
 	  end // case: dt_fcs_st
 	
-	dt_pause_xfr_st :
-	  begin
-	    tx_byte_valid = 1;
-	    send_pause_active = 1;        
-	    // Send the Pause Frame out 
-	    if (mi2tx_byte_ack)
-	      begin
-		if (pause_index == 5'd18)
-		  begin
-		    clr_pause_index = 1;
-		    nxt_dt_st = dt_pause_pad_st;
-		  end
-		else
-		  begin
-		    inc_pause_index = 1;
-		    nxt_dt_st = dt_pause_xfr_st;
-		  end
-	      end  
-	    else
-	      begin
-		nxt_dt_st = dt_pause_xfr_st;
-	      end
-	  end // case: dt_pause_xfr_st
-	
-	dt_pause_pad_st :
-	  begin
-	    // Append Padding to the Packet
-	    tx_byte_valid = 1;
-	    set_pad_byte = 1;
-	    if (mi2tx_byte_ack && (tx_byte_cntr == CORE_PAYLOAD_SIZE - 1))
-	      begin
-		strt_fcs = 1;
-		nxt_dt_st = dt_pause_fcs_st;
-	      end // if (mi2tx_byte_ack && 
-	    // (tx_byte_cntr == CORE_PAYLOAD_SIZE - 1))
-	    else
-	      nxt_dt_st = dt_pause_pad_st;
-	  end // case: dt_pause_pad_st
-	
-	dt_pause_fcs_st :
-	  begin
-	    // Wait for the FCS to be sent
-	    if (tx_fcs_dn_reg)
-	      begin
-		e_tx_sts_vld = 1;
-		nxt_dt_st = dt_idle_st;
-	      end
-	    else
-	      begin
-		nxt_dt_st = dt_pause_fcs_st;
-	      end
-	  end // case: dt_pause_fcs_st
 	
 	
 	default :
@@ -838,79 +720,21 @@ parameter CORE_PAYLOAD_SIZE = 16'h3C ; //60 bytes =>
 	end // else: !if(!tx_reset_n)
     end // always @ (posedge tx_clk or negedge tx_reset_n)
   
-  //Pause index counters 
-  always @(posedge tx_clk or negedge tx_reset_n)
-    begin
-      if (!tx_reset_n)
-	pause_index <= 5'd0;
-      else
-	begin
-	  if (clr_pause_index)
-	    pause_index <= 5'd0;
-	  else if (inc_pause_index)
-	    pause_index <= pause_index + 1;
-	end // else: !if(!tx_reset_n)
-    end // always @ (posedge tx_clk or negedge tx_reset_n)
   
   //Data mux, is controlled either by the mux select from the
   //primary data flow or from the FCS mux select. When PAD
   //data option is used bytes of all zeros are transmitted
   always @(fcs_active or app_tx_dt_in or tc2tx_fcs
 	   or send_bad_fcs or fcs_mux_select or 
-	   set_pad_byte or tx_fsm_dt_reg or send_pause_active or pause_index
-	   or cf_mac_sa or cf2tx_pause_quanta)
+	   set_pad_byte or tx_fsm_dt_reg  )
     begin
-      if (send_pause_active)
-	begin
-	  case (pause_index)
-	    5'd0 :
-	      tx_byte = 8'h01;
-	    5'd1 :
-	      tx_byte = 8'h80;
-	    5'd2 :
-	      tx_byte = 8'hc2;
-	    5'd3 :
-	      tx_byte = 8'h00;
-	    5'd4 :
-	      tx_byte = 8'h00;
-	    5'd5 :
-	      tx_byte = 8'h01;
-	    5'd6 :
-	      tx_byte = cf_mac_sa[7:0];
-	    5'd7 :
-	      tx_byte = cf_mac_sa[15:8];
-	    5'd8 :
-	      tx_byte = cf_mac_sa[23:16];
-	    5'd9 :
-	      tx_byte = cf_mac_sa[31:24];
-	    5'd10 :
-	      tx_byte = cf_mac_sa[39:32];
-	    5'd11 :
-	      tx_byte = cf_mac_sa[47:40];
-	    5'd12 :
-	      tx_byte = 8'h88;
-	    5'd13 :
-	      tx_byte = 8'h08;
-	    5'd14 :
-	      tx_byte = 8'h00;
-	    5'd15 :
-	      tx_byte = 8'h01;
-	    5'd16 :
-	      tx_byte = cf2tx_pause_quanta[15:8];
-	    5'd17 :
-	      tx_byte = cf2tx_pause_quanta[7:0];
-	    default :
-	      tx_byte = 8'h00;
-	  endcase // case (mux_select)
-	end
-      else if (!fcs_active && !set_pad_byte)
-	begin
+      if (!fcs_active && !set_pad_byte)
+	    begin
 	  //primary data flow
-	  tx_byte = tx_fsm_dt_reg[7:0];
-//	  $stop;
-	end // if (!fcs_active)
+	       tx_byte = tx_fsm_dt_reg[7:0];
+	    end // if (!fcs_active)
       else if (fcs_active)
-	begin
+	    begin
 	  tx_byte = tc2tx_fcs[7:0];	  
 	  case (fcs_mux_select)
 	    3'd0 :

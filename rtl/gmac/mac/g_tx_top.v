@@ -55,7 +55,6 @@
  ***********************************************************************/
 module g_tx_top(
       app_clk,
-      send_pause_active,
       set_fifo_undrn,
 	      
    
@@ -81,21 +80,14 @@ module g_tx_top(
 		//MII interface
 		phy_tx_en,
 		phy_tx_er,
-		//application
-		app_send_pause,
-		
-	      //rx_top
-		rx2tx_pause,
 		
 		//configuration
-		cf2tx_tstate_mode,
 		cf2tx_ch_en,
 		cf2df_dfl_single,
 		cf2tx_pad_enable,
 		cf2tx_append_fcs,
 		cf_mac_mode,
 		cf_mac_sa,
-		cf2tx_pause_quanta,
 		cf2tx_force_bad_fcs,
 		//FIFO data
 		app_tx_dt_in,
@@ -111,25 +103,21 @@ module g_tx_top(
    input              tx_reset_n;
    input 	      tx_clk;           // Transmit clock
    
-   input 	      app_send_pause;
    input [8:0] 	      app_tx_dt_in;
    input 	      app_tx_fifo_empty;
    input 	      app_tx_rdy;
    
    input 	      phy_tx_en;            // Transmit data Enable
    input 	      phy_tx_er;            // Transmit Error 
-   input 	      cf2tx_tstate_mode;   // OFN auth intf fix
    input 	      cf2tx_ch_en;         // Transmit channel Enable
    input [7:0] cf2df_dfl_single;
    input       cf2tx_pad_enable;       // Padding Enabled
    input       cf2tx_append_fcs;       // Append CRC to packets
    input       cf2tx_force_bad_fcs;    // force bad fcs
    input [47:0] cf_mac_sa;              // MAC Source Address 
-   input [15:0] cf2tx_pause_quanta;     // Pause Quanta used when sending a pause frame 
    input 	cf_mac_mode;       // Gigabit or 10/100
 
 		
-   input 	rx2tx_pause; 
    
    input 	mi2tx_byte_ack;    // Transmit byte ack from RMII
    output 	tx_commit_read;
@@ -147,7 +135,6 @@ module g_tx_top(
    
    output 	tx_ch_en;   // MANDAR
 
-   output        send_pause_active; // condor fix
    output        set_fifo_undrn;// Description: At GMII Interface ,
                                 // abug after a transmit fifo underun was found.
                                 // The packet after a packet that 
@@ -176,7 +163,6 @@ module g_tx_top(
    
    // Instantiate Transmit State machine block
    g_tx_fsm U_tx_fsm(
-           .send_pause_active_out(send_pause_active), // condor fix
            .app_clk(app_clk), // condor fix
            .set_fifo_undrn(set_fifo_undrn), // E3C fix
 
@@ -203,19 +189,14 @@ module g_tx_top(
 		     .app_tx_fifo_empty(app_tx_fifo_empty),
 		     //dfl and back off
 		     .df2tx_dfl_dn(df2tx_dfl_dn),
-		     .app_send_pause(app_send_pause),
 		     //inputs from FCS
 		     .tc2tx_fcs(tc2tx_fcs),
-		     .cf2tx_tstate_mode(cf2tx_tstate_mode),		  
 		     .cf2tx_ch_en(cf2tx_ch_en),		  
 		     .cf2tx_pad_enable(cf2tx_pad_enable),
 		     .cf2tx_append_fcs(cf2tx_append_fcs),
 		     .cf_mac_mode(cf_mac_mode),		  
 		     .cf_mac_sa(cf_mac_sa),
-		     .cf2tx_pause_quanta(cf2tx_pause_quanta),
 		     .cf2tx_force_bad_fcs(cf2tx_force_bad_fcs),
-		     //RX pause frame received
-		     .rx2tx_pause(rx2tx_pause),
 		     //MII
 		     .mi2tx_byte_ack(mi2tx_byte_ack),
 		     .tx_clk(tx_clk),
