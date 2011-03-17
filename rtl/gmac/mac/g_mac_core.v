@@ -102,7 +102,13 @@
                     mdio_clk,
                     mdio_in,
                     mdio_out_en,
-                    mdio_out
+                    mdio_out,
+
+                    // configuration output
+                    cf_mac_sa,
+                    cfg_ip_sa,
+                    cfg_mac_filter
+
        );
                     
 parameter mac_mdio_en = 1'b1;
@@ -188,6 +194,9 @@ input	     mdio_in;
 output       mdio_out_en;
 output       mdio_out;
 		    
+output [47:0]   cf_mac_sa;
+output [31:0]   cfg_ip_sa;
+output [31:0]   cfg_mac_filter;
 //-----------------------------------------------------------------------
 // RX-Clock Domain Status Signal
 //-----------------------------------------------------------------------
@@ -215,9 +224,9 @@ wire         tx_set_fifo_undrn_o   ;// Description: At GMII Interface ,
                                     // The packet after a packet that 
                                     // underran has 1 too few bytes .
 
-    wire[7:0]  	mi2rx_rx_byte,tx2mi_tx_byte;
-    wire [7:0]          cf2df_dfl_single_rx;
-    wire [15:0] cf2rx_max_pkt_sz;
+wire[7:0]  	mi2rx_rx_byte,tx2mi_tx_byte;
+wire [7:0]  cf2df_dfl_single_rx;
+wire [15:0] cf2rx_max_pkt_sz;
 
      g_rx_top	u_rx_top(
 		//application
@@ -528,6 +537,8 @@ assign int_mdio_in       = (mac_mdio_en == 1'b1) ? mdio_in         : 1'b0;
                     .cf2rx_runt_pkt_en            (cf2rx_runt_pkt_en),
                     .cf2af_broadcast_disable      (cf2af_broadcast_disable),
                     .cf_mac_sa                    (cf_mac_sa),
+                    .cfg_ip_sa                    (cfg_ip_sa),
+                    .cfg_mac_filter               (cfg_mac_filter),
                     .cf2tx_pause_quanta           (cf2tx_pause_quanta),
                     .cf2tx_force_bad_fcs          (cf2tx_force_bad_fcs),
                     //MDIO CONTROL & DATA

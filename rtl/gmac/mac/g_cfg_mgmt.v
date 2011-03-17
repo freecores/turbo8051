@@ -70,43 +70,46 @@ module g_cfg_mgmt (
                  tx_sts,
 
 		 // MDIO READ DATA FROM PHY
-		 md2cf_cmd_done,
-		 md2cf_status,
-		 md2cf_data,
-		 
-		 app_clk,
-		 app_reset_n,
+		            md2cf_cmd_done,
+		            md2cf_status,
+		            md2cf_data,
+		            
+		            app_clk,
+		            app_reset_n,
 
-		 //List of Outputs
-		 // MII Control
-		 cf2mi_loopback_en,
-		 cf_mac_mode,
-		 cf_chk_rx_dfl,
-		 cf2mi_rmii_en,
+		            //List of Outputs
+		            // MII Control
+		            cf2mi_loopback_en,
+		            cf_mac_mode,
+		            cf_chk_rx_dfl,
+		            cf2mi_rmii_en,
 
                  cfg_uni_mac_mode_change_i,
                  cfg_crs_flow_ctrl_enb_i,
 
-		 //CHANNEL enable
-		 cf2tx_ch_en,
-		 //CHANNEL CONTROL TX
-		 cf_silent_mode,
-		 cf2df_dfl_single,
-		 cf2df_dfl_single_rx,
-		 cf2tx_pad_enable,
-		 cf2tx_append_fcs,
-		 //CHANNEL CONTROL RX
-		 cf2rx_ch_en,
-		 cf2rx_strp_pad_en,
-		 cf2rx_snd_crc,
-		 cf2rx_pause_en,
-		 cf2rx_addrchk_en,
-		 cf2rx_runt_pkt_en,
-		 cf2af_broadcast_disable,
-		 cf_mac_sa,
-		 cf2tx_pause_quanta,
-		 cf2rx_max_pkt_sz,
-		 cf2tx_force_bad_fcs,
+		             //CHANNEL enable
+		             cf2tx_ch_en,
+		             //CHANNEL CONTROL TX
+		             cf_silent_mode,
+		             cf2df_dfl_single,
+		             cf2df_dfl_single_rx,
+		             cf2tx_pad_enable,
+		             cf2tx_append_fcs,
+		             //CHANNEL CONTROL RX
+		             cf2rx_ch_en,
+		             cf2rx_strp_pad_en,
+		             cf2rx_snd_crc,
+		             cf2rx_pause_en,
+		             cf2rx_addrchk_en,
+		             cf2rx_runt_pkt_en,
+		             cf2af_broadcast_disable,
+		             cf_mac_sa,
+                 cfg_ip_sa,
+                 cfg_mac_filter,
+
+		             cf2tx_pause_quanta,
+		             cf2rx_max_pkt_sz,
+		             cf2tx_force_bad_fcs,
                  cf2tx_tstate_mode,
 		 //MDIO CONTROL & DATA
                  cf2md_datain,
@@ -152,6 +155,8 @@ module g_cfg_mgmt (
   output	cf_mac_mode;           // mac mode set this to 1 for 100Mbs/10Mbs
   output	cf_chk_rx_dfl;             // Check for RX Deferal 
   output [47:0]	cf_mac_sa;
+  output [31:0]	cfg_ip_sa;
+  output [31:0]	cfg_mac_filter;
   output [15:0]	cf2tx_pause_quanta;
   output	cf2tx_ch_en;              //enable the TX channel
   output	cf_silent_mode;           // PHY Inactive 
@@ -424,7 +429,7 @@ assign reg_0[15:0] = {tx_cntrl_out_2,tx_cntrl_out_1};
   // BIT[31:8] = Reserved
   generic_register #(8,0  ) rx_cntrl_reg_1 (
 	      .we            ({8{sw_wr_en_1 & 
-                                 wr_be[0]   }}      ),		 
+                           wr_be[0]   }}      ),		 
 	      .data_in       (reg_wdata[7:0]    ),
 	      .reset_n       (app_reset_n         ),
 	      .clk           (app_clk             ),
@@ -451,7 +456,7 @@ assign reg_1[7:0] = {rx_cntrl_out_1};
 
   generic_register #(8,0  ) dfl_params1_en_reg (
 	      .we            ({8{sw_wr_en_2 & 
-                                 wr_be[0]   }}      ),		 
+                           wr_be[0]   }}      ),		 
 	      .data_in       (reg_wdata[7:0]    ),
 	      .reset_n       (app_reset_n         ),
 	      .clk           (app_clk             ),
@@ -464,7 +469,7 @@ assign reg_1[7:0] = {rx_cntrl_out_1};
 
   generic_register #(8,0  ) dfl_params_rx_en_reg (
 	      .we            ({8{sw_wr_en_2 & 
-                                 wr_be[1]   }}    ),		 
+                           wr_be[1]   }}    ),		 
 	      .data_in       (reg_wdata[15:8]   ),
 	      .reset_n       (app_reset_n         ),
 	      .clk           (app_clk             ),
@@ -516,7 +521,7 @@ assign reg_3[7:0] = {mac_mode_out};
 
   generic_register #(8,0  ) mdio_cmd_reg_1 (
 	      .we            ({8{sw_wr_en_4 & 
-                                 wr_be[0]   }}      ),		 
+                                 wr_be[0]   }}  ),		 
 	      .data_in       (reg_wdata[7:0]    ),
 	      .reset_n       (app_reset_n         ),
 	      .clk           (app_clk             ),
@@ -527,7 +532,7 @@ assign reg_3[7:0] = {mac_mode_out};
 
   generic_register #(8,0  ) mdio_cmd_reg_2 (
 	      .we            ({8{sw_wr_en_4 & 
-                                 wr_be[1]   }}    ),		 
+                                 wr_be[1]   }} ),		 
 	      .data_in       (reg_wdata[15:8]   ),
 	      .reset_n       (app_reset_n         ),
 	      .clk           (app_clk             ),
@@ -807,13 +812,95 @@ generic_intr_stat_reg	#(9) u_intr_stat (
 		 . hware_req        ({tx_sts,rx_sts[7:0]}        ),
 		 
 		 //outputs
-		 . data_out         (reg_14[8:0]                 ) 
+		 . data_out         (reg_13[8:0]                 ) 
 	      );
 
 
+// IP SA [31:0]
+
+  generic_register #(8,0  ) u_ip_sa_0 (
+	      .we            ({8{sw_wr_en_14 & wr_be[0] }}),		 
+	      .data_in       (reg_wdata[7:0]    ),
+	      .reset_n       (app_reset_n         ),
+	      .clk           (app_clk             ),
+	      
+	      //List of Outs
+	      .data_out      (cfg_ip_sa[7:0] )
+          );
+
+  generic_register #(8,0  ) u_ip_sa_1 (
+	      .we            ({8{sw_wr_en_14 & wr_be[1] }}),		 
+	      .data_in       (reg_wdata[15:8]    ),
+	      .reset_n       (app_reset_n         ),
+	      .clk           (app_clk             ),
+	      
+	      //List of Outs
+	      .data_out      (cfg_ip_sa[15:8] )
+          );
 
 
+  generic_register #(8,0  ) u_ip_sa_2 (
+	      .we            ({8{sw_wr_en_14 & wr_be[2] }}),		 
+	      .data_in       (reg_wdata[23:16]    ),
+	      .reset_n       (app_reset_n         ),
+	      .clk           (app_clk             ),
+	      
+	      //List of Outs
+	      .data_out      (cfg_ip_sa[23:16] )
+          );
 
+  generic_register #(8,0  ) u_ip_sa_3 (
+	      .we            ({8{sw_wr_en_14 & wr_be[3] }}),		 
+	      .data_in       (reg_wdata[31:24]    ),
+	      .reset_n       (app_reset_n         ),
+	      .clk           (app_clk             ),
+	      
+	      //List of Outs
+	      .data_out      (cfg_ip_sa[31:24] )
+          );
+
+// Mac filter
+
+  generic_register #(8,0  ) u_mac_filter_0 (
+	      .we            ({8{sw_wr_en_15 & wr_be[0] }}),		 
+	      .data_in       (reg_wdata[7:0]    ),
+	      .reset_n       (app_reset_n         ),
+	      .clk           (app_clk             ),
+	      
+	      //List of Outs
+	      .data_out      (cfg_mac_filter[7:0] )
+          );
+
+  generic_register #(8,0  ) u_mac_filter_1 (
+	      .we            ({8{sw_wr_en_14 & wr_be[1] }}),		 
+	      .data_in       (reg_wdata[15:8]    ),
+	      .reset_n       (app_reset_n         ),
+	      .clk           (app_clk             ),
+	      
+	      //List of Outs
+	      .data_out      (cfg_mac_filter[15:8] )
+          );
+
+
+  generic_register #(8,0  ) u_mac_filter_2 (
+	      .we            ({8{sw_wr_en_14 & wr_be[2] }}),		 
+	      .data_in       (reg_wdata[23:16]    ),
+	      .reset_n       (app_reset_n         ),
+	      .clk           (app_clk             ),
+	      
+	      //List of Outs
+	      .data_out      (cfg_mac_filter[23:16] )
+          );
+
+  generic_register #(8,0  ) u_mac_filter_3 (
+	      .we            ({8{sw_wr_en_14 & wr_be[3] }}),		 
+	      .data_in       (reg_wdata[31:24]    ),
+	      .reset_n       (app_reset_n         ),
+	      .clk           (app_clk             ),
+	      
+	      //List of Outs
+	      .data_out      (cfg_mac_filter[31:24] )
+          );
 endmodule 
 
 

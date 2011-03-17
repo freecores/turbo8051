@@ -214,6 +214,35 @@ input	          phy_crs;
   wire        tx_fifo_rdy;
   wire [AW:0]  tx_fifo_aval;
 
+  wire [47:0]   cf_mac_sa;
+  wire [31:0]   cfg_ip_sa;
+  wire [31:0]   cfg_mac_filter;
+
+
+g_eth_parser u_eth_parser (
+                    .s_reset_n        (app_reset_n), 
+                    .app_clk          (app_clk),
+
+               // Configuration
+                    .cfg_filters      (cfg_filters),
+                    .cfg_mac_sa       (cf_mac_sa),
+                    .cfg_ip_sa        (cfg_ip_sa),
+
+               // Input Control Information
+                    .eop               (app_rxfifo_rdata_o[8]),
+                    .dval              (app_rxfifo_rden_i),
+                    .data              (app_rxfifo_rdata_o[7:0]),
+             
+                // output status 
+                    .pkt_done          (),
+                    .pkt_len           (),
+                    .pkt_status        (),
+                    .pkt_drop_ind      (),
+                    .pkt_drop_reason   ()
+               );
+
+
+
 g_mac_core u_mac_core  (
                     .scan_mode               (scan_mode), 
                     .s_reset_n               (s_reset_n) , 
@@ -278,7 +307,12 @@ g_mac_core u_mac_core  (
                     .mdio_clk                (mdio_clk) ,
                     .mdio_in                 (mdio_in) ,
                     .mdio_out_en             (mdio_out_en) ,
-                    .mdio_out                (mdio_out)
+                    .mdio_out                (mdio_out),
+
+                    .cf_mac_sa               (cf_mac_sa),
+                    .cfg_ip_sa               (cfg_ip_sa),
+                    .cfg_mac_filter          (cfg_mac_filter)
+
        );
 
 assign tx_fifo_rdy = (tx_fifo_aval > 8) ; // Dinesh-A Change it to config

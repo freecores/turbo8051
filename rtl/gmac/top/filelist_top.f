@@ -15,6 +15,7 @@ g_mac_core.v
 g_rx_crc32.v 
 g_tx_crc32.v
 async_fifo.v
+eth_parser.v
 -v registers.v
 -v stat_counter.v
 -v toggle_sync.v
