@@ -17,6 +17,7 @@ $TURBO8051_PROJ/rtl/gmac/mac/g_deferral_rx.v
 $TURBO8051_PROJ/rtl/gmac/mac/g_rx_top.v 
 $TURBO8051_PROJ/rtl/gmac/mac/g_mii_intf.v
 $TURBO8051_PROJ/rtl/gmac/mac/g_mac_core.v
+$TURBO8051_PROJ/rtl/gmac/ctrl/eth_parser.v
 $TURBO8051_PROJ/rtl/gmac/crc32/g_rx_crc32.v 
 $TURBO8051_PROJ/rtl/gmac/crc32/g_tx_crc32.v
 $TURBO8051_PROJ/rtl/lib/async_fifo.v
