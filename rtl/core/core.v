@@ -444,9 +444,6 @@ g_mac_top u_eth_dut (
 
 
           .app_clk                      (app_clk               ),
-          .app_send_pause_i             (1'b0                  ),
-          .app_send_pause_active_o      (                      ),
-          .app_send_jam_i               (1'b0                  ),
 
           // Application RX FIFO Interface
           .app_txfifo_wren_i            (app_txfifo_wren_i   ),

@@ -55,9 +55,6 @@ module  g_mac_top (
                     app_reset_n,
 
                     app_clk,
-                    app_send_pause_i,
-                    app_send_pause_active_o,
-                    app_send_jam_i,
 
                     // Application RX FIFO Interface
                     app_txfifo_wren_i,
@@ -133,9 +130,6 @@ input                    app_reset_n;
 // Application Clock Related Declaration
 //-----------------------------------------------------------------------
 input                    app_clk;
-input                    app_send_pause_i;
-output                   app_send_pause_active_o;
-input                    app_send_jam_i;
 
 
 // Application RX FIFO Interface
@@ -263,9 +257,6 @@ g_mac_core u_mac_core  (
                      . reg_ack               (reg_ack),
 
                     .app_clk                 (app_clk) ,
-                    .app_send_pause_i        (app_send_pause_i) ,
-                    .app_send_pause_active_o (app_send_pause_active_o) ,
-                    .app_send_jam_i          (app_send_jam_i) ,
 
                     // Conntrol Bus Sync with Application Clock
 

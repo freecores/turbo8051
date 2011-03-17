@@ -7,7 +7,6 @@ g_rx_fsm.v
 g_cfg_mgmt.v
 s2f_sync.v
 g_md_intf.v
-g_ad_fltr.v
 g_deferral_rx.v
 g_rx_top.v 
 g_mii_intf.v
