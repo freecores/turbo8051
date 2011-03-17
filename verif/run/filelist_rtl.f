@@ -12,7 +12,6 @@ $TURBO8051_PROJ/rtl/gmac/mac/g_rx_fsm.v
 $TURBO8051_PROJ/rtl/gmac/mac/g_cfg_mgmt.v
 $TURBO8051_PROJ/rtl/gmac/mac/s2f_sync.v
 $TURBO8051_PROJ/rtl/gmac/mac/g_md_intf.v
-$TURBO8051_PROJ/rtl/gmac/mac/g_ad_fltr.v
 $TURBO8051_PROJ/rtl/gmac/mac/g_deferral_rx.v
 $TURBO8051_PROJ/rtl/gmac/mac/g_rx_top.v 
 $TURBO8051_PROJ/rtl/gmac/mac/g_mii_intf.v
