@@ -13,9 +13,10 @@ task gmac_test1;
    tb_top.u_tb_eth.set_flow_type(0);//L2 unicast 
    tb_top.u_tb_eth.set_L2_frame_size(1, 64, 84, 1); //, 1, 17, 33, 49, 64
    tb_top.u_tb_eth.set_payload_type(2, 5000,0); //make sure frame size is honored
-   tb_top.u_tb_eth.set_L2_protocol(0);
+   tb_top.u_tb_eth.set_L2_protocol(0); // Untagged frame
    tb_top.u_tb_eth.set_L2_source_address(0, 48'h12_34_56_78_9a_bc, 0,0);
    tb_top.u_tb_eth.set_L2_destination_address(0, 48'h16_22_33_44_55_66, 0,0);
+   tb_top.u_tb_eth.set_L3_protocol(4); // IPV4
    tb_top.u_tb_eth.set_crc_option(0,0);
    
    fork
