@@ -122,9 +122,9 @@ always @(negedge rst_n or posedge clk) begin
       if(g_tx_mem_wr) begin
          g_tx_mem_addr <= g_tx_mem_addr+1;
          if(g_tx_mem_req_length == (tx_plen +1)) begin
-           tx_plen      <= 0;
+            tx_plen      <= 0;
          end else begin
-           tx_plen       <= tx_plen +1;
+            tx_plen      <= tx_plen +1;
          end
       end
    end
