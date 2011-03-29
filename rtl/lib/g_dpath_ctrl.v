@@ -41,22 +41,30 @@
 ////                                                              ////
 //////////////////////////////////////////////////////////////////////
 
-module dpath_ctrl (
+module g_dpath_ctrl (
               rst_n               , 
               clk                 ,
+
+              rx_buf_base_addr    ,
+              tx_buf_base_addr    ,
 
     // gmac core to memory write interface
               g_rx_mem_rd         ,
               g_rx_mem_eop        ,
               g_rx_mem_addr       ,
+              g_rx_block_rxrd     , 
 
-    // Memory to gmac core interface
-              g_tx_mem_wr         ,
-              g_tx_mem_eop        ,
-              g_tx_mem_addr       ,
-              g_tx_mem_req        ,
-              g_tx_mem_req_length ,
-              g_tx_mem_ack        
+       // descr handshake    
+              g_rx_desc_req       ,
+              g_rx_desc_discard   ,
+              g_rx_desc_data      ,
+              g_rx_desc_ack       ,
+
+              g_rx_pkt_done       ,
+              g_rx_pkt_len        ,
+              g_rx_pkt_status     ,
+              g_rx_pkt_drop       
+
 
       );
 
@@ -64,68 +72,91 @@ module dpath_ctrl (
 input         rst_n                 ; 
 input         clk                   ;
 
+input [3:0]   rx_buf_base_addr      ; // 8K Rx Base Address
+input [3:0]   tx_buf_base_addr      ; // 8K tx Base Address
+
 // gmac core to memory write interface
 input         g_rx_mem_rd           ;
 input         g_rx_mem_eop          ;
 output [15:0] g_rx_mem_addr         ;
+output        g_rx_block_rxrd       ; // Block Rx Read between EOP and PktDone
 
-// Memory to gmac core interface
-input         g_tx_mem_wr           ;
-output        g_tx_mem_eop          ;
-output [15:0] g_tx_mem_addr         ;
-
-output        g_tx_mem_req          ;
-output [15:0] g_tx_mem_req_length   ;
-input         g_tx_mem_ack          ;
+input         g_rx_pkt_done         ; // End of current Packet
+input [11:0]  g_rx_pkt_len          ; // Packet Length 
+input [15:0]  g_rx_pkt_status       ; // Packet Status
+input         g_rx_pkt_drop         ; // Packet drop and rewind the pointer
 
 
-reg    [15:0] g_rx_mem_addr         ;
-reg    [15:0] g_tx_mem_addr         ;
-reg    [15:0] g_tx_mem_req_length   ;
-reg    [15:0] rx_plen               ;
-reg    [15:0] tx_plen               ;
-reg           g_tx_mem_req          ;
+//-----------------------------------
+// Descriptor handshake
+//----------------------------------
+output        g_rx_desc_req         ; // rx desc request
+output        g_rx_desc_discard     ; // rx desc discard indication
+output [31:0] g_rx_desc_data        ; // rx desc data
+input         g_rx_desc_ack         ; // rx desc ack
 
-wire     g_tx_mem_eop =  ((tx_plen +1) == g_tx_mem_req_length) ? 1'b1 : 1'b0;
+
+reg          g_rx_desc_req         ;
+reg          g_rx_desc_discard     ; // rx desc discard indication
+reg  [31:0]  g_rx_desc_data      ; // rx desc data
+
+reg    [11:0] g_rx_mem_addr_int     ;
+
+wire [15:0]   g_rx_mem_addr  = {rx_buf_base_addr,g_rx_mem_addr_int[11:0]};
+
  
-
+reg         bStartFlag; // Indicate a SOP transaction, used for registering Start Address
+reg         g_rx_block_rxrd; // Block Rx Read at the end of EOP and Enable on Packet Done
+reg [11:0]  g_rx_saddr;
+ 
 always @(negedge rst_n or posedge clk) begin
    if(rst_n == 0) begin
-      g_rx_mem_addr <= 0;
-      g_tx_mem_addr <= 0;
-      rx_plen       <= 0;
-      tx_plen       <= 0;
+      g_rx_mem_addr_int <= 0;
+      bStartFlag        <= 1;
+      g_rx_block_rxrd   <= 0; 
+      g_rx_saddr        <= 0;
+      g_rx_desc_discard <= 0;
+      g_rx_desc_data    <= 0;
+      g_rx_desc_req     <= 0;
    end
    else begin
+      if(bStartFlag && g_rx_mem_rd) begin
+         g_rx_saddr   <= g_rx_mem_addr_int[11:0];
+         bStartFlag   <= 0;
+      end else if (g_rx_mem_rd && g_rx_mem_eop) begin
+         bStartFlag   <= 1;
+      end
+
+      if(g_rx_mem_rd && g_rx_mem_eop)
+         g_rx_block_rxrd   <= 1;
+      else if(g_rx_pkt_done)
+         g_rx_block_rxrd   <= 0;
+
       //-----------------------------
       // Finding the Frame Size
       //----------------------------
-      if(g_rx_mem_rd) begin
-         g_rx_mem_addr <= g_rx_mem_addr+1;
-         if(g_rx_mem_eop) rx_plen <= 0;
-         else rx_plen <= rx_plen +1;
+      if(g_rx_pkt_done && g_rx_pkt_drop) begin
+         g_rx_mem_addr_int <= g_rx_saddr;
+      end else if(g_rx_mem_rd && g_rx_mem_eop) begin
+         // Realign to 32 bit boundary and add one free space at eop
+         g_rx_mem_addr_int <= g_rx_mem_addr_int+4-g_rx_mem_addr_int[1:0];
+      end else if(g_rx_mem_rd ) begin
+         g_rx_mem_addr_int <= g_rx_mem_addr_int+1;
       end
-      //------------------------
-      // Generate Tx Request at last transfer of RX Req
-      //------------------------
-      //
-      if(g_rx_mem_eop && g_rx_mem_rd)  begin
-          g_tx_mem_req_length <= rx_plen+1;
-          g_tx_mem_req <= 1;
-      end else if (g_tx_mem_ack) begin
-          g_tx_mem_req <= 0;
+      // Descriptor Request Generation
+      if(g_rx_pkt_done) begin
+          g_rx_desc_req   <= 1;
+          if(g_rx_pkt_drop) begin
+             g_rx_desc_discard <= 1;
+          end else begin
+             g_rx_desc_discard <= 0;
+             g_rx_desc_data  <= {g_rx_pkt_status[5:0],rx_buf_base_addr[3:0],
+                                 g_rx_saddr[11:2],g_rx_pkt_len[11:0]};
+          end
       end
-
-      //------------------------
-      // Generate of EOP for TX Interface at last transfer
-      //-------------------------
-      if(g_tx_mem_wr) begin
-         g_tx_mem_addr <= g_tx_mem_addr+1;
-         if(g_tx_mem_req_length == (tx_plen +1)) begin
-            tx_plen      <= 0;
-         end else begin
-            tx_plen      <= tx_plen +1;
-         end
+      else if (g_rx_desc_ack) begin
+         g_rx_desc_req  <= 0;
+         g_rx_desc_discard <= 0;
       end
    end
 end

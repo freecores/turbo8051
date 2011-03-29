@@ -68,6 +68,7 @@ module turbo8051  (
              wb_xram_ack            ,
              wb_xram_err            ,
              wb_xram_wr             ,
+             wb_xram_be             ,
              wb_xram_rdata          ,
              wb_xram_wdata          ,
              
@@ -163,8 +164,9 @@ output [15:0]    wb_xram_adr            ; // data-ram address
 input            wb_xram_ack            ; // data-ram acknowlage
 output           wb_xram_err            ; // data-ram error
 output           wb_xram_wr             ; // data-ram error
-input  [7:0]     wb_xram_rdata          ; // ram data input
-output [7:0]     wb_xram_wdata          ; // ram data input
+output [3:0]     wb_xram_be             ; // Byte enable
+input  [31:0]    wb_xram_rdata          ; // ram data input
+output [31:0]    wb_xram_wdata          ; // ram data input
 
 output           wb_xram_stb            ; // data-ram strobe
 output           wb_xram_cyc            ; // data-ram cycle
@@ -184,6 +186,7 @@ wire    [31:0]   wbi_risc_rdata;
 // MAC Related wire Decleration
 //-----------------------------
 wire [8:0]       app_rxfifo_rddata_o    ;
+wire [31:0]      app_rx_desc_data       ;
 wire             mdio_out_en            ;
 wire             mdio_out               ;
 wire             gen_resetn             ;
@@ -213,8 +216,6 @@ wire    [31:0]   reg_spi_wdata          ;
 wire    [3:0]    reg_spi_be             ;
 wire    [31:0]   reg_spi_rdata          ;
 wire             reg_spi_ack            ;
-
-wire [31:0]      wb_xram_wdata           ; // ram data input
 
 wire    [3:0]    wb_xrom_be            ;
 wire    [3:0]    wb_xram_be            ;
@@ -247,8 +248,11 @@ wire             wbgr_cyc        ;
 wire [8:0]       app_txfifo_wrdata_i;
 wire [15:0]      app_txfifo_addr;
 wire [15:0]      app_rxfifo_addr;
-wire [15:0]      app_txfifo_req_len;
+wire [3:0]       tx_qcnt    ;
+wire [3:0]       rx_qcnt    ;
 
+wire tx_q_empty  = (tx_qcnt == 0);
+wire rx_q_empty  = (rx_qcnt == 0);
 
 assign reg_rdata = (reg_mac_ack)  ? reg_mac_rdata :
                    (reg_uart_ack) ? reg_uart_rdata :
@@ -260,12 +264,19 @@ assign reg_ack = reg_mac_ack | reg_uart_ack | reg_spi_ack;
 assign reset_out_n = gen_resetn;
 
 
-assign wb_xram_adr[15]  = 0;
-assign wb_xram_adr[1:0] = (wb_xram_be == 4'b0001) ? 2'b00 :
-                          (wb_xram_be == 4'b0010) ? 2'b01 :
-                          (wb_xram_be == 4'b0100) ? 2'b10 : 2'b11 ;
-
+assign wb_xram_adr[15]    = 0;
+assign wb_xram_adr[1:0]   = 2'b00;
 assign wb_xrom_adr[15:13] = 0;
+
+wire [9:0] cfg_tx_buf_qbase_addr;
+wire [9:0] cfg_rx_buf_qbase_addr;
+
+// QCounter Inc/dec generation
+
+wire tx_qcnt_inc = (cfg_tx_buf_qbase_addr == wb_xram_adr[15:6]) & wb_xram_stb & wb_xram_wr & wb_xram_ack;
+wire tx_qcnt_dec = (cfg_tx_buf_qbase_addr == wb_xram_adr[15:6]) & wb_xram_stb & !wb_xram_wr & wb_xram_ack;
+wire rx_qcnt_inc = (cfg_rx_buf_qbase_addr == wb_xram_adr[15:6]) & wb_xram_stb & wb_xram_wr & wb_xram_ack;
+wire rx_qcnt_dec = (cfg_rx_buf_qbase_addr == wb_xram_adr[15:6]) & wb_xram_stb & !wb_xram_wr & wb_xram_ack;
 
 //-------------------------------------------
 // clock-gen  instantiation
@@ -376,10 +387,7 @@ wb_crossbar #(5,5,32,4,13,4) u_wb_crossbar (
                                           reg_mac_rdata,
                                           reg_uart_rdata,
                                           reg_spi_rdata,
-                                          {wb_xram_rdata,
-                                           wb_xram_rdata,
-                                           wb_xram_rdata,
-                                           wb_xram_rdata},
+                                          {wb_xram_rdata},
                                           wb_xrom_rdata
                                          }),
               .wbd_adr_slave            ({reg_mac_addr,
@@ -448,78 +456,77 @@ g_mac_top u_eth_dut (
           // Application RX FIFO Interface
           .app_txfifo_wren_i            (app_txfifo_wren_i   ),
           .app_txfifo_wrdata_i          (app_txfifo_wrdata_i ),
+          .app_txfifo_addr              (app_txfifo_addr     ),
           .app_txfifo_full_o            (app_txfifo_full_o   ),
           .app_txfifo_afull_o           (app_txfifo_afull_o  ),
-          .app_txfifo_space_o           (                      ),
+          .app_txfifo_space_o           (                    ),
 
           // Application TX FIFO Interface
           .app_rxfifo_rden_i            (app_rxfifo_rden_i   ),
-          .app_rxfifo_empty_o           (app_rxfifo_empty_o    ),
-          .app_rxfifo_aempty_o          (app_rxfifo_aempty_o   ),
-          .app_rxfifo_cnt_o             (                      ),
-          .app_rxfifo_rdata_o           (app_rxfifo_rddata_o   ),
+          .app_rxfifo_empty_o           (app_rxfifo_empty_o  ),
+          .app_rxfifo_aempty_o          (app_rxfifo_aempty_o ),
+          .app_rxfifo_cnt_o             (                    ),
+          .app_rxfifo_rdata_o           (app_rxfifo_rddata_o ),
+          .app_rxfifo_addr              (app_rxfifo_addr     ),
 
+          .app_rx_desc_req              (app_rx_desc_req     ),
+          .app_rx_desc_ack              (app_rx_desc_ack     ),
+          .app_rx_desc_discard          (app_rx_desc_discard ),
+          .app_rx_desc_data             (app_rx_desc_data    ),
 
           // Line Side Interface TX Path
-          .phy_tx_en                    (phy_tx_en             ),
-          .phy_tx_er                    (                      ),
-          .phy_txd                      (phy_txd               ),
-          .phy_tx_clk                   (phy_tx_clk            ),
+          .phy_tx_en                    (phy_tx_en           ),
+          .phy_tx_er                    (                    ),
+          .phy_txd                      (phy_txd             ),
+          .phy_tx_clk                   (phy_tx_clk          ),
 
           // Line Side Interface RX Path
-          .phy_rx_clk                   (phy_rx_clk            ),
-          .phy_rx_er                    (1'b0                  ),
-          .phy_rx_dv                    (phy_rx_dv             ),
-          .phy_rxd                      (phy_rxd               ),
-          .phy_crs                      (1'b0                  ),
+          .phy_rx_clk                   (phy_rx_clk          ),
+          .phy_rx_er                    (1'b0                ),
+          .phy_rx_dv                    (phy_rx_dv           ),
+          .phy_rxd                      (phy_rxd             ),
+          .phy_crs                      (1'b0                ),
 
           //MDIO interface
-          .mdio_clk                     (MDC                   ),
-          .mdio_in                      (MDIO                  ),
-          .mdio_out_en                  (mdio_out_en           ),
-          .mdio_out                     (mdio_out              )
+          .mdio_clk                     (MDC                 ),
+          .mdio_in                      (MDIO                ),
+          .mdio_out_en                  (mdio_out_en         ),
+          .mdio_out                     (mdio_out            ),
+
+          // QCounter
+          .rx_buf_qbase_addr            (cfg_rx_buf_qbase_addr),
+          .tx_buf_qbase_addr            (cfg_tx_buf_qbase_addr),
+
+          .tx_qcnt_inc                  (tx_qcnt_inc),
+          .tx_qcnt_dec                  (tx_qcnt_dec),
+          .rx_qcnt_inc                  (rx_qcnt_inc),
+          .rx_qcnt_dec                  (rx_qcnt_dec),
+          .tx_qcnt                      (tx_qcnt),
+          .rx_qcnt                      (rx_qcnt)
+
+
        );
 
 
 assign MDIO = (mdio_out_en) ? mdio_out : 1'bz;
 
 
-dpath_ctrl m_dpath_ctrl (
-           .rst_n               ( gen_resetn             ), 
-           .clk                 ( app_clk                ),
-
-    // gmac core to memory write interface
-           .g_rx_mem_rd         ( app_rxfifo_rden_i      ),
-           .g_rx_mem_eop        ( app_rxfifo_rddata_o[8] ) ,
-           .g_rx_mem_addr       ( app_rxfifo_addr        ) ,
-
-    // Memory to gmac core interface
-           .g_tx_mem_wr         ( app_txfifo_wren_i      ),
-           .g_tx_mem_eop        ( app_txfifo_wrdata_i[8] ),
-           .g_tx_mem_addr       ( app_txfifo_addr        ),
-           .g_tx_mem_req        ( app_txfifo_req         ),
-           .g_tx_mem_req_length ( app_txfifo_req_len     ),
-           .g_tx_mem_ack        ( app_txfifo_ack         )
-
-      );
-
 
 wb_rd_mem2mem #(32,4,13,4) u_wb_gmac_tx (
 
-          .rst_n               ( gen_resetn   ),
-          .clk                 ( app_clk      ),
+          .rst_n               ( gen_resetn         ),
+          .clk                 ( app_clk            ),
 
+    // descriptor handshake
+          .cfg_desc_baddr      (cfg_tx_buf_qbase_addr),
+          .desc_q_empty        (tx_q_empty           ),
 
     // Master Interface Signal
-          .mem_req             ( app_txfifo_req     ),
-          .mem_txfr            ( app_txfifo_req_len ) ,
-          .mem_ack             ( app_txfifo_ack     ),
           .mem_taddr           ( 1                  ),
-          .mem_addr            ( app_txfifo_addr    ),
           .mem_full            (app_txfifo_full_o   ),
           .mem_afull           (app_txfifo_afull_o  ),
           .mem_wr              (app_txfifo_wren_i   ), 
-          .mem_din             (app_txfifo_wrdata_i[7:0] ),
+          .mem_din             (app_txfifo_wrdata_i ),
  
     // Slave Interface Signal
           .wbo_dout            ( wbgt_dout          ),
@@ -543,12 +550,18 @@ wb_wr_mem2mem #(32,4,13,4) u_wb_gmac_rx(
 
     // Master Interface Signal
           .mem_taddr           ( 1                    ),
-          .mem_addr            ( app_rxfifo_addr      ),
+          .mem_addr            (app_rxfifo_addr       ),
           .mem_empty           (app_rxfifo_empty_o    ),
           .mem_aempty          (app_rxfifo_aempty_o   ),
           .mem_rd              (app_rxfifo_rden_i     ), 
           .mem_dout            (app_rxfifo_rddata_o[7:0]),
+          .mem_eop             (app_rxfifo_rddata_o[8]),
  
+          .cfg_desc_baddr      (cfg_rx_buf_qbase_addr ),
+          .desc_req            (app_rx_desc_req       ),
+          .desc_ack            (app_rx_desc_ack       ),
+          .desc_disccard       (app_rx_desc_discard   ),
+          .desc_data           (app_rx_desc_data      ),
     // Slave Interface Signal
           .wbo_din             ( wbgr_din     ), 
           .wbo_taddr           ( wbgr_taddr   ), 

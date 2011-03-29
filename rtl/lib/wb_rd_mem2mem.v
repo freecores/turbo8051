@@ -42,7 +42,18 @@
 //////////////////////////////////////////////////////////////////////
 
 /**********************************************
-      Web-bone , Read from Wishbone Memory and Write to internal Memory
+  Web-bone , Read from Wishbone Memory and Write to internal Memory
+
+   This block handles following task
+   1. Check the Descriptor Q for not empty
+   2. If the Descriptor Q is not empty, the read the 32 bit descriptor
+   3. The 32 bit descriptor holds following information
+       [11:0]  - Packet Length
+       [25:12] - MSB [15:2] of Packet Start Location
+       [31:26] - Packet Status
+   4. Based on the Packet Length, Read the data from external Data memory
+      and write it to Internal Memory
+
 **********************************************/
 
 module wb_rd_mem2mem (
@@ -50,13 +61,12 @@ module wb_rd_mem2mem (
               rst_n               , 
               clk                 ,
 
+    // descriptor handshake
+              cfg_desc_baddr      ,
+              desc_q_empty        ,
 
     // Master Interface Signal
-              mem_req             ,
-              mem_txfr            ,
-              mem_ack             ,
               mem_taddr           ,
-              mem_addr            ,
               mem_full            ,
               mem_afull           ,
               mem_wr              , 
@@ -85,8 +95,10 @@ parameter TAR_WD  = 4;  // Target Width
 // State Machine Parameter
 //--------------------
 
-parameter IDLE = 0;
-parameter TXFR = 1;
+parameter IDLE      = 0;
+parameter DESC_RD   = 1;
+parameter DATA_WAIT = 2;
+parameter TXFR      = 3;
 
 
 //-------------------------------------------
@@ -103,19 +115,21 @@ input               rst_n       ;  // RST_I The reset input [RST_I] forces the W
                                    // to restart. Furthermore, all internal self-starting state 
                                    // machines will be forced into an initial state. 
 
+//---------------------------------
+// Descriptor Interface
+//---------------------------------
+input [15:6]   cfg_desc_baddr    ;  // descriptor Base Address
+input          desc_q_empty      ; 
+
 //------------------------------------------
 // Stanard Memory Interface
 //------------------------------------------
-input               mem_req     ;
-input [15:0]        mem_txfr    ;
-output              mem_ack     ;
 
 input [TAR_WD-1:0]  mem_taddr   ; // target address 
-input [15:0]        mem_addr    ; // memory address 
 input               mem_full    ; // memory full
 input               mem_afull   ; // memory afull 
-output              mem_wr      ; // memory read
-output  [7:0]       mem_din     ; // memory read data
+output              mem_wr      ; // memory Write
+output  [8:0]       mem_din     ; // memory read data
 
 //------------------------------------------
 // External Memory WB Interface
@@ -185,7 +199,7 @@ input             wbo_rty; // RTY_I The retry input [RTY_I] indicates that the i
 // Register Declration
 //----------------------------------------
 
-reg                 state       ;
+reg  [1:0]          state       ;
 reg  [15:0]         cnt         ;
 reg  [TAR_WD-1:0]   wbo_taddr   ;
 reg  [ADR_WD-1:0]   wbo_addr    ;
@@ -193,16 +207,20 @@ reg                 wbo_stb     ;
 reg                 wbo_we      ;
 reg  [BE_WD-1:0]    wbo_be      ;
 reg                 wbo_cyc     ;
-reg                 mem_ack     ;
+reg [15:0]          mem_addr    ;
 
-wire           mem_wr       = wbo_ack;
+wire           mem_wr       = (state == TXFR) ? wbo_ack: 1'b0 ;
+
 // Generate Next Address, to fix the read to address inc issue
 wire [15:0]    taddr   = mem_addr+1;
 
-wire [7:0]          mem_din  = (mem_addr[1:0] == 2'b00) ? wbo_dout[7:0] :
-                               (mem_addr[1:0] == 2'b01) ? wbo_dout[15:8] :
-                               (mem_addr[1:0] == 2'b10) ? wbo_dout[23:16] : wbo_dout[31:24]  ;
+assign mem_din[7:0]  = (mem_addr[1:0] == 2'b00) ? wbo_dout[7:0] :
+                       (mem_addr[1:0] == 2'b01) ? wbo_dout[15:8] :
+                       (mem_addr[1:0] == 2'b10) ? wbo_dout[23:16] : wbo_dout[31:24]  ;
 
+assign mem_din[8]    = (cnt == 1) ? 1'b1 : 1'b0; // EOP generation at last transfer
+
+reg [3:0]   desc_ptr;
 
 always @(negedge rst_n or posedge clk) begin
    if(rst_n == 0) begin
@@ -213,39 +231,67 @@ always @(negedge rst_n or posedge clk) begin
       wbo_we      <= 0;
       wbo_be      <= 0;
       wbo_cyc     <= 0;
-      mem_ack     <= 0;
+      desc_ptr    <= 0;
+      mem_addr    <= 0;
    end
    else begin
       case(state)
          IDLE: begin
-            if(mem_req && !mem_full) begin
-                cnt       <= mem_txfr;
-                wbo_taddr <= mem_taddr;
-                wbo_addr  <= mem_addr[14:2];
-                wbo_stb   <= 1'b1;
-                wbo_we    <= 1'b0;
-                wbo_be    <= 1 << mem_addr[1:0];
-                wbo_cyc   <= 1'b1;
-                mem_ack   <= 1;
-                state     <= TXFR;
+            // Check for Descriptor Q not empty
+            if(!desc_q_empty) begin
+               wbo_taddr   <= mem_taddr;
+               wbo_addr  <= {cfg_desc_baddr[15:6],desc_ptr[3:0]};
+               wbo_be    <= 4'hF;
+               wbo_we    <= 1'b0;
+               wbo_stb   <= 1'b1;
+               wbo_cyc   <= 1;
+               state     <= DESC_RD;
+               desc_ptr  <= desc_ptr+1;
+            end
+        end
+       DESC_RD: begin
+          // wait for web-bone ack
+          if(wbo_ack) begin
+              wbo_cyc   <= 1'b0;
+              wbo_stb   <= 1'b0;
+              state     <= IDLE;
+              cnt       <= wbo_dout[11:0];
+              mem_addr  <= {wbo_dout[27:12],2'b0};
+              state     <= DATA_WAIT;
+          end 
+       end
+
+         DATA_WAIT: begin
+            // check for internal memory not full and initiate
+            // the transfer
+            if(!mem_full) begin
+                wbo_taddr   <= mem_taddr;
+                wbo_addr    <= mem_addr[14:2];
+                wbo_stb     <= 1'b1;
+                wbo_we      <= 1'b0;
+                wbo_be      <= 4'hF;
+                wbo_cyc     <= 1'b1;
+                state       <= TXFR;
             end
          end
          TXFR: begin
-            mem_ack     <= 0;
             if(wbo_ack) begin
-               cnt      <= cnt-1;
-               wbo_addr  <= taddr[14:2];
-               wbo_be    <= 1 << taddr[1:0];
+               mem_addr     <= mem_addr+1;
+               cnt          <= cnt-1;
+               wbo_addr     <= taddr[14:2];
+               wbo_be       <= 4'hF;
                if(cnt == 1) begin
                   wbo_stb   <= 1'b0;
                   wbo_cyc   <= 1'b0;
                   state     <= IDLE;
                end
-               else if(mem_afull) begin
+               else if(mem_afull) begin // to handle the interburst fifo  full case
+                  wbo_cyc   <= 1'b0;
                   wbo_stb   <= 1'b0;
                end 
-            end else if(!mem_full) begin
-                wbo_stb   <= 1'b1;
+            end else if(!mem_full) begin // to handle interbust fifo full cases
+                wbo_cyc     <= 1'b1;
+                wbo_stb     <= 1'b1;
             end
          end
       endcase

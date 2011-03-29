@@ -104,7 +104,20 @@
                     // configuration output
                     cf_mac_sa,
                     cfg_ip_sa,
-                    cfg_mac_filter
+                    cfg_mac_filter,
+                    rx_buf_base_addr,
+                    tx_buf_base_addr,
+
+                    rx_buf_qbase_addr,
+                    tx_buf_qbase_addr,
+
+                    tx_qcnt_inc,
+                    tx_qcnt_dec,
+                    tx_qcnt,
+
+                    rx_qcnt_inc,
+                    rx_qcnt_dec,
+                    rx_qcnt
 
        );
                     
@@ -191,6 +204,20 @@ output       mdio_out;
 output [47:0]   cf_mac_sa;
 output [31:0]   cfg_ip_sa;
 output [31:0]   cfg_mac_filter;
+output [3:0]    rx_buf_base_addr;
+output [3:0]    tx_buf_base_addr;
+
+output [9:0]   rx_buf_qbase_addr;  // Rx Q Base Address
+output [9:0]   tx_buf_qbase_addr;  // Tx Q Base Address
+
+input           tx_qcnt_inc;
+input           tx_qcnt_dec;
+output [3:0]    tx_qcnt;
+
+input           rx_qcnt_inc;
+input           rx_qcnt_dec;
+output [3:0]    rx_qcnt;
+
 //-----------------------------------------------------------------------
 // RX-Clock Domain Status Signal
 //-----------------------------------------------------------------------
@@ -517,7 +544,23 @@ assign int_mdio_in       = (mac_mdio_en == 1'b1) ? mdio_in         : 1'b0;
                     .cf2md_regad                  (cf2md_regad),
                     .cf2md_phyad                  (cf2md_phyad),
                     .cf2md_op                     (cf2md_op),
-                    .cf2md_go                     (cf2md_go)
+                    .cf2md_go                     (cf2md_go),
+
+                    .rx_buf_base_addr             (rx_buf_base_addr),
+                    .tx_buf_base_addr             (tx_buf_base_addr),
+
+                    .rx_buf_qbase_addr            (rx_buf_qbase_addr),
+                    .tx_buf_qbase_addr            (tx_buf_qbase_addr),
+
+                    .tx_qcnt_inc                  (tx_qcnt_inc),
+                    .tx_qcnt_dec                  (tx_qcnt_dec),
+                    .tx_qcnt                      (tx_qcnt),
+
+                    .rx_qcnt_inc                  (rx_qcnt_inc),
+                    .rx_qcnt_dec                  (rx_qcnt_dec),
+                    .rx_qcnt                      (rx_qcnt)
+
+
 		 );
 
     g_mii_intf u_mii_intf(

@@ -110,7 +110,22 @@ module g_cfg_mgmt (
                  cf2md_regad,
                  cf2md_phyad,
                  cf2md_op,
-                 cf2md_go);
+                 cf2md_go,
+
+                 rx_buf_base_addr,
+                 tx_buf_base_addr,
+                 rx_buf_qbase_addr,
+                 tx_buf_qbase_addr,
+
+                 tx_qcnt_inc,
+                 tx_qcnt_dec,
+                 tx_qcnt,
+
+                 rx_qcnt_inc,
+                 rx_qcnt_dec,
+                 rx_qcnt
+
+     );
   
    parameter mac_mdio_en = 1'b1;
 
@@ -119,62 +134,75 @@ module g_cfg_mgmt (
    //---------------------------------
    // Reg Bus Interface Signal
    //---------------------------------
-   input             reg_cs           ;
-   input             reg_wr           ;
-   input [3:0]       reg_addr         ;
-   input [31:0]      reg_wdata        ;
-   input [3:0]       reg_be           ;
+   input             reg_cs               ;
+   input             reg_wr               ;
+   input [3:0]       reg_addr             ;
+   input [31:0]      reg_wdata            ;
+   input [3:0]       reg_be               ;
    
    // Outputs
-   output [31:0]     reg_rdata        ;
-   output            reg_ack          ;
+   output [31:0]     reg_rdata            ;
+   output            reg_ack              ;
 
-   input             rx_sts_vld       ; // rx status valid indication, sync w.r.t app clk
-   input [7:0]       rx_sts           ; // rx status bits
+   input             rx_sts_vld           ; // rx status valid indication, sync w.r.t app clk
+   input [7:0]       rx_sts               ; // rx status bits
 
-   input             tx_sts_vld       ; // tx status valid indication, sync w.r.t app clk
-   input             tx_sts           ; // tx status bits
+   input             tx_sts_vld           ; // tx status valid indication, sync w.r.t app clk
+   input             tx_sts               ; // tx status bits
 
   //List of Inputs
 
-  input		           app_clk          ; 
-  input               app_reset_n     ;
-  input		            md2cf_cmd_done  ;  // Read/Write MDIO completed
-  input		            md2cf_status    ;  // MDIO transfer error
-  input [15:0]	      md2cf_data      ;  // Data from PHY for a
-                                         // mdio read access
+  input		           app_clk              ; 
+  input               app_reset_n         ;
+  input		            md2cf_cmd_done      ; // Read/Write MDIO completed
+  input		            md2cf_status        ; // MDIO transfer error
+  input [15:0]	      md2cf_data          ; // Data from PHY for a
+                                            // mdio read access
  
  
   //List of Outputs
-  output	            cf2mi_rmii_en       ;  // Working in RMII when set to 1
-  output	            cf_mac_mode         ;  // mac mode set this to 1 for 100Mbs/10Mbs
-  output	            cf_chk_rx_dfl       ;  // Check for RX Deferal 
+  output	            cf2mi_rmii_en       ; // Working in RMII when set to 1
+  output	            cf_mac_mode         ; // mac mode set this to 1 for 100Mbs/10Mbs
+  output	            cf_chk_rx_dfl       ; // Check for RX Deferal 
   output [47:0]	      cf_mac_sa           ;
   output [31:0]	      cfg_ip_sa           ;
   output [31:0]	      cfg_mac_filter      ;
-  output	            cf2tx_ch_en         ;  //enable the TX channel
-  output	            cf_silent_mode      ;  //PHY Inactive 
-  output [7:0]	      cf2df_dfl_single    ;  //number of clk ticks for dfl
-  output [7:0]	      cf2df_dfl_single_rx ;  //number of clk ticks for dfl
+  output	            cf2tx_ch_en         ; //enable the TX channel
+  output	            cf_silent_mode      ; //PHY Inactive 
+  output [7:0]	      cf2df_dfl_single    ; //number of clk ticks for dfl
+  output [7:0]	      cf2df_dfl_single_rx ; //number of clk ticks for dfl
   
-  output	            cf2tx_pad_enable    ;  //enable padding, < 64 bytes
-  output	            cf2tx_append_fcs;      //append CRC for TX frames
-  output	            cf2rx_ch_en;           //Enable RX channel
-  output	            cf2rx_strp_pad_en;     //strip the padded bytes on RX frame
-  output	            cf2rx_snd_crc;         //send FCS to application, else strip
-                                             //the FCS before sending to application
-  output	            cf2mi_loopback_en;     // TX to RX loop back enable
-  output	            cf2rx_runt_pkt_en;     //don't throw packets less than 64 bytes
-  output [15:0]	      cf2md_datain;
-  output [4:0]	      cf2md_regad;
-  output [4:0]	      cf2md_phyad;
-  output	            cf2md_op;
-  output	            cf2md_go;
+  output	            cf2tx_pad_enable    ; //enable padding, < 64 bytes
+  output	            cf2tx_append_fcs    ; //append CRC for TX frames
+  output	            cf2rx_ch_en         ; //Enable RX channel
+  output	            cf2rx_strp_pad_en   ; //strip the padded bytes on RX frame
+  output	            cf2rx_snd_crc       ; //send FCS to application, else strip
+                                            //the FCS before sending to application
+  output	            cf2mi_loopback_en   ; // TX to RX loop back enable
+  output	            cf2rx_runt_pkt_en   ; //don't throw packets less than 64 bytes
+  output [15:0]	      cf2md_datain        ;
+  output [4:0]	      cf2md_regad         ;
+  output [4:0]	      cf2md_phyad         ;
+  output	            cf2md_op            ;
+  output	            cf2md_go            ;
 
-  output [15:0]       cf2rx_max_pkt_sz;      //max rx packet size
-  output      	      cf2tx_force_bad_fcs;   //force bad fcs on tx
+  output [15:0]       cf2rx_max_pkt_sz    ; //max rx packet size
+  output      	      cf2tx_force_bad_fcs ; //force bad fcs on tx
 
   output              cfg_uni_mac_mode_change_i;
+
+  output [3:0]        rx_buf_base_addr;   // Rx Data Buffer Base Address
+  output [3:0]        tx_buf_base_addr;   // Tx Data Buffer Base Address
+  output [9:0]        rx_buf_qbase_addr;  // Rx Q Base Address
+  output [9:0]        tx_buf_qbase_addr;  // Tx Q Base Address
+
+  input               tx_qcnt_inc;
+  input               tx_qcnt_dec;
+  output [3:0]        tx_qcnt;
+
+  input               rx_qcnt_inc;
+  input               rx_qcnt_dec;
+  output [3:0]        rx_qcnt;
 
   
 // Wire assignments for output signals
@@ -198,8 +226,7 @@ module g_cfg_mgmt (
 // Wire and Reg assignments for local signals
   reg         int_md2cf_status;
   wire [7:0]  mac_mode_out;
-  wire [7:0]  tx_cntrl_out_1, rx_cntrl_out_1;
-  wire [7:0]  tx_cntrl_out_2, rx_cntrl_out_2;
+  wire [7:0]  mac_cntrl_out_1, mac_cntrl_out_2;
   wire [7:0]  dfl_params_rx_out;
   wire [7:0]  dfl_params1_out;
   wire [7:0]  slottime_out_1;
@@ -370,73 +397,74 @@ end
   // BIT[7] = Force TX FCS Error
  
 
-generic_register #(8,0  ) tx_cntrl_reg_1 (
+generic_register #(8,0  ) u_mac_cntrl_reg_1 (
 	      .we            ({8{sw_wr_en_0 & 
-                                 wr_be[0]   }}    ),		 
-	      .data_in       (reg_wdata[7:0]    ),
+                                 wr_be[0] }}),		 
+	      .data_in       (reg_wdata[7:0]      ),
 	      .reset_n       (app_reset_n         ),
 	      .clk           (app_clk             ),
 	      
 	      //List of Outs
-	      .data_out      (tx_cntrl_out_1[7:0] )
+	      .data_out      (mac_cntrl_out_1[7:0] )
           );
 
-generic_register #(8,0  ) tx_cntrl_reg_2 (
+generic_register #(8,0  ) u_mac_cntrl_reg_2 (
 	      .we            ({8{sw_wr_en_0 & 
-                                 wr_be[1]   }}    ),		 
-	      .data_in       (reg_wdata[15:8]   ),
+                                 wr_be[1]}} ),		 
+	      .data_in       (reg_wdata[15:8]     ),
 	      .reset_n       (app_reset_n         ),
 	      .clk           (app_clk             ),
 	      
 	      //List of Outs
-	      .data_out      (tx_cntrl_out_2[7:0] )
+	      .data_out      (mac_cntrl_out_2[7:0] )
           );
- 
-  assign cf2tx_ch_en = tx_cntrl_out_1[0];
-  assign cf2tx_pad_enable = tx_cntrl_out_1[3];
-  assign cf2tx_append_fcs = tx_cntrl_out_1[4];
-  assign cf2tx_force_bad_fcs = tx_cntrl_out_1[7];
 
-assign reg_0[15:0] = {tx_cntrl_out_2,tx_cntrl_out_1};
+ generic_register #(8,0  )  u_mac_cntrl_reg_3 (
+	      .we            ({8{sw_wr_en_0 & wr_be[2] }}),		 
+	      .data_in       (reg_wdata[3:0]    ),
+	      .reset_n       (app_reset_n         ),
+	      .clk           (app_clk             ),
+	      
+	      //List of Outs
+	      .data_out      ({tx_buf_base_addr[3:0],
+                         rx_buf_base_addr[3:0]} )
+          );
 
-  //=========================================================================//
-  // RX_CNTRL_REGISTER 1 : Address Value 04H
+
+  // TX Control Register 
+  assign cf2tx_ch_en         = mac_cntrl_out_1[0];
+  assign cf2tx_pad_enable    = mac_cntrl_out_1[3];
+  assign cf2tx_append_fcs    = mac_cntrl_out_1[4];
+  assign cf2tx_force_bad_fcs = mac_cntrl_out_1[7];
+
+  // RX_CNTRL_REGISTER
   // BIT[0] = Receive Channel Enable
   // BIT[1] = Strip Padding from the Receive data
   // BIT[2] = Send CRC along with data to the host
   // BIT[4] = Check RX Deferral
-  // BIT[5] = Receive Address Check Enable
   // BIT[6] = Receive Runt Packet
-  // BIT[7] = Broad Cast Rx Disable
-  // BIT[31:8] = Reserved
-  generic_register #(8,0  ) rx_cntrl_reg_1 (
-	      .we            ({8{sw_wr_en_1 & 
-                           wr_be[0]   }}      ),		 
-	      .data_in       (reg_wdata[7:0]    ),
-	      .reset_n       (app_reset_n         ),
-	      .clk           (app_clk             ),
-	      
-	      //List of Outs
-	      .data_out      (rx_cntrl_out_1[7:0] )
-          );
+  assign cf2rx_ch_en         = mac_cntrl_out_2[0];
+  assign cf2rx_strp_pad_en   = mac_cntrl_out_2[1];
+  assign cf2rx_snd_crc       = mac_cntrl_out_2[2];
+  assign cf_chk_rx_dfl       = mac_cntrl_out_2[4];
+  assign cf2rx_runt_pkt_en   = mac_cntrl_out_2[6];
 
-  assign cf2rx_ch_en             = rx_cntrl_out_1[0];
-  assign cf2rx_strp_pad_en       = rx_cntrl_out_1[1];
-  assign cf2rx_snd_crc           = rx_cntrl_out_1[2];
-  assign cf_chk_rx_dfl           = rx_cntrl_out_1[4];
-  assign cf2rx_runt_pkt_en       = rx_cntrl_out_1[6];
+assign reg_0[23:0] = {tx_buf_base_addr[3:0],
+                      rx_buf_base_addr[3:0],
+                      mac_cntrl_out_2[7:0],
+                      mac_cntrl_out_1[7:0]};
 
 
-assign reg_1[7:0] = {rx_cntrl_out_1};
-  //========================================================================//
+// reg1 free
+//========================================================================//
   //TRANSMIT DEFFERAL CONTROL REGISTER: Address value 08H
   //BIT[7:0] = Defferal TX
   //BIT[15:8] = Defferal RX
 
   generic_register #(8,0  ) dfl_params1_en_reg (
 	      .we            ({8{sw_wr_en_2 & 
-                           wr_be[0]   }}      ),		 
-	      .data_in       (reg_wdata[7:0]    ),
+                           wr_be[0]   }}    ),		 
+	      .data_in       (reg_wdata[7:0]      ),
 	      .reset_n       (app_reset_n         ),
 	      .clk           (app_clk             ),
 	      
@@ -449,7 +477,7 @@ assign reg_1[7:0] = {rx_cntrl_out_1};
   generic_register #(8,0  ) dfl_params_rx_en_reg (
 	      .we            ({8{sw_wr_en_2 & 
                            wr_be[1]   }}    ),		 
-	      .data_in       (reg_wdata[15:8]   ),
+	      .data_in       (reg_wdata[15:8]     ),
 	      .reset_n       (app_reset_n         ),
 	      .clk           (app_clk             ),
 	      
@@ -473,7 +501,7 @@ assign reg_2[15:0] = {dfl_params_rx_out,dfl_params1_out};
  
   generic_register #(8,0  ) mac_mode_reg (
 	      .we            ({8{sw_wr_en_3 & wr_be[0]}}),
-	      .data_in       (reg_wdata[7:0]    ),
+	      .data_in       (reg_wdata[7:0]      ),
 	      .reset_n       (app_reset_n         ),
 	      .clk           (app_clk             ),
 	      
@@ -499,8 +527,8 @@ assign reg_3[7:0] = {mac_mode_out};
 
   generic_register #(8,0  ) mdio_cmd_reg_1 (
 	      .we            ({8{sw_wr_en_4 & 
-                                 wr_be[0]   }}  ),		 
-	      .data_in       (reg_wdata[7:0]    ),
+                                 wr_be[0]}} ),		 
+	      .data_in       (reg_wdata[7:0]      ),
 	      .reset_n       (app_reset_n         ),
 	      .clk           (app_clk             ),
 	      
@@ -510,8 +538,8 @@ assign reg_3[7:0] = {mac_mode_out};
 
   generic_register #(8,0  ) mdio_cmd_reg_2 (
 	      .we            ({8{sw_wr_en_4 & 
-                                 wr_be[1]   }} ),		 
-	      .data_in       (reg_wdata[15:8]   ),
+                                 wr_be[1]}} ),		 
+	      .data_in       (reg_wdata[15:8]     ),
 	      .reset_n       (app_reset_n         ),
 	      .clk           (app_clk             ),
 	      
@@ -521,8 +549,8 @@ assign reg_3[7:0] = {mac_mode_out};
 
   generic_register #(8,0  ) mdio_cmd_reg_3 (
 	      .we            ({8{sw_wr_en_4 & 
-                                 wr_be[2]   }}    ),		 
-	      .data_in       (reg_wdata[23:16]  ),
+                                 wr_be[2]}} ),		 
+	      .data_in       (reg_wdata[23:16]    ),
 	      .reset_n       (app_reset_n         ),
 	      .clk           (app_clk             ),
 	      
@@ -538,8 +566,8 @@ assign reg_3[7:0] = {mac_mode_out};
 
   generic_register #(7,0  ) mdio_cmd_reg_4 (
 	      .we            ({7{sw_wr_en_4 & 
-                                 wr_be[3]   }}    ),		 
-	      .data_in       (reg_wdata[30:24]  ),
+                                 wr_be[3]}} ),		 
+	      .data_in       (reg_wdata[30:24]    ),
 	      .reset_n       (app_reset_n         ),
 	      .clk           (app_clk             ),
 	      
@@ -549,8 +577,8 @@ assign reg_3[7:0] = {mac_mode_out};
 
 req_register #(0  ) u_mdio_req (
 	      .cpu_we       ({sw_wr_en_4 & 
-                             wr_be[3]   }       ),		 
-	      .cpu_req      (reg_wdata[31]    ),
+                             wr_be[3]   } ),		 
+	      .cpu_req      (reg_wdata[31]      ),
 	      .hware_ack    (mdio_cmd_done_sync ),
 	      .reset_n       (app_reset_n       ),
 	      .clk           (app_clk           ),
@@ -692,7 +720,54 @@ req_register #(0  ) u_mdio_req (
   assign reg_8[15:0] = cf2rx_max_pkt_sz[15:0];
 
 
-  assign reg_9 = 0; // free
+//========================================================================//
+//MAC max packet size Register 20
+
+  generic_register #(2,0  )  m_rx_qbase_addr_1 (
+	      .we            ({8{sw_wr_en_9 & wr_be[0] }}),		 
+	      .data_in       (reg_wdata[7:6]    ),
+	      .reset_n       (app_reset_n         ),
+	      .clk           (app_clk             ),
+	      
+	      //List of Outs
+	      .data_out      (rx_buf_qbase_addr[1:0] )
+          );
+
+  generic_register #(8,0  )  m_rx_qbase_addr_2 (
+	      .we            ({8{sw_wr_en_9 & wr_be[1] }}),		 
+	      .data_in       (reg_wdata[15:8]    ),
+	      .reset_n       (app_reset_n         ),
+	      .clk           (app_clk             ),
+	      
+	      //List of Outs
+	      .data_out      (rx_buf_qbase_addr[9:2] )
+          );
+
+
+  generic_register #(2,0  ) m_tx_qbase_addr_1 (
+	      .we            ({8{sw_wr_en_9 & wr_be[2] }}),		 
+	      .data_in       (reg_wdata[23:22]    ),
+	      .reset_n       (app_reset_n         ),
+	      .clk           (app_clk             ),
+	      
+	      //List of Outs
+	      .data_out      (tx_buf_qbase_addr[1:0] )
+          );
+
+  generic_register #(8,0  ) m_tx_qbase_addr_2 (
+	      .we            ({8{sw_wr_en_9 & wr_be[3] }}),		 
+	      .data_in       (reg_wdata[31:24]    ),
+	      .reset_n       (app_reset_n         ),
+	      .clk           (app_clk             ),
+	      
+	      //List of Outs
+	      .data_out      (tx_buf_qbase_addr[9:2] )
+          );
+
+
+  assign reg_9[15:0]  = {rx_buf_qbase_addr[9:0],6'h0};
+  assign reg_9[31:16] = {tx_buf_qbase_addr[9:0],6'h0};
+
 
 
 //-----------------------------------------------------------------------
@@ -709,7 +784,8 @@ stat_counter #(16) u_stat_rx_good_frm  (
          . sys_clk          (app_clk         ),
          . s_reset_n        (app_reset_n     ),
   
-         . count_trigger    (rx_good_frm_trig),
+         . count_inc        (rx_good_frm_trig),
+         . count_dec        (1'b0            ),
   
          . reg_sel          (sw_wr_en_10     ),
          . reg_wr_data      (reg_wdata[15:0] ),
@@ -724,14 +800,15 @@ stat_counter #(16) u_stat_rx_bad_frm (
          . sys_clk          (app_clk         ),
          . s_reset_n        (app_reset_n     ),
   
-         . count_trigger    (rx_bad_frm_trig ),
+         . count_inc        (rx_bad_frm_trig ),
+         . count_dec        (1'b0            ),
   
-         . reg_sel          (sw_wr_en_11     ),
-         . reg_wr_data      (reg_wdata[15:0] ),
+         . reg_sel          (sw_wr_en_10     ),
+         . reg_wr_data      (reg_wdata[31:16] ),
          . reg_wr           (wr_be[0]        ),  // Byte write not supported for cntr
 
          . cntr_intr        (                ),
-         . cntrout          (reg_11[15:0]    )
+         . cntrout          (reg_10[31:16]    )
    ); 
 
 
@@ -742,17 +819,53 @@ stat_counter #(16) u_stat_tx_good_frm (
          . sys_clk          (app_clk           ),
          . s_reset_n        (app_reset_n       ),
   
-         . count_trigger    (tx_good_frm_trig  ),
+         . count_inc        (tx_good_frm_trig  ),
+         . count_dec        (1'b0              ),
   
-         . reg_sel          (sw_wr_en_12       ),
+         . reg_sel          (sw_wr_en_11       ),
          . reg_wr_data      (reg_wdata[15:0]   ),
          . reg_wr           (wr_be[0]          ),  // Byte write not supported for cntr
 
          . cntr_intr        (                  ),
-         . cntrout          (reg_12[15:0]      )
+         . cntrout          (reg_11[15:0]      )
    ); 
 
-// reg_13 is free
+// reg_12 & reg_13 is free
+
+stat_counter #(4) u_rx_qcnt (
+   // Clock and Reset Signals
+         . sys_clk          (app_clk           ),
+         . s_reset_n        (app_reset_n       ),
+  
+         . count_inc        (rx_qcnt_inc       ),
+         . count_dec        (rx_qcnt_dec       ),
+  
+         . reg_sel          (sw_wr_en_12       ),
+         . reg_wr_data      (reg_wdata[3:0]    ),
+         . reg_wr           (wr_be[0]          ),  // Byte write not supported for cntr
+
+         . cntr_intr        (                  ),
+         . cntrout          (rx_qcnt           )
+   ); 
+
+stat_counter #(4) u_tx_qcnt (
+   // Clock and Reset Signals
+         . sys_clk          (app_clk           ),
+         . s_reset_n        (app_reset_n       ),
+  
+         . count_inc        (tx_qcnt_inc       ),
+         . count_dec        (tx_qcnt_dec       ),
+  
+         . reg_sel          (sw_wr_en_12       ),
+         . reg_wr_data      (reg_wdata[11:8]   ),
+         . reg_wr           (wr_be[2]          ),  // Byte write not supported for cntr
+
+         . cntr_intr        (                  ),
+         . cntrout          (tx_qcnt           )
+   ); 
+
+assign reg_12[7:0]  = {4'h0,rx_qcnt[3:0]};
+assign reg_12[15:8] = {4'h0,tx_qcnt[3:0]};
 
 generic_intr_stat_reg	#(9) u_intr_stat (
 		 //inputs

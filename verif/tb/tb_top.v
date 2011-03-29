@@ -47,19 +47,6 @@
 
 module tb_top;
 
-//--------------------------------------------------------------
-// Target ID Mapping
-// 4'b0100 -- MAC core
-// 4'b0011 -- UART
-// 4'b0010 -- SPI core
-// 4'b0001 -- External RAM
-// 4'b0000 -- External ROM
-//--------------------------------------------------------------
-`define ADDR_SPACE_MAC  4'b0100 
-`define ADDR_SPACE_UART 4'b0011 
-`define ADDR_SPACE_SPI  4'b0010 
-`define ADDR_SPACE_RAM  4'b0001 
-`define ADDR_SPACE_ROM  4'b0000 
 
 reg    reset_n;
 reg    reset;
@@ -164,8 +151,9 @@ wire   [15:0] wb_xram_adr        ; // data-ram address
 wire          wb_xram_ack        ; // data-ram acknowlage
 wire          wb_xram_err        ; // data-ram error
 wire          wb_xram_wr         ; // data-ram error
-wire   [7:0]  wb_xram_rdata      ; // ram data input
-wire   [7:0]  wb_xram_wdata      ; // ram data input
+wire   [3:0]  wb_xram_be         ; // data-ram error
+wire   [31:0] wb_xram_rdata      ; // ram data input
+wire   [31:0] wb_xram_wdata      ; // ram data input
 
 wire          wb_xram_stb        ; // data-ram strobe
 wire          wb_xram_cyc        ; // data-ram cycle
@@ -236,6 +224,7 @@ turbo8051  u_core (
                .wb_xram_ack        (wb_xram_ack        ),
                .wb_xram_err        (wb_xram_err        ),
                .wb_xram_wr         (wb_xram_wr         ),
+               .wb_xram_be         (wb_xram_be         ),
                .wb_xram_rdata      (wb_xram_rdata      ),
                .wb_xram_wdata      (wb_xram_wdata      ),
              
@@ -268,6 +257,7 @@ oc8051_xram oc8051_xram1 (
           .clk               (app_clk       ), 
           .rst               (!reset_n      ), 
           .wr                (wb_xram_wr    ), 
+          .be                (wb_xram_be    ), 
           .addr              (wb_xram_adr   ), 
           .data_in           (wb_xram_wdata ), 
           .data_out          (wb_xram_rdata ), 

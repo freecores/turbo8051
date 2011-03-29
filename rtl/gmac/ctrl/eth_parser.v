@@ -101,7 +101,7 @@ input [7:0]         data;
 //-----------------------------
 output   [11:0]     pkt_len;     // Packet Length
 output              pkt_done;    // Packet Processing done indication
-output   [6:0]      pkt_status;  // packet processing status
+output   [15:0]     pkt_status;  // packet processing status
                                  // [1:0] - MAC-DA
                                  //         2'b00  - Broadcast frame
                                  //         2'b01  - Multicast frame
@@ -133,12 +133,15 @@ output [7:0]    pkt_drop_reason; // Reason for Frame Drop
 reg [11:0]      bcnt           ; // Byte counter
 reg [11:0]      pkt_len        ; // packet length
 reg             pkt_done       ; // packet complete indication + Packet Status Valid
+reg             pkt_drop_ind   ;
+
 
 always @(s_reset_n  or posedge app_clk) begin
    if(s_reset_n == 1'b0) begin
-      bcnt     <= 0;
-      pkt_len  <= 0;
-      pkt_done <= 0;
+      bcnt         <= 0;
+      pkt_len      <= 0;
+      pkt_done     <= 0;
+      pkt_drop_ind <= 0;
    end
    else begin
       if(dval) begin
@@ -168,7 +171,7 @@ reg        tcpf          ; // frame is tcp
 reg        udpf          ; // frame is udp
 reg        ip_sa_match   ; // ip4 sa matches to local IP Address 
 reg        ip_da_match   ; // ip4 da matches to local IP Address
-reg[6:0]   pkt_status    ; // Packet Status
+reg[15:0]  pkt_status    ; // Packet Status
 
 always @(s_reset_n or posedge app_clk) begin
    if(s_reset_n == 1'b0) begin

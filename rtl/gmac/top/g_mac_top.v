@@ -59,6 +59,7 @@ module  g_mac_top (
                     // Application RX FIFO Interface
                     app_txfifo_wren_i,
                     app_txfifo_wrdata_i,
+                    app_txfifo_addr,
                     app_txfifo_full_o,
                     app_txfifo_afull_o,
                     app_txfifo_space_o,
@@ -69,6 +70,12 @@ module  g_mac_top (
                     app_rxfifo_aempty_o,
                     app_rxfifo_cnt_o,
                     app_rxfifo_rdata_o,
+                    app_rxfifo_addr,
+
+                    app_rx_desc_req     ,
+                    app_rx_desc_ack     ,
+                    app_rx_desc_discard ,
+                    app_rx_desc_data    ,
 
                     // Conntrol Bus Sync with Application Clock
                     reg_cs,
@@ -101,7 +108,20 @@ module  g_mac_top (
                     mdio_clk,
                     mdio_in,
                     mdio_out_en,
-                    mdio_out
+                    mdio_out,
+
+            // QCounter
+                    rx_buf_qbase_addr,
+                    tx_buf_qbase_addr,
+
+                    tx_qcnt_inc,
+                    tx_qcnt_dec,
+                    rx_qcnt_inc,
+                    rx_qcnt_dec,
+
+                    tx_qcnt,
+                    rx_qcnt
+
        );
 
 parameter W  = 8'd9;
@@ -135,6 +155,8 @@ input                    app_clk;
 // Application RX FIFO Interface
 input                    app_txfifo_wren_i;
 input  [8:0]             app_txfifo_wrdata_i;
+output [15:0]            app_txfifo_addr;
+
 output                   app_txfifo_full_o;
 output                   app_txfifo_afull_o;
 output [AW:0]            app_txfifo_space_o;
@@ -145,6 +167,13 @@ output                   app_rxfifo_empty_o;
 output                   app_rxfifo_aempty_o;
 output [AW:0]            app_rxfifo_cnt_o;
 output [8:0]             app_rxfifo_rdata_o;
+output [15:0]            app_rxfifo_addr;
+
+// descriptor interface
+output                   app_rx_desc_req     ; // descriptor request
+input                    app_rx_desc_ack     ; // descriptor ack
+output                   app_rx_desc_discard ; // descriptor discard
+output [31:0]            app_rx_desc_data    ; // descriptor data
 
 // Conntrol Bus Sync with Application Clock
 //---------------------------------
@@ -186,6 +215,20 @@ input	          phy_crs;
   output       mdio_out_en;
   output       mdio_out;
 
+//--------------------------------------
+// QCounter, Better to move to seperate global reg block
+//-------------------------------------
+output  [9:0]  rx_buf_qbase_addr; // Rx QBase Address
+output  [9:0]  tx_buf_qbase_addr; // TX QBase Address
+
+input          tx_qcnt_inc;       // Tx QCounter Increment indication
+input          tx_qcnt_dec;       // Tx QCounter Decrement indication
+input          rx_qcnt_inc;       // Rx QCounter Increment indication
+input          rx_qcnt_dec;       // Rx QCounter Decrement indication
+
+output [3:0]   tx_qcnt    ;
+output [3:0]   rx_qcnt    ;
+
 //---------------------
 // RX FIFO Interface Signal
   wire         clr_rx_error_from_rx_fsm_o;
@@ -211,6 +254,41 @@ input	          phy_crs;
   wire [47:0]   cf_mac_sa;
   wire [31:0]   cfg_ip_sa;
   wire [31:0]   cfg_mac_filter;
+  wire [3:0]    tx_buf_base_addr;
+  wire [3:0]    rx_buf_base_addr;
+  wire [11:0]   g_rx_pkt_len;
+  wire [15:0]   pkt_status;
+  wire          app_rxfifo_empty;
+  wire          g_rx_block_rxrd;
+
+assign app_rxfifo_empty_o = app_rxfifo_empty | g_rx_block_rxrd;
+g_dpath_ctrl m_g_dpath_ctrl (
+           .rst_n               ( s_reset_n             ), 
+           .clk                 ( app_clk               ),
+
+           .rx_buf_base_addr    (rx_buf_base_addr       ),
+           .tx_buf_base_addr    (tx_buf_base_addr       ),
+
+    // gmac core to memory write interface
+           .g_rx_mem_rd         ( app_rxfifo_rden_i      ),
+           .g_rx_mem_eop        ( app_rxfifo_rdata_o[8]  ),
+           .g_rx_mem_addr       ( app_rxfifo_addr        ),
+           .g_rx_block_rxrd     ( g_rx_block_rxrd        ),
+
+       // descr handshake    
+           .g_rx_desc_req       (app_rx_desc_req         ),
+           .g_rx_desc_discard   (app_rx_desc_discard     ),
+           .g_rx_desc_data      (app_rx_desc_data        ),
+           .g_rx_desc_ack       (app_rx_desc_ack         ),
+
+
+           .g_rx_pkt_done       (g_rx_pkt_done           ),
+           .g_rx_pkt_len        (g_rx_pkt_len            ),
+           .g_rx_pkt_status     (g_rx_pkt_status         ),
+           .g_rx_pkt_drop       (g_rx_pkt_drop           )
+
+
+      );
 
 
 g_eth_parser u_eth_parser (
@@ -218,7 +296,7 @@ g_eth_parser u_eth_parser (
                     .app_clk          (app_clk),
 
                // Configuration
-                    .cfg_filters      (cfg_filters),
+                    .cfg_filters      (cfg_mac_filter),
                     .cfg_mac_sa       (cf_mac_sa),
                     .cfg_ip_sa        (cfg_ip_sa),
 
@@ -228,10 +306,10 @@ g_eth_parser u_eth_parser (
                     .data              (app_rxfifo_rdata_o[7:0]),
              
                 // output status 
-                    .pkt_done          (),
-                    .pkt_len           (),
-                    .pkt_status        (),
-                    .pkt_drop_ind      (),
+                    .pkt_done          (g_rx_pkt_done    ),
+                    .pkt_len           (g_rx_pkt_len     ),
+                    .pkt_status        (g_rx_pkt_status  ),
+                    .pkt_drop_ind      (g_rx_pkt_drop    ),
                     .pkt_drop_reason   ()
                );
 
@@ -302,7 +380,21 @@ g_mac_core u_mac_core  (
 
                     .cf_mac_sa               (cf_mac_sa),
                     .cfg_ip_sa               (cfg_ip_sa),
-                    .cfg_mac_filter          (cfg_mac_filter)
+                    .cfg_mac_filter          (cfg_mac_filter),
+
+                    .rx_buf_base_addr        (rx_buf_base_addr),
+                    .tx_buf_base_addr        (tx_buf_base_addr),
+
+                    .rx_buf_qbase_addr       (rx_buf_qbase_addr),
+                    .tx_buf_qbase_addr       (tx_buf_qbase_addr),
+
+                    .tx_qcnt_inc             (tx_qcnt_inc),
+                    .tx_qcnt_dec             (tx_qcnt_dec),
+                    .tx_qcnt                 (tx_qcnt),
+
+                    .rx_qcnt_inc             (rx_qcnt_inc),
+                    .rx_qcnt_dec             (rx_qcnt_dec),
+                    .rx_qcnt                 (rx_qcnt)
 
        );
 
@@ -338,7 +430,7 @@ async_fifo #(W,DP,0,0) u_mac_rxfifo (
                    .rd_clk                   (app_clk),
                    .rd_reset_n               (app_reset_n),
                    .rd_en                    (app_rxfifo_rden_i),
-                   .empty                    (app_rxfifo_empty_o),  // sync'ed to rd_clk
+                   .empty                    (app_rxfifo_empty),  // sync'ed to rd_clk
                    .aempty                   (app_rxfifo_aempty_o), // sync'ed to rd_clk
                    .rd_total_aval            (app_rxfifo_cnt_o),
                    .rd_data                  (app_rxfifo_rdata_o)

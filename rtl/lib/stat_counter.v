@@ -61,7 +61,8 @@ module stat_counter
    sys_clk,
    s_reset_n,
   
-   count_trigger,
+   count_inc,
+   count_dec,
   
    reg_sel,
    reg_wr_data,
@@ -79,7 +80,8 @@ parameter CWD    = 1; // Counter Width
    // ------------------- Clock and Reset Signals ------------------------
    input                     sys_clk;
    input                     s_reset_n;
-   input                     count_trigger;
+   input                     count_inc; // Counter Increment
+   input                     count_dec; // counter decrement, assuption does not under flow
    input                     reg_sel; 
    input                     reg_wr;
    input  [CWD-1:0]          reg_wr_data;
@@ -103,14 +105,20 @@ begin
          reg_trig_cntr <= reg_wr_data;
       end	 
       else begin	 
-         if (count_trigger)
+         if (count_inc && count_dec)
+            reg_trig_cntr <= reg_trig_cntr;
+         else if (count_inc)
               reg_trig_cntr <= reg_trig_cntr + 1'b1;
+         else if (count_dec)
+              reg_trig_cntr <= reg_trig_cntr - 1'b1;
          else
             reg_trig_cntr <= reg_trig_cntr;
       end
    end   
-end   
-assign cntr_intr = ((reg_trig_cntr + 1) == 'h0 && count_trigger) ;
+end 
+// only increment overflow is assumed  
+// decrement underflow is not handled 
+assign cntr_intr = ((reg_trig_cntr + 1) == 'h0 && count_inc) ;
 
 assign cntrout = reg_trig_cntr;
 

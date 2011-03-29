@@ -20,6 +20,7 @@ $TURBO8051_PROJ/rtl/gmac/ctrl/eth_parser.v
 $TURBO8051_PROJ/rtl/gmac/crc32/g_rx_crc32.v 
 $TURBO8051_PROJ/rtl/gmac/crc32/g_tx_crc32.v
 $TURBO8051_PROJ/rtl/lib/async_fifo.v
+$TURBO8051_PROJ/rtl/lib/g_dpath_ctrl.v
 
 //-------------------------------------
 // SPI File List
@@ -46,7 +47,6 @@ $TURBO8051_PROJ/rtl/lib/clk_ctl.v
 $TURBO8051_PROJ/rtl/lib/wb_crossbar.v
 $TURBO8051_PROJ/rtl/lib/wb_rd_mem2mem.v
 $TURBO8051_PROJ/rtl/lib/wb_wr_mem2mem.v
-$TURBO8051_PROJ/rtl/lib/dpath_ctrl.v
 
 
 //------------------------------------

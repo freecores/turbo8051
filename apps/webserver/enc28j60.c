@@ -144,7 +144,7 @@ void enc28j60_packet_send ( BYTE *buffer, WORD length )
 // Function : enc28j60_mac_is_linked
 // Description : return MAC link status.
 //
-//*******************************************************************************************
+/*******************************************************************************************
 /*
 BYTE enc28j60_mac_is_linked(void)
 {

@@ -20,3 +20,18 @@
 `define TB_AGENTS_GMAC  `TB_TOP.u_tb_eth
 `define TB_AGENTS_UART  `TB_TOP.tb_uart
 
+
+//--------------------------------------------------------------
+// Target ID Mapping
+// 4'b0100 -- MAC core
+// 4'b0011 -- UART
+// 4'b0010 -- SPI core
+// 4'b0001 -- External RAM
+// 4'b0000 -- External ROM
+//--------------------------------------------------------------
+`define ADDR_SPACE_MAC  4'b0100 
+`define ADDR_SPACE_UART 4'b0011 
+`define ADDR_SPACE_SPI  4'b0010 
+`define ADDR_SPACE_RAM  4'b0001 
+`define ADDR_SPACE_ROM  4'b0000 
+

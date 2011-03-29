@@ -13,9 +13,9 @@ MODULES = main.rel menu.rel ip.rel lcd.rel tcp.rel udp.rel icmp.rel http.rel eth
 #main.rel: main.c
 #	sdcc $(SDCCFLAGS) -c $<
 
-all: turbo8051.hex
+all: main.hex
 
-turbo8051.hex :: $(MODULES)
+main.hex : $(MODULES)
 	sdcc $(SDCCFLAGS) $(ASLINKFLAGS) $(MODULES)
 	packihx main.ihx > turbo8051.hex
 

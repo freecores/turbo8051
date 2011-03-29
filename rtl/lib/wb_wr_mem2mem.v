@@ -58,6 +58,14 @@ module wb_wr_mem2mem (
               mem_aempty          ,
               mem_rd              , 
               mem_dout            ,
+              mem_eop             ,
+
+              cfg_desc_baddr      ,
+              desc_req            ,
+              desc_ack            ,
+              desc_disccard       ,
+              desc_data           ,
+
  
     // Slave Interface Signal
               wbo_din             , 
@@ -79,8 +87,10 @@ parameter ADR_WD  = 28; // Address Width
 parameter TAR_WD  = 4;  // Target Width
 
 // State Machine
-parameter   IDLE = 0;
-parameter   XFR  = 1;
+parameter   IDLE       = 2'h0;
+parameter   XFR        = 2'h1;
+parameter   DESC_WAIT  = 2'h2;
+parameter   DESC_XFR   = 2'h3;
 
 input               clk      ;  // CLK_I The clock input [CLK_I] coordinates all activities 
                                 // for the internal logic within the WISHBONE interconnect. 
@@ -101,6 +111,16 @@ input               mem_empty;  // memory empty
 input               mem_aempty; // memory empty 
 output              mem_rd;     // memory read
 input  [7:0]        mem_dout;   // memory read data
+input               mem_eop;    // Last Transfer indication
+
+//----------------------------------------
+// Discriptor defination
+//----------------------------------------
+input              desc_req;    // descriptor request
+output             desc_ack;    // descriptor ack
+input              desc_disccard;// descriptor discard
+input [15:6]       cfg_desc_baddr;  // descriptor memory base address
+input [31:0]       desc_data;   // descriptor data
 
 //------------------------------------------
 // External Memory WB Interface
@@ -177,10 +197,12 @@ reg                  wbo_we    ;
 reg [BE_WD-1:0]      wbo_be    ;
 reg                  wbo_cyc   ;
 reg [D_WD-1:0]       wbo_din   ;
-reg                  state     ;
+reg [1:0]            state     ;
 
-reg                  mem_rd ;
-
+reg                  mem_rd    ;
+reg [3:0]            desc_ptr  ; // descriptor pointer, in 32 bit mode
+reg                  mem_eop_l ; // delayed eop signal
+reg                  desc_ack  ; // delayed eop signal
 
 always @(negedge rst_n or posedge clk) begin
    if(rst_n == 0) begin
@@ -192,11 +214,15 @@ always @(negedge rst_n or posedge clk) begin
       wbo_cyc   <= 0;
       wbo_din   <= 0;
       mem_rd    <= 0;
+      desc_ptr  <= 0;
+      mem_eop_l <= 0;
+      desc_ack  <= 0;
       state     <= IDLE;
    end
    else begin
       case(state)
        IDLE: begin
+          desc_ack <= 0;
           if(!mem_empty) begin
              wbo_taddr <= mem_taddr;
              wbo_addr  <= mem_addr[14:2];
@@ -205,16 +231,21 @@ always @(negedge rst_n or posedge clk) begin
              wbo_be    <= 1 << mem_addr[1:0];
              wbo_cyc   <= 1;
              wbo_din   <= {mem_dout,mem_dout,mem_dout,mem_dout};
+             mem_eop_l <= mem_eop;
              mem_rd    <= 1;
              state     <= XFR;
           end
        end
        XFR: begin
           if(wbo_ack) begin
+             mem_eop_l <= mem_eop;
              wbo_addr  <= mem_addr[14:2];
              wbo_be    <= 1 << mem_addr[1:0];
              wbo_din   <= {mem_dout,mem_dout,mem_dout,mem_dout};
-             if(mem_aempty || mem_empty) begin
+             if(mem_eop_l) begin
+                state <= DESC_WAIT;
+             end
+             else if(mem_aempty || mem_empty) begin
                 wbo_stb   <= 1'b0;
                 wbo_cyc   <= 0;
                 state     <= IDLE;
@@ -225,6 +256,33 @@ always @(negedge rst_n or posedge clk) begin
              mem_rd <= 0;
           end 
        end
+       DESC_WAIT: begin
+          if(desc_req) begin
+             desc_ack    <= 1;
+             if(desc_disccard) begin // if the Desc is discarded
+                state     <= IDLE;
+             end
+             else begin
+                wbo_addr  <= {cfg_desc_baddr[15:6],desc_ptr[3:0]}; // Each Transfer is 32bit
+                wbo_be    <= 4'hF;
+                wbo_din   <= desc_data;
+                wbo_we    <= 1'b1;
+                wbo_stb   <= 1'b1;
+                wbo_cyc   <= 1;
+                state     <= DESC_XFR;
+                desc_ptr  <= desc_ptr+1;
+             end
+          end
+       end
+       DESC_XFR: begin
+           desc_ack <= 0;
+          if(wbo_ack) begin
+              wbo_stb   <= 1'b0;
+              wbo_cyc   <= 1'b0;
+              state     <= IDLE;
+          end 
+       end
+
       endcase
    end
 end
