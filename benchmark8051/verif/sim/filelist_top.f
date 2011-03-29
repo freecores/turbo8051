@@ -2,6 +2,8 @@
 +incdir+../../rtl
 +incdir+../tb
 +define+OC8051_SIMULATION
++define+SIGNALSCAN
+//+define+DEBUSSY
 ../tb/oc8051_tb.v
 ../tb/oc8051_xram.v
 ../tb/oc8051_uart_test.v

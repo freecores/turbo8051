@@ -344,6 +344,7 @@ initial
   $readmemb("./dat/oc8051_ea.in", ea);
 
 
+`ifdef DEBUGGSY
 initial begin
    if ( $test$plusargs("DUMP") ) begin
           $fsdbDumpfile("test_1.fsdb");
@@ -351,6 +352,18 @@ initial begin
       $fsdbDumpon;
    end
 end
+`elsif SIGNALSCAN
+initial begin
+      $shm_open("test_1.trn");
+      $shm_probe("AC",oc8051_tb);
+end
+`else
+initial begin
+   $dumpfile("test_1.vcd");
+   $dumpvars(0,oc8051_tb);
+end
+
+`endif
 
 
 
