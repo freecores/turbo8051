@@ -10,7 +10,7 @@ set all_testsm = 0;
 set all_testsi = 0;
 set all_testsx = 0;
 
-set misc_tests=(gmac_test_1 uart_test_1 spi_test_1)
+set misc_tests=(gmac_test_2 gmac_test_1 uart_test_1 spi_test_1)
 #set misc_tests=( )
 
 set risc_ext_tests=(fib divmul sort gcd cast xram)

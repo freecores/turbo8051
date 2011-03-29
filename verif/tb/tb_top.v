@@ -409,6 +409,8 @@ initial begin
 
    if ( $test$plusargs("gmac_test_1") ) 
        gmac_test1();
+   else if ( $test$plusargs("gmac_test_2") ) 
+       gmac_test2();
    else if ( $test$plusargs("uart_test_1") ) 
        uart_test1();
    else if ( $test$plusargs("spi_test_1") ) 
@@ -448,6 +450,7 @@ end
 
 
 `include "gmac_test1.v"
+`include "gmac_test2.v"
 `include "uart_test1.v"
 `include "spi_test1.v"
 `include "tb_tasks.v"
