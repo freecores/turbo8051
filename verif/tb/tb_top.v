@@ -405,12 +405,16 @@ initial begin
    end
 
   `TB_GLBL.init;
+
+   // test case, which has control before reset
+   if ( $test$plusargs("gmac_test_2") ) 
+       gmac_test2();
+
    #1000 wait(reset_out_n == 1);
 
+   // test case, which has control after reset
    if ( $test$plusargs("gmac_test_1") ) 
        gmac_test1();
-   else if ( $test$plusargs("gmac_test_2") ) 
-       gmac_test2();
    else if ( $test$plusargs("uart_test_1") ) 
        uart_test1();
    else if ( $test$plusargs("spi_test_1") ) 

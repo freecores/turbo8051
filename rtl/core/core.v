@@ -315,7 +315,17 @@ assign     wbd_risc_rdata = (wbd_risc_adr[1:0] == 2'b00) ? wb_master2_rdata[7:0]
                             (wbd_risc_adr[1:0] == 2'b10) ? wb_master2_rdata[23:16]: 
                             wb_master2_rdata[31:24];
 
-wire [3:0] wbd_tar_id     = wbd_risc_adr[15:13] +1;
+//------------------------------
+// RISC Data Memory Map
+// 0x0000 to 0x7FFFF  - Data Memory
+// 0x8000 to 0x8FFF   - SPI 
+// 0x9000 to 0x9FFF   - UART
+// 0xA000 to 0xAFFF   - MAC Core
+//-----------------------------
+// 
+wire [3:0] wbd_tar_id     = (wbd_risc_adr[15]    == 1'b0 ) ? 4'b0001 :
+                            (wbd_risc_adr[15:12] == 4'b1000 ) ? 4'b0010 :
+                            (wbd_risc_adr[15:12] == 4'b1001 ) ? 4'b0011 : 4'b0100;
 
 wb_crossbar #(5,5,32,4,13,4) u_wb_crossbar (
 
