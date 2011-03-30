@@ -13,9 +13,9 @@
 char cErrCnt;
 /*---------------------------------------------------------------------------*/
 
-__xdata __at (0x30) unsigned int read_data;
-__xdata __at (0x34) unsigned int tx_des_base;
-__xdata __at (0x38) unsigned int rx_des_base;
+__xdata __at (0xA030) unsigned int read_data;
+__xdata unsigned int *rx_des_base;
+__xdata unsigned int *tx_des_base;
 
 void main() {
     
@@ -27,9 +27,14 @@ void main() {
           // Read the Receive Descriptor
           // tb_top.cpu_read('h4,{desc_rx_qbase,desc_ptr},read_data); 
           // Write the Tx Descriptor
-          rx_des_base = tx_des_base;
+          rx_des_base = (__xdata unsigned int *) 0x7000;
+          tx_des_base = (__xdata unsigned int *) 0x7040;
+          //rx_des_base = (__xdata unsigned int *) (0x7000+desc_ptr);
+          //tx_des_base = (__xdata unsigned int *) (0x7040+desc_ptr);
+          //__xdata (int *) (0x7040+desc_ptr) = __xdata (int *)(0x7000+desc_ptr);
           // tb_top.cpu_write('h4,{desc_tx_qbase,desc_ptr},read_data); 
-          desc_ptr = desc_ptr+1;
+          *tx_des_base = *rx_des_base;
+          desc_ptr = desc_ptr+4;
           cFrameCnt  = cFrameCnt+1;
          }
     }
