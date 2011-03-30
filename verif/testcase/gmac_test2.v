@@ -49,27 +49,16 @@ reg [7:0]  iFrmCnt;
    
    fork
      tb_top.u_tb_eth.transmit_packet_sequence(10, 96, 1, 500000);
+     $display("Status: End of Transmission Loop");
      begin
          tb_top.u_tb_eth.wait_for_event(3, 0);
          tb_top.u_tb_eth.wait_for_event(3, 0);
+         $display("Status: End of Waiting Event Loop");
      end
-     //begin
-     //   while(iFrmCnt != 10) begin
-     //     tb_top.cpu_read('h1,8'h30,read_data); // Tx/Rx Counter
-     //     if(read_data[3:0] != 0) begin // Check the Rx Q Counter
-     //         // Read the Receive Descriptor
-     //         tb_top.cpu_read('h4,{desc_rx_qbase,desc_ptr},read_data); 
-     //         // Write the Tx Descriptor
-     //         tb_top.cpu_write('h4,{desc_tx_qbase,desc_ptr},read_data); 
-     //         desc_ptr = desc_ptr+1;
-     //         iFrmCnt  = iFrmCnt+1;
-     //     end
-     //     #1000;
-     //  end
-     //end
    join
 
   #100000;
+  $display("Status: End of Waiting Delay Loop");
 
   `TB_AGENTS_GMAC.full_mii.status; // test status
 

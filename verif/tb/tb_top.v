@@ -110,7 +110,7 @@ wire [7:0]   phy_rxd            ;
 reg                reg_cs     ;
 reg [3:0]          reg_id     ;
 reg                reg_wr         ;
-reg  [12:0]        reg_addr       ;
+reg  [14:0]        reg_addr       ;
 reg  [31:0]        reg_wdata      ;
 reg  [3:0]         reg_be         ;
 
@@ -174,7 +174,7 @@ turbo8051  u_core (
              . ext_reg_cs          (reg_cs             ),
              . ext_reg_tid         (reg_id             ),
              . ext_reg_wr          (reg_wr             ),
-             . ext_reg_addr        (reg_addr[12:0]     ),
+             . ext_reg_addr        (reg_addr[14:0]     ),
              . ext_reg_wdata       (reg_wdata          ),
              . ext_reg_be          (reg_be             ),
 
@@ -419,7 +419,7 @@ initial begin
        uart_test1();
    else if ( $test$plusargs("spi_test_1") ) 
        spi_test1();
-   else begin
+   else if ( !$test$plusargs("gmac_test_2") ) begin
      // 8051 Test Cases
      #80000000
      $display("time ",$time, "\n faulire: end of time\n \n");

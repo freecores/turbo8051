@@ -99,7 +99,7 @@ output           reset_out_n           ; // clock output
 input            ext_reg_cs            ;
 input            ext_reg_wr            ;
 input [3:0]      ext_reg_tid           ;
-input [12:0]     ext_reg_addr          ;
+input [14:0]     ext_reg_addr          ;
 input [31:0]     ext_reg_wdata         ;
 input [3:0]      ext_reg_be            ;
 
@@ -199,19 +199,19 @@ wire    [15:0]   wbd_risc_adr           ;
 wire    [7:0]    wbd_risc_rdata         ;
 wire    [7:0]    wbd_risc_wdata         ;
            
-wire    [12:0]   reg_mac_addr           ;
+wire    [14:0]   reg_mac_addr           ;
 wire    [31:0]   reg_mac_wdata          ;
 wire    [3:0]    reg_mac_be             ;
 wire    [31:0]   reg_mac_rdata          ;
 wire             reg_mac_ack            ;
 
-wire    [12:0]   reg_uart_addr          ;
+wire    [14:0]   reg_uart_addr          ;
 wire    [31:0]   reg_uart_wdata         ;
 wire    [3:0]    reg_uart_be            ;
 wire    [31:0]   reg_uart_rdata         ;
 wire             reg_uart_ack           ;
                                           
-wire    [12:0]   reg_spi_addr           ;
+wire    [14:0]   reg_spi_addr           ;
 wire    [31:0]   reg_spi_wdata          ;
 wire    [3:0]    reg_spi_be             ;
 wire    [31:0]   reg_spi_rdata          ;
@@ -273,10 +273,10 @@ wire [9:0] cfg_rx_buf_qbase_addr;
 
 // QCounter Inc/dec generation
 
-wire tx_qcnt_inc = (cfg_tx_buf_qbase_addr == wb_xram_adr[15:6]) & wb_xram_stb & wb_xram_wr & wb_xram_ack;
-wire tx_qcnt_dec = (cfg_tx_buf_qbase_addr == wb_xram_adr[15:6]) & wb_xram_stb & !wb_xram_wr & wb_xram_ack;
-wire rx_qcnt_inc = (cfg_rx_buf_qbase_addr == wb_xram_adr[15:6]) & wb_xram_stb & wb_xram_wr & wb_xram_ack;
-wire rx_qcnt_dec = (cfg_rx_buf_qbase_addr == wb_xram_adr[15:6]) & wb_xram_stb & !wb_xram_wr & wb_xram_ack;
+wire tx_qcnt_inc = (cfg_tx_buf_qbase_addr == wb_xram_adr[15:6]) & wb_xram_stb & wb_xram_wr & wb_xram_ack && (wb_xram_be[3] == 1'b1);
+wire tx_qcnt_dec = (cfg_tx_buf_qbase_addr == wb_xram_adr[15:6]) & wb_xram_stb & !wb_xram_wr & wb_xram_ack && (wb_xram_be[3] == 1'b1);
+wire rx_qcnt_inc = (cfg_rx_buf_qbase_addr == wb_xram_adr[15:6]) & wb_xram_stb & wb_xram_wr & wb_xram_ack && (wb_xram_be[3] == 1'b1);
+wire rx_qcnt_dec = (cfg_rx_buf_qbase_addr == wb_xram_adr[15:6]) & wb_xram_stb & !wb_xram_wr & wb_xram_ack && (wb_xram_be[3] == 1'b1);
 
 //-------------------------------------------
 // clock-gen  instantiation
@@ -355,8 +355,8 @@ wb_crossbar #(5,5,32,4,13,4) u_wb_crossbar (
                                           wbgr_dout}
                                            ),
               .wbd_adr_master           ({wbi_risc_adr[12:0],
-                                          wbd_risc_adr[12:0],
-                                          ext_reg_addr[12:0],
+                                          wbd_risc_adr[14:2],
+                                          ext_reg_addr[14:2],
                                           wbgt_addr,
                                           wbgr_addr}
                                           ), 
@@ -400,9 +400,9 @@ wb_crossbar #(5,5,32,4,13,4) u_wb_crossbar (
                                           {wb_xram_rdata},
                                           wb_xrom_rdata
                                          }),
-              .wbd_adr_slave            ({reg_mac_addr,
-                                          reg_uart_addr,
-                                          reg_spi_addr,
+              .wbd_adr_slave            ({reg_mac_addr[14:2],
+                                          reg_uart_addr[14:2],
+                                          reg_spi_addr[14:2],
                                           wb_xram_adr[14:2],
                                           wb_xrom_adr[12:0]}
                                         ), 
@@ -602,7 +602,7 @@ uart_core  u_uart_core
         // Reg Bus Interface Signal
           . reg_cs                      (reg_uart_cs           ),
           . reg_wr                      (reg_uart_wr           ),
-          . reg_addr                    (reg_uart_addr         ),
+          . reg_addr                    (reg_uart_addr[4:2]    ),
           . reg_wdata                   (reg_uart_wdata        ),
           . reg_be                      (reg_uart_be           ),
 

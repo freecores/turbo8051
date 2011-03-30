@@ -50,9 +50,9 @@ reg [7:0]  iFrmCnt;
           tb_top.cpu_read('h1,8'h30,read_data); // Tx/Rx Counter
           if(read_data[3:0] != 0) begin // Check the Rx Q Counter
               // Read the Receive Descriptor
-              tb_top.cpu_read('h4,{desc_rx_qbase,desc_ptr},read_data); 
+              tb_top.cpu_read('h4,{desc_rx_qbase,desc_ptr,2'b0},read_data); 
               // Write the Tx Descriptor
-              tb_top.cpu_write('h4,{desc_tx_qbase,desc_ptr},read_data); 
+              tb_top.cpu_write('h4,{desc_tx_qbase,desc_ptr,2'b0},read_data); 
               desc_ptr = desc_ptr+1;
               iFrmCnt  = iFrmCnt+1;
           end
