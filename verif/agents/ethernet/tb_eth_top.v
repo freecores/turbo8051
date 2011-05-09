@@ -161,7 +161,7 @@ module tb_eth_top(
 				       mii_collision_counter; // for normal cols
    reg         mii_SFD_received;
 
-   reg [31:0] event_file;
+//   wire [31:0] event_file;
    /* MII port instantiations */
    /* Comment out unnecessary interfaces to save simulation cycles */
 

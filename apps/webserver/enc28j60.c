@@ -1,6 +1,14 @@
 //********************************************************************************************
 //
-// File : enc28j60.c Microchip ENC28J60 Ethernet Interface Driver
+// YagnaInnWebServer firmware 
+//
+// Author(s) : Dinesh Annayya, dinesha@opencores.org   
+// Website   : http://www.yagnainn.com/
+// MCU       : Open Core 8051 @ 50Mhz
+// Version   : 1.0
+//********************************************************************************************
+//
+// File : ethDriver.c Ethernet Driver for Yagna Innovation -WebBrowser development board.
 //
 //********************************************************************************************
 //
@@ -35,6 +43,10 @@
 //}enc28j60_flag;
 static BYTE Enc28j60Bank;
 static WORD_BYTES next_packet_ptr;
+unsigned int iRxFrmCnt = 0;
+unsigned int iTxFrmCnt = 0;
+unsigned int iRxDescPtr= 0;
+unsigned int iTxDescPtr= 0;
 
 //*******************************************************************************************
 //
@@ -136,8 +148,23 @@ BYTE enc28j60getrev(void)
 // Description : Send packet to network.
 //
 //*******************************************************************************************
-void enc28j60_packet_send ( BYTE *buffer, WORD length )
+void enc28j60_packet_send ( XBYTE *buffer, WORD length )
 {
+    WORD_BYTES iRxFrmStatus, data_length;
+   __xdata __at (0xA030) unsigned int iMacRxFrmCnt;
+   XDWORD *pTxDesPtr;
+   __xdata unsigned int  tDataPtr; // Temp DataPointer
+
+    pTxDesPtr = (XDWORD *) (0x7040 | iTxDescPtr);
+    //*pTxDesPtr = (length & 0xFFF) ;
+    *pTxDesPtr = (XDWORD ) buffer ;
+    *pTxDesPtr = (*pTxDesPtr >> 2); // Aligned 32 bit addressing
+    *pTxDesPtr = (*pTxDesPtr << 12); // Move to Address Position
+    *pTxDesPtr |= (length & 0xFFF); 
+//    *pTxDesPtr |= ((buffer << 12) & 0x3FFF000);
+    iTxDescPtr = (iTxDescPtr+4) & 0x3F;
+    iTxFrmCnt  = iRxFrmCnt+1;
+
 }
 //*******************************************************************************************
 //
@@ -156,13 +183,32 @@ BYTE enc28j60_mac_is_linked(void)
 */
 //*******************************************************************************************
 //
-// Function : enc28j60_packet_receive
+// Function : ethPakcetReceive
 // Description : check received packet and return length of data
 //
 //*******************************************************************************************
 //WORD data_length;
 WORD enc28j60_packet_receive ( BYTE *rxtx_buffer, WORD max_length )
 {
-	return( 0 );
+    WORD_BYTES iRxFrmStatus, data_length;
+   __xdata __at (0xA030) unsigned int iMacRxFrmCnt;
+   __xdata unsigned long *pRxDesPtr;
+
+
+    // check if a packet has been received and buffered
+    if((iMacRxFrmCnt & 0xF) != 0) { // Check the Rx Q Counter
+       pRxDesPtr = (__xdata unsigned long *) (0x7000 | iRxDescPtr);
+       data_length.word = *pRxDesPtr & 0xFFF; // Last 12 bit indicate the Length of the Packet
+       rxtx_buffer = ((*pRxDesPtr >> 12) & 0x3FFF) << 2 ; // 32 bit Aligned Address
+       iRxFrmStatus.word= *pRxDesPtr >> 26; // Upper 6 Bit Inidcate the Rx Status
+       iRxDescPtr = (iRxDescPtr+4) & 0x3F;
+       iRxFrmCnt  = iRxFrmCnt+1;
+
+    }
+    if ( data_length.word > (max_length-1) )
+    {
+      data_length.word= max_length-1;
+    }
+    return( data_length.word );
 }
 

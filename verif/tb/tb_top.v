@@ -57,7 +57,7 @@ reg    ref_clk_50;
 reg    uart_clk_16x;
 
 
-parameter XTAL_CLK_PERIOD = 40; // 25Mhz
+parameter XTAL_CLK_PERIOD = 10; // 100MHZ 40; // 25Mhz
 parameter APP_CLK_PERIOD = 10;
 parameter REF_CLK_125_PERIOD = 8;
 parameter REF_CLK_50_PERIOD = 20;
@@ -383,6 +383,7 @@ spi_agent_3120 spi_agent_3120_1 (
 tb_glbl  tb_glbl ();
 
 
+`ifdef DUMP_ENABLE
 initial begin
    if ( $test$plusargs("DUMP") ) begin
           $fsdbDumpfile("../dump/test_1.fsdb");
@@ -390,6 +391,7 @@ initial begin
       $fsdbDumpon;
    end
 end
+`endif
 
 initial begin
 

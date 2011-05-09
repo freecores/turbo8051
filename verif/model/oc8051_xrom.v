@@ -52,6 +52,7 @@
 //
 //
 
+`timescale  1ns/1ps
 module oc8051_xrom (rst, clk, addr, data, stb_i, cyc_i, ack_o);
 
 parameter DELAY=5;

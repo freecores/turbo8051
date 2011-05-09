@@ -421,7 +421,7 @@ generic_register #(8,0  ) u_mac_cntrl_reg_2 (
 
  generic_register #(8,0  )  u_mac_cntrl_reg_3 (
 	      .we            ({8{sw_wr_en_0 & wr_be[2] }}),		 
-	      .data_in       (reg_wdata[3:0]    ),
+	      .data_in       (reg_wdata[7:0]    ),
 	      .reset_n       (app_reset_n         ),
 	      .clk           (app_clk             ),
 	      
@@ -449,13 +449,15 @@ generic_register #(8,0  ) u_mac_cntrl_reg_2 (
   assign cf_chk_rx_dfl       = mac_cntrl_out_2[4];
   assign cf2rx_runt_pkt_en   = mac_cntrl_out_2[6];
 
-assign reg_0[23:0] = {tx_buf_base_addr[3:0],
+assign reg_0[31:0] = {8'h0,tx_buf_base_addr[3:0],
                       rx_buf_base_addr[3:0],
                       mac_cntrl_out_2[7:0],
                       mac_cntrl_out_1[7:0]};
 
 
 // reg1 free
+assign reg_1[31:0] = 32'h0;
+
 //========================================================================//
   //TRANSMIT DEFFERAL CONTROL REGISTER: Address value 08H
   //BIT[7:0] = Defferal TX
@@ -486,7 +488,7 @@ assign reg_0[23:0] = {tx_buf_base_addr[3:0],
           );
   assign cf2df_dfl_single_rx = dfl_params_rx_out[7:0];
   
-assign reg_2[15:0] = {dfl_params_rx_out,dfl_params1_out};
+assign reg_2[15:0] = {16'h0,dfl_params_rx_out,dfl_params1_out};
   
   //========================================================================//
   // MAC_MODE  REGISTER: Address value 0CH
@@ -516,7 +518,7 @@ assign reg_2[15:0] = {dfl_params_rx_out,dfl_params1_out};
   assign cfg_uni_mac_mode_change_i    = mac_mode_out[7];
 
 
-assign reg_3[7:0] = {mac_mode_out};
+assign reg_3[31:0] = {24'h0,mac_mode_out};
   //========================================================================//
   //MDIO COMMAND REGISTER: ADDRESS 10H
   //BIT[15:0] = MDIO DATA TO PHY
@@ -693,7 +695,7 @@ req_register #(0  ) u_mdio_req (
                        mac_sa_out_3, mac_sa_out_2, mac_sa_out_1};
 
   assign reg_6[31:0] = cf_mac_sa[31:0];
-  assign reg_7[15:0] = cf_mac_sa[47:32];
+  assign reg_7[31:0] = {16'h0,cf_mac_sa[47:32]};
 //========================================================================//
 //MAC max packet size Register 20
 
@@ -717,14 +719,14 @@ req_register #(0  ) u_mdio_req (
 	      .data_out      (cf2rx_max_pkt_sz[15:8] )
           );
 
-  assign reg_8[15:0] = cf2rx_max_pkt_sz[15:0];
+  assign reg_8[31:0] = {16'h0,cf2rx_max_pkt_sz[15:0]};
 
 
 //========================================================================//
 //MAC max packet size Register 20
 
   generic_register #(2,0  )  m_rx_qbase_addr_1 (
-	      .we            ({8{sw_wr_en_9 & wr_be[0] }}),		 
+	      .we            ({2{sw_wr_en_9 & wr_be[0] }}),		 
 	      .data_in       (reg_wdata[7:6]    ),
 	      .reset_n       (app_reset_n         ),
 	      .clk           (app_clk             ),
@@ -745,7 +747,7 @@ req_register #(0  ) u_mdio_req (
 
 
   generic_register #(2,0  ) m_tx_qbase_addr_1 (
-	      .we            ({8{sw_wr_en_9 & wr_be[2] }}),		 
+	      .we            ({2{sw_wr_en_9 & wr_be[2] }}),		 
 	      .data_in       (reg_wdata[23:22]    ),
 	      .reset_n       (app_reset_n         ),
 	      .clk           (app_clk             ),
@@ -828,9 +830,11 @@ stat_counter #(16) u_stat_tx_good_frm (
 
          . cntr_intr        (                  ),
          . cntrout          (reg_11[15:0]      )
-   ); 
+   );
 
-// reg_12 & reg_13 is free
+assign reg_11[31:16] = 16'h0;
+ 
+// reg_12 & reg_13 
 
 stat_counter #(4) u_rx_qcnt (
    // Clock and Reset Signals
@@ -864,8 +868,9 @@ stat_counter #(4) u_tx_qcnt (
          . cntrout          (tx_qcnt           )
    ); 
 
-assign reg_12[7:0]  = {4'h0,rx_qcnt[3:0]};
-assign reg_12[15:8] = {4'h0,tx_qcnt[3:0]};
+assign reg_12[7:0]   = {4'h0,rx_qcnt[3:0]};
+assign reg_12[15:8]  = {4'h0,tx_qcnt[3:0]};
+assign reg_12[31:16] = {16'h0};
 
 generic_intr_stat_reg	#(9) u_intr_stat (
 		 //inputs
@@ -880,6 +885,7 @@ generic_intr_stat_reg	#(9) u_intr_stat (
 		 . data_out         (reg_13[8:0]                 ) 
 	      );
 
+assign reg_13[31:8] = 23'h0;
 
 // IP SA [31:0]
 
@@ -924,6 +930,8 @@ generic_intr_stat_reg	#(9) u_intr_stat (
 	      .data_out      (cfg_ip_sa[31:24] )
           );
 
+assign reg_14 = cfg_ip_sa[31:0];
+
 // Mac filter
 
   generic_register #(8,0  ) u_mac_filter_0 (
@@ -966,6 +974,8 @@ generic_intr_stat_reg	#(9) u_intr_stat (
 	      //List of Outs
 	      .data_out      (cfg_mac_filter[31:24] )
           );
+
+assign reg_15 = cfg_mac_filter[31:0];
 endmodule 
 
 

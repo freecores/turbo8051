@@ -139,7 +139,8 @@ always @(negedge rst_n or posedge clk) begin
          g_rx_mem_addr_int <= g_rx_saddr;
       end else if(g_rx_mem_rd && g_rx_mem_eop) begin
          // Realign to 32 bit boundary and add one free space at eop
-         g_rx_mem_addr_int <= g_rx_mem_addr_int+4-g_rx_mem_addr_int[1:0];
+         g_rx_mem_addr_int[1:0]  <= 0;
+         g_rx_mem_addr_int[11:2] <= g_rx_mem_addr_int[11:2]+1;
       end else if(g_rx_mem_rd ) begin
          g_rx_mem_addr_int <= g_rx_mem_addr_int+1;
       end

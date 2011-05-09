@@ -364,7 +364,7 @@ always @(negedge rst_n or posedge clk) begin
                slave_busy[cur_target_id]   = 1;
                master_busy[i]              = 1;
                // synopsys translate_off
-               $display("%m:%t: Locking Master : %d with Slave : %d",$time,i,cur_target_id);
+               // $display("%m:%t: Locking Master : %d with Slave : %d",$time,i,cur_target_id);
                // synopsys translate_on
             end
          end else if(wbd_cyc_master[i] == 0) begin

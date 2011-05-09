@@ -87,10 +87,14 @@ parameter ADR_WD  = 28; // Address Width
 parameter TAR_WD  = 4;  // Target Width
 
 // State Machine
-parameter   IDLE       = 2'h0;
-parameter   XFR        = 2'h1;
-parameter   DESC_WAIT  = 2'h2;
-parameter   DESC_XFR   = 2'h3;
+parameter   IDLE       = 3'h0;
+parameter   RD_BYTE1   = 3'h1;
+parameter   RD_BYTE2   = 3'h2;
+parameter   RD_BYTE3   = 3'h3;
+parameter   RD_BYTE4   = 3'h4;
+parameter   WB_XFR     = 3'h5;
+parameter   DESC_WAIT  = 3'h6;
+parameter   DESC_XFR   = 3'h7;
 
 input               clk      ;  // CLK_I The clock input [CLK_I] coordinates all activities 
                                 // for the internal logic within the WISHBONE interconnect. 
@@ -197,13 +201,14 @@ reg                  wbo_we    ;
 reg [BE_WD-1:0]      wbo_be    ;
 reg                  wbo_cyc   ;
 reg [D_WD-1:0]       wbo_din   ;
-reg [1:0]            state     ;
+reg [2:0]            state     ;
 
 reg                  mem_rd    ;
 reg [3:0]            desc_ptr  ; // descriptor pointer, in 32 bit mode
 reg                  mem_eop_l ; // delayed eop signal
 reg                  desc_ack  ; // delayed eop signal
 
+reg  [23:0]  tWrData; // Temp 24 Bit Data
 always @(negedge rst_n or posedge clk) begin
    if(rst_n == 0) begin
       wbo_taddr <= 0;
@@ -217,6 +222,7 @@ always @(negedge rst_n or posedge clk) begin
       desc_ptr  <= 0;
       mem_eop_l <= 0;
       desc_ack  <= 0;
+      tWrData   <= 0;
       state     <= IDLE;
    end
    else begin
@@ -224,38 +230,108 @@ always @(negedge rst_n or posedge clk) begin
        IDLE: begin
           desc_ack <= 0;
           if(!mem_empty) begin
+             mem_rd         <= 1;
+             mem_eop_l      <= 0;
+             tWrData[7:0]   <= mem_dout[7:0];
+             state          <= RD_BYTE1;
+          end
+       end
+       RD_BYTE1: begin // End of First Transfer
+          if(mem_rd && mem_eop) begin
+             mem_rd    <= 0;
+             mem_eop_l <= mem_eop;
              wbo_taddr <= mem_taddr;
              wbo_addr  <= mem_addr[14:2];
              wbo_stb   <= 1'b1;
              wbo_we    <= 1'b1;
-             wbo_be    <= 1 << mem_addr[1:0];
+             wbo_be    <= 4'h1; // Assigned Aligned 32bit address
+             wbo_din   <= {24'h0,mem_dout[7:0]};
              wbo_cyc   <= 1;
-             wbo_din   <= {mem_dout,mem_dout,mem_dout,mem_dout};
-             mem_eop_l <= mem_eop;
+             state     <= WB_XFR;
+          end else if(!(mem_empty || (mem_rd && mem_aempty))) begin
              mem_rd    <= 1;
-             state     <= XFR;
+             state     <= RD_BYTE2;
+          end else begin
+             mem_rd    <= 0;
+          end
+          if(mem_rd) begin
+             tWrData[7:0]   <= mem_dout[7:0];
           end
        end
-       XFR: begin
-          if(wbo_ack) begin
+
+       RD_BYTE2: begin // End of Second Transfer
+          if(mem_rd && mem_eop) begin
+             mem_rd    <= 0;
              mem_eop_l <= mem_eop;
+             wbo_taddr <= mem_taddr;
              wbo_addr  <= mem_addr[14:2];
-             wbo_be    <= 1 << mem_addr[1:0];
-             wbo_din   <= {mem_dout,mem_dout,mem_dout,mem_dout};
-             if(mem_eop_l) begin
-                state <= DESC_WAIT;
-             end
-             else if(mem_aempty || mem_empty) begin
-                wbo_stb   <= 1'b0;
-                wbo_cyc   <= 0;
-                state     <= IDLE;
-             end else begin
-               mem_rd <= 1;
-             end
+             wbo_stb   <= 1'b1;
+             wbo_we    <= 1'b1;
+             wbo_be    <= 4'h3; // Assigned Aligned 32bit address
+             wbo_din   <= {16'h0,mem_dout[7:0],tWrData[7:0]};
+             wbo_cyc   <= 1;
+             state     <= WB_XFR;
+          end else if(!(mem_empty || (mem_rd && mem_aempty))) begin
+             mem_rd    <= 1;
+             state     <= RD_BYTE3;
           end else begin
-             mem_rd <= 0;
+             mem_rd    <= 0;
+          end
+          if(mem_rd) begin
+             tWrData[15:8]   <= mem_dout[7:0];
+          end
+       end
+
+
+       RD_BYTE3: begin // End of Third Transfer
+          if(mem_rd && mem_eop) begin
+             mem_rd    <= 0;
+             mem_eop_l <= mem_eop;
+             wbo_taddr <= mem_taddr;
+             wbo_addr  <= mem_addr[14:2];
+             wbo_stb   <= 1'b1;
+             wbo_we    <= 1'b1;
+             wbo_be    <= 4'h7; // Assigned Aligned 32bit address
+             wbo_din   <= {8'h0,mem_dout[7:0],tWrData[15:0]};
+             wbo_cyc   <= 1;
+             state     <= WB_XFR;
+          end else if(!(mem_empty || (mem_rd && mem_aempty))) begin
+             mem_rd    <= 1;
+             state     <= RD_BYTE4;
+          end else begin
+             mem_rd    <= 0;
+          end
+          if(mem_rd) begin
+             tWrData[23:16]   <= mem_dout[7:0];
+          end
+       end
+
+       RD_BYTE4: begin // End of Fourth Transfer
+             mem_rd    <= 0;
+             mem_eop_l <= mem_eop;
+             wbo_taddr <= mem_taddr;
+             wbo_addr  <= mem_addr[14:2];
+             wbo_stb   <= 1'b1;
+             wbo_we    <= 1'b1;
+             wbo_be    <= 4'hF; // Assigned Aligned 32bit address
+             wbo_din   <= {mem_dout[7:0],tWrData[23:0]};
+             wbo_cyc   <= 1;
+             state     <= WB_XFR;
+       end
+
+       WB_XFR: begin
+          if(wbo_ack) begin
+             wbo_stb   <= 0;
+             wbo_cyc   <= 0;
+             if(mem_eop_l) begin
+                state     <= DESC_WAIT;
+             end else begin
+                state     <= IDLE; // Next Byte
+             end
           end 
        end
+
+
        DESC_WAIT: begin
           if(desc_req) begin
              desc_ack    <= 1;

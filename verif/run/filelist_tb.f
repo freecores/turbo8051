@@ -1,4 +1,4 @@
-$TURBO8051_PROJ/verif/tb/tb_top.v 
+$TURBO8051_PROJ/verif/tb/tb_top.v
 ########################
 # Ethernet Related TB
 ########################

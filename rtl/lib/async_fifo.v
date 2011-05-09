@@ -50,6 +50,7 @@
 //        2. At read clock domain:
 //           rd_total_aval       -->  Indicate total no of transfer available
 //-----------------------------------------------
+`timescale  1ns/1ps
 
 module async_fifo (wr_clk,
                    wr_reset_n,

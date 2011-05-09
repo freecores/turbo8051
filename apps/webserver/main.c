@@ -1,16 +1,15 @@
 //********************************************************************************************
 //
-// AVRnet firmware Version 1.0
+// YagnaInnWebServer firmware Version 1.0
 //
-// MCU : ATMEGA32 @ 16MHz
-// Ethernet controller : ENC28J60
-// IDE & Compiler : AVR Studio version 4.13.528 & WINAVR version 20070122
-// Author : Jirawat Kongkaen
-// Website : http://www.avrportal.com/
+// Author(s) : Dinesh Annayya, dinesha@opencores.org   
+// Website   : http://www.yagnainn.com/
+// MCU       : Open Core 8051 @ 50Mhz
+// Version   : 1.0
 //
 //********************************************************************************************
 //
-// File : main.c main program for AVRnet development board.
+// File : main.c main program for Yagna Innovation -WebBrowser development board.
 //
 //********************************************************************************************
 //
@@ -64,7 +63,7 @@ void server_process ( void )
 	MAC_ADDR client_mac;
 	IP_ADDR client_ip;
 	// you can change rx,tx buffer size in includes.h
-	BYTE rxtx_buffer[MAX_RXTX_BUFFER];
+	BYTE *rxtx_buffer;
 	WORD plen;
 	
 	if ( flag1.bits.syn_is_sent )

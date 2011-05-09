@@ -1,3 +1,6 @@
+
+`timescale  1ns/1ps
+
 module uart_agent (
 	test_clk,
 	sin,

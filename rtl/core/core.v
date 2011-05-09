@@ -452,7 +452,7 @@ g_mac_top u_eth_dut (
         // Reg Bus Interface Signal
           . reg_cs                      (reg_mac_cs            ),
           . reg_wr                      (reg_mac_wr            ),
-          . reg_addr                    (reg_mac_addr[12:2]    ),
+          . reg_addr                    (reg_mac_addr[5:2]     ),
           . reg_wdata                   (reg_mac_wdata         ),
           . reg_be                      (reg_mac_be            ),
 
@@ -532,7 +532,7 @@ wb_rd_mem2mem #(32,4,13,4) u_wb_gmac_tx (
           .desc_q_empty        (tx_q_empty           ),
 
     // Master Interface Signal
-          .mem_taddr           ( 1                  ),
+          .mem_taddr           ( 4'h1               ),
           .mem_full            (app_txfifo_full_o   ),
           .mem_afull           (app_txfifo_afull_o  ),
           .mem_wr              (app_txfifo_wren_i   ), 
@@ -559,7 +559,7 @@ wb_wr_mem2mem #(32,4,13,4) u_wb_gmac_rx(
 
 
     // Master Interface Signal
-          .mem_taddr           ( 1                    ),
+          .mem_taddr           ( 4'h1                 ),
           .mem_addr            (app_rxfifo_addr       ),
           .mem_empty           (app_rxfifo_empty_o    ),
           .mem_aempty          (app_rxfifo_aempty_o   ),
@@ -602,7 +602,7 @@ uart_core  u_uart_core
         // Reg Bus Interface Signal
           . reg_cs                      (reg_uart_cs           ),
           . reg_wr                      (reg_uart_wr           ),
-          . reg_addr                    (reg_uart_addr[4:2]    ),
+          . reg_addr                    (reg_uart_addr[5:2]    ),
           . reg_wdata                   (reg_uart_wdata        ),
           . reg_be                      (reg_uart_be           ),
 
@@ -632,7 +632,7 @@ spi_core u_spi_core (
         // Reg Bus Interface Signal
           . reg_cs                      (reg_spi_cs            ),
           . reg_wr                      (reg_spi_wr            ),
-          . reg_addr                    (reg_spi_addr[12:2]    ),
+          . reg_addr                    (reg_spi_addr[5:2]     ),
           . reg_wdata                   (reg_spi_wdata         ),
           . reg_be                      (reg_spi_be            ),
 

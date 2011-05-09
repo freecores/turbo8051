@@ -95,10 +95,13 @@ parameter TAR_WD  = 4;  // Target Width
 // State Machine Parameter
 //--------------------
 
-parameter IDLE      = 0;
-parameter DESC_RD   = 1;
-parameter DATA_WAIT = 2;
-parameter TXFR      = 3;
+parameter IDLE         = 0;
+parameter DESC_RD      = 1;
+parameter DATA_WAIT    = 2;
+parameter TXFR         = 3;
+parameter MEM_WRITE2   = 4;
+parameter MEM_WRITE3   = 5;
+parameter MEM_WRITE4   = 6;
 
 
 //-------------------------------------------
@@ -199,7 +202,7 @@ input             wbo_rty; // RTY_I The retry input [RTY_I] indicates that the i
 // Register Declration
 //----------------------------------------
 
-reg  [1:0]          state       ;
+reg  [2:0]          state       ;
 reg  [15:0]         cnt         ;
 reg  [TAR_WD-1:0]   wbo_taddr   ;
 reg  [ADR_WD-1:0]   wbo_addr    ;
@@ -209,18 +212,13 @@ reg  [BE_WD-1:0]    wbo_be      ;
 reg                 wbo_cyc     ;
 reg [15:0]          mem_addr    ;
 
-wire           mem_wr       = (state == TXFR) ? wbo_ack: 1'b0 ;
 
-// Generate Next Address, to fix the read to address inc issue
-wire [15:0]    taddr   = mem_addr+1;
 
-assign mem_din[7:0]  = (mem_addr[1:0] == 2'b00) ? wbo_dout[7:0] :
-                       (mem_addr[1:0] == 2'b01) ? wbo_dout[15:8] :
-                       (mem_addr[1:0] == 2'b10) ? wbo_dout[23:16] : wbo_dout[31:24]  ;
-
-assign mem_din[8]    = (cnt == 1) ? 1'b1 : 1'b0; // EOP generation at last transfer
 
 reg [3:0]   desc_ptr;
+reg [23:0]  tWrData; // Temp Write Data
+reg [8:0]   mem_din;
+reg         mem_wr;
 
 always @(negedge rst_n or posedge clk) begin
    if(rst_n == 0) begin
@@ -233,10 +231,14 @@ always @(negedge rst_n or posedge clk) begin
       wbo_cyc     <= 0;
       desc_ptr    <= 0;
       mem_addr    <= 0;
+      mem_din     <= 0;
+      tWrData     <= 0;
+      mem_wr      <= 0;
    end
    else begin
       case(state)
          IDLE: begin
+            mem_wr      <= 0;
             // Check for Descriptor Q not empty
             if(!desc_q_empty) begin
                wbo_taddr   <= mem_taddr;
@@ -262,9 +264,10 @@ always @(negedge rst_n or posedge clk) begin
        end
 
          DATA_WAIT: begin
+            mem_wr          <= 0; // Reset the write for handling interburst
             // check for internal memory not full and initiate
             // the transfer
-            if(!mem_full) begin
+            if(!(mem_full || mem_afull)) begin 
                 wbo_taddr   <= mem_taddr;
                 wbo_addr    <= mem_addr[14:2];
                 wbo_stb     <= 1'b1;
@@ -276,24 +279,66 @@ always @(negedge rst_n or posedge clk) begin
          end
          TXFR: begin
             if(wbo_ack) begin
-               mem_addr     <= mem_addr+1;
+               wbo_cyc      <= 1'b0;
+               wbo_stb      <= 1'b0;
+               mem_addr     <= mem_addr+4;
+               mem_din[7:0] <= wbo_dout[7:0]; // Write First Byte
+               tWrData      <= wbo_dout[31:8];
+               mem_din[8]   <= (cnt == 1) ? 1'b1 : 1'b0; // EOP generation at last transfer
+               mem_wr       <= 1;
                cnt          <= cnt-1;
-               wbo_addr     <= taddr[14:2];
-               wbo_be       <= 4'hF;
                if(cnt == 1) begin
-                  wbo_stb   <= 1'b0;
-                  wbo_cyc   <= 1'b0;
                   state     <= IDLE;
-               end
-               else if(mem_afull) begin // to handle the interburst fifo  full case
-                  wbo_cyc   <= 1'b0;
-                  wbo_stb   <= 1'b0;
+               end else begin
+                  state     <= MEM_WRITE2;
                end 
-            end else if(!mem_full) begin // to handle interbust fifo full cases
-                wbo_cyc     <= 1'b1;
-                wbo_stb     <= 1'b1;
             end
          end
+         MEM_WRITE2: begin // Write 2nd Byte
+            if(!(mem_full || mem_afull)) begin // to handle the interburst fifo  full case
+                mem_din[7:0] <= tWrData[7:0];
+                mem_din[8]   <= (cnt == 1) ? 1'b1 : 1'b0; // EOP generation at last transfer
+                mem_wr       <= 1;
+                cnt          <= cnt-1;
+                if(cnt == 1) begin
+                   state     <= IDLE;
+                end else begin
+                  state     <= MEM_WRITE3;
+                end 
+            end else begin
+               mem_wr        <= 0;
+            end
+         end 
+         MEM_WRITE3: begin // Write 3rd Byte
+            if(!(mem_full || mem_afull)) begin // to handle the interburst fifo  full case
+                mem_din[7:0] <= tWrData[15:8];
+                mem_din[8]   <= (cnt == 1) ? 1'b1 : 1'b0; // EOP generation at last transfer
+                mem_wr       <= 1;
+                cnt          <= cnt-1;
+                if(cnt == 1) begin
+                   state     <= IDLE;
+                end else begin
+                  state     <= MEM_WRITE4;
+                end 
+            end else begin
+               mem_wr        <= 0;
+            end
+         end 
+         MEM_WRITE4: begin // Write 4th Byte
+            if(!(mem_full || mem_afull)) begin // to handle the interburst fifo  full case
+                mem_din[7:0] <= tWrData[23:16];
+                mem_din[8]   <= (cnt == 1) ? 1'b1 : 1'b0; // EOP generation at last transfer
+                mem_wr       <= 1;
+                cnt          <= cnt-1;
+                if(cnt == 1) begin
+                   state     <= IDLE;
+                end else begin
+                  state     <= DATA_WAIT;
+                end 
+            end else begin
+               mem_wr        <= 0;
+            end
+         end 
       endcase
    end
 end

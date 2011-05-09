@@ -56,7 +56,7 @@
 // synopsys translate_off
 `include "oc8051_timescale.v"
 // synopsys translate_on
-
+`include "oc8051_defines.v"
 
 module oc8051_uart_test (clk, rst, addr, wr, wr_bit, data_in, data_out, bit_out, rxd, txd, ow, intr, ack, stb);
 //

@@ -290,7 +290,7 @@ extern WORD enc28j60_read_phyreg(BYTE address);
 extern void enc28j60PhyWrite(BYTE address, WORD data);
 extern void enc28j60_init( BYTE *avr_mac);
 extern BYTE enc28j60getrev(void);
-extern void enc28j60_packet_send ( BYTE *buffer, WORD length );
+extern void enc28j60_packet_send ( XBYTE *buffer, WORD length );
 extern BYTE enc28j60_mac_is_linked(void);
 extern WORD enc28j60_tx_checksum( WORD offset, WORD len );
 extern WORD enc28j60_packet_receive ( BYTE *rxtx_buffer, WORD max_length );

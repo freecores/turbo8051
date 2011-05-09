@@ -2840,7 +2840,6 @@ end
 
 
 `ifdef OC8051_SIMULATION
-
 always @(op_cur)
   if (op_cur===8'hxx) begin
     $display("%m:%0tns faulire: invalid instruction (oc8051_decoder)",$time);
@@ -2848,7 +2847,6 @@ always @(op_cur)
     $finish;
 
   end
-
 
 `endif
 

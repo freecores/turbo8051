@@ -83,15 +83,16 @@ wire          pllout;
 /***********************************************
  Alternal PLL pr-programmed for xtal: 25Mhz , clkout 250Mhz
 *********************************************************/
-
+/*******************
 altera_stargate_pll u_pll (
 	. areset     (!reset_n ),
 	. inclk0     (xtal_clk),
 	. c0         (pllout),
 	. locked     ()
        );
+*************************/
 
-
+assign pllout = xtal_clk;
 
 //---------------------------------------------
 //
@@ -198,7 +199,7 @@ end
 // Generate Application clock 125Mhz
 //----------------------------------
 
-clk_ctl #(2) u_appclk (
+clk_ctl #(1) u_appclk (
    // Outputs
        .clk_o         (app_clk),
    // Inputs
@@ -210,17 +211,18 @@ clk_ctl #(2) u_appclk (
 
 //----------------------------------
 // Generate Uart Ref Clock clock 50Mhz
+// 200Mhz/(2+0) = 50Mhz
 // 250Mhz/(2+3) = 50Mhz
 //----------------------------------
 
-clk_ctl #(3) u_uart_clk (
+clk_ctl #(2) u_uart_clk (
    // Outputs
        .clk_o         (uart_ref_clk),
 
    // Inputs
        .mclk          (pllout      ),
        .reset_n       (gen_resetn  ), 
-       .clk_div_ratio (3'b011      )
+       .clk_div_ratio (3'b000      )
    );
 
 

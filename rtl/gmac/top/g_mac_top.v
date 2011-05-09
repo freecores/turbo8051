@@ -260,6 +260,7 @@ output [3:0]   rx_qcnt    ;
   wire [15:0]   pkt_status;
   wire          app_rxfifo_empty;
   wire          g_rx_block_rxrd;
+  wire [15:0]   g_rx_pkt_status       ; // Packet Status
 
 assign app_rxfifo_empty_o = app_rxfifo_empty | g_rx_block_rxrd;
 g_dpath_ctrl m_g_dpath_ctrl (

@@ -61,6 +61,7 @@
 //
 //
 `include "oc8051_defines.v"
+`include "oc8051_timescale.v"
 
 module oc8051_rom (rst, clk, addr, ea_int, data_o);
 
@@ -896,7 +897,7 @@ assign ea = 1'b0;
 
 initial
 begin
-  $readmemh("../../../bench/in/oc8051_rom.in", buff);
+  $readmemh("./dat/oc8051_xrom.in", buff);
 end
 
 always @(posedge clk or posedge rst)

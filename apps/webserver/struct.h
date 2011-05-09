@@ -29,6 +29,10 @@ typedef unsigned char	BYTE;				// 8-bit
 typedef unsigned int	WORD;				// 16-bit
 typedef unsigned long	DWORD;				// 32-bit
 
+typedef __xdata unsigned char	XBYTE;				// 8-bit
+typedef __xdata unsigned int	XWORD;				// 16-bit
+typedef __xdata unsigned long	XDWORD;				// 32-bit
+
 typedef union _BYTE_BITS
 {
     BYTE byte;
