@@ -129,9 +129,12 @@ void arp_send_request ( BYTE *rxtx_buffer, BYTE *dest_ip )
 	rxtx_buffer[ ARP_OPCODE_H_P ] = ARP_OPCODE_REQUEST_H_V;
 	rxtx_buffer[ ARP_OPCODE_L_P ] = ARP_OPCODE_REQUEST_L_V;
 	arp_generate_packet ( rxtx_buffer, (BYTE*)&dest_mac, dest_ip );
+
+	cDebugReg = 0x10; // Debug 1 
 	
 	// send arp packet to network
-	enc28j60_packet_send ( rxtx_buffer, sizeof(ETH_HEADER) + sizeof(ARP_PACKET) );
+	enc28j60_packet_send ( &rxtx_buffer, sizeof(ETH_HEADER) + sizeof(ARP_PACKET) );
+	cDebugReg = 0x11; // Debug 1
 }
 //*******************************************************************************************
 //
@@ -146,16 +149,21 @@ BYTE arp_packet_is_arp ( BYTE *rxtx_buffer, WORD opcode )
 	// if packet type is not arp packet exit from function
 	if( rxtx_buffer[ ETH_TYPE_H_P ] != ETH_TYPE_ARP_H_V || rxtx_buffer[ ETH_TYPE_L_P ] != ETH_TYPE_ARP_L_V)
 		return 0;
+	
+	cDebugReg = 0x12; // Debug 1
 	// check arp request opcode
 	if ( rxtx_buffer[ ARP_OPCODE_H_P ] != ((opcode >> 8) & 0xFF) || 
        rxtx_buffer[ ARP_OPCODE_L_P ] != (opcode & 0xFF) )
 		return 0;
+	
+	cDebugReg = 0x13; // Debug 1
 	// if destination ip address in arp packet not match with avr ip address
 	for ( i=0; i<sizeof(IP_ADDR); i++ )
 	{
 		if ( rxtx_buffer[ ARP_DST_IP_P + i] != avr_ip.byte[i] )
 			return 0;
 	}
+	cDebugReg = 0x14; // Debug 1
 	return 1;
 }
 //*******************************************************************************************
@@ -164,18 +172,21 @@ BYTE arp_packet_is_arp ( BYTE *rxtx_buffer, WORD opcode )
 // Description : Send reply if recieved packet is ARP and IP address is match with avr_ip
 //
 //*******************************************************************************************
-void arp_send_reply ( BYTE *rxtx_buffer, BYTE *dest_mac )
+void arp_send_reply ( BYTE *rx_buffer, BYTE **tx_buffer, BYTE *dest_mac )
 {
 	// generate ethernet header
-	eth_generate_header ( rxtx_buffer, ETH_TYPE_ARP_V, dest_mac );
+	eth_generate_header ( *tx_buffer, ETH_TYPE_ARP_V, dest_mac );
 
+	cDebugReg = 0x15; // Debug 1 
 	// change packet type to echo reply
-	rxtx_buffer[ ARP_OPCODE_H_P ] = ARP_OPCODE_REPLY_H_V;
-	rxtx_buffer[ ARP_OPCODE_L_P ] = ARP_OPCODE_REPLY_L_V;
-	arp_generate_packet ( rxtx_buffer, dest_mac, &rxtx_buffer[ ARP_SRC_IP_P ] );
+	*tx_buffer[ARP_OPCODE_H_P] = ARP_OPCODE_REPLY_H_V;
+	*tx_buffer[ARP_OPCODE_L_P] = ARP_OPCODE_REPLY_L_V;
+	cDebugReg = 0x16; // Debug 1 
+	arp_generate_packet ( *tx_buffer, dest_mac, rx_buffer[ ARP_SRC_IP_P ] );
 	
+	cDebugReg = 0x17; // Debug 1 
 	// send arp packet
-	enc28j60_packet_send ( rxtx_buffer, sizeof(ETH_HEADER) + sizeof(ARP_PACKET) );
+	enc28j60_packet_send ( &(*tx_buffer), sizeof(ETH_HEADER) + sizeof(ARP_PACKET) );
 }
 //*******************************************************************************************
 //
@@ -191,12 +202,13 @@ BYTE arp_who_is ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 
 	// send arp request packet to network
 	arp_send_request ( rxtx_buffer, dest_ip );
+	cDebugReg = 0x18; // Debug 1 
 
 	for ( i=0; i<10; i++ )
 	{
 		// Time out 10x10ms = 100ms
 		_delay_ms ( 10 );
-		dlength = enc28j60_packet_receive( rxtx_buffer, MAX_RXTX_BUFFER );
+		dlength = enc28j60_packet_receive( &rxtx_buffer, MAX_RXTX_BUFFER );
 
 		// destination ip address was found on network
 		if ( dlength )
@@ -209,6 +221,7 @@ BYTE arp_who_is ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 			}
 		}
 	}
+	cDebugReg = 0x19; // Debug 1 
 	
 	// destination ip was not found on network
 	return 0;

@@ -818,5 +818,37 @@ oc8051_sfr oc8051_sfr1(
 `endif
 
 
+// synopsys translate_on
+// Debug Purpose only
+// Stack Pointer Push & Pop analysis
+reg [7:0]   StackMem[$];
+reg  [7:0]  stack_pop;
+reg  [7:0]  pushpop_cnt;
+
+// Assumption, Both Write and Read access will not be
+// possbile in single clock cycle
+always @(posedge wb_clk_i or posedge wb_rst_i)
+begin
+   if(wb_rst_i) begin
+      pushpop_cnt = 0;
+   end
+   else begin
+      if(ram_wr_sel==`OC8051_RWS_SP) begin
+	    StackMem.push_back(wr_dat);
+	    pushpop_cnt = pushpop_cnt + 1;
+      end
+      if(ram_rd_sel==`OC8051_RRS_SP) begin
+	    stack_pop = StackMem.pop_back();
+	    pushpop_cnt = pushpop_cnt - 1;
+	    #2  // Add 1ns Delay to take care of Ram Dealy
+	    if(stack_pop != ram_data) begin
+              $display("ERROR: Invalid Stack Pointer Pop Detected, Exp: %x,Rxd:%x",stack_pop,ram_data);
+	      $stop;
+	    end
+      end
+   end
+end
+
+// synopsys translate_off
 
 endmodule

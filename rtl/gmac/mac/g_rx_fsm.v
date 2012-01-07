@@ -621,7 +621,7 @@ assign adj_cf2rx_max_pkt_sz = cf2rx_max_pkt_sz;
 	    else if(cf2rx_rcv_runt_pkt_en && first_dword)
 	      begin
 		rx_fsm_nxt_st = rx_fsm_chkval_st;
-		case(rcv_byte_count[2:0]) //synopsys full_case parallel_case
+		case(rcv_byte_count[2:0]) 
 		  3'd1:
 		    begin
 		      if(shift_counter == 3'd4)

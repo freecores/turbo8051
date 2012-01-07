@@ -39,7 +39,7 @@
 #define UDP_DATA_P			0x2A
 
 extern void udp_generate_header ( BYTE *rxtx_buffer, WORD dest_port, WORD length );
-extern WORD udp_puts_data ( BYTE *rxtx_buffer, BYTE *data, WORD offset );
+extern WORD udp_puts_data ( BYTE *rxtx_buffer, BYTE *datap, WORD offset );
 // Need to find out alternative method for 8051 access constant from Program memory - Dinesh.A
 //extern WORD udp_puts_data_p ( BYTE *rxtx_buffer, PGM_P data, WORD offset );
 extern BYTE udp_receive ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip );

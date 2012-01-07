@@ -34,5 +34,5 @@ extern WORD http_home( BYTE *rxtx_buffer );
 extern BYTE http_get_variable ( BYTE *rxtx_buffer, WORD dlength, BYTE *val_key, BYTE *dest );
 extern BYTE http_get_ip ( BYTE *buf, BYTE *dest );
 extern void urldecode( BYTE *urlbuf);
-extern void http_webserver_process ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip );
+extern void http_webserver_process ( BYTE *rx_buffer, BYTE **tx_buffer, BYTE *dest_mac, BYTE *dest_ip );
 extern WORD http_put_request ( BYTE *rxtx_buffer );

@@ -4,6 +4,7 @@
 // synopsys translate_on
 
 
+`include "oc8051_defines.v"
 module turbo8051  (
 
              reset_n                ,
@@ -278,6 +279,9 @@ wire tx_qcnt_dec = (cfg_tx_buf_qbase_addr == wb_xram_adr[15:6]) & wb_xram_stb & 
 wire rx_qcnt_inc = (cfg_rx_buf_qbase_addr == wb_xram_adr[15:6]) & wb_xram_stb & wb_xram_wr & wb_xram_ack && (wb_xram_be[3] == 1'b1);
 wire rx_qcnt_dec = (cfg_rx_buf_qbase_addr == wb_xram_adr[15:6]) & wb_xram_stb & !wb_xram_wr & wb_xram_ack && (wb_xram_be[3] == 1'b1);
 
+assign reg_mac_addr[1:0] = 2'b0;
+assign reg_uart_addr[1:0] = 2'b0;
+assign reg_spi_addr[1:0] = 2'b0;
 //-------------------------------------------
 // clock-gen  instantiation
 //-------------------------------------------
@@ -649,8 +653,6 @@ spi_core u_spi_core (
            );
 
 
-
-`include "oc8051_defines.v"
 
 oc8051_top u_8051_core (
           . wb_rst_i                    (risc_reset            ), 

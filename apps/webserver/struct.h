@@ -174,13 +174,13 @@ typedef struct _ARP_PACKET
 {
 	WORD	    hardware_type;
 	WORD	    protocol_type;
-	BYTE		  hardware_length;
-	BYTE		  protocol_length;
+	BYTE	    hardware_length;
+	BYTE	    protocol_length;
 	WORD	    opcode;
-	MAC_ADDR	src_mac;
-	IP_ADDR		src_ip;
-	MAC_ADDR	dest_mac;
-	IP_ADDR		dest_ip;
+	MAC_ADDR    src_mac;
+	IP_ADDR	    src_ip;
+	MAC_ADDR    dest_mac;
+	IP_ADDR	    dest_ip;
 } ARP_PACKET;
 
 // ICMP packet structure
@@ -246,28 +246,3 @@ typedef struct _UDP_HEADER
 	WORD	checksum;
 } UDP_HEADER;
 
-union flag1
-{
-	BYTE byte;
-	struct
-	{
-		unsigned char key_is_executed:1;
-		unsigned char update_display:1;
-		unsigned char lcd_busy:1;
-		unsigned char key_press:1;
-		unsigned char send_temp:1;
-		unsigned char syn_is_sent:1;
-		unsigned char syn_is_received:1;
-		unsigned char send_temp_timeout:1;
-	}bits;
-}flag1;
-
-union flag2
-{
-	BYTE byte;
-	struct
-	{
-		unsigned char key_hold:1;
-		unsigned char unuse:7;
-	}bits;
-}flag2;

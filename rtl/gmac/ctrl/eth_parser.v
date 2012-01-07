@@ -136,7 +136,7 @@ reg             pkt_done       ; // packet complete indication + Packet Status V
 reg             pkt_drop_ind   ;
 
 
-always @(s_reset_n  or posedge app_clk) begin
+always @(negedge s_reset_n  or posedge app_clk) begin
    if(s_reset_n == 1'b0) begin
       bcnt         <= 0;
       pkt_len      <= 0;
@@ -173,7 +173,7 @@ reg        ip_sa_match   ; // ip4 sa matches to local IP Address
 reg        ip_da_match   ; // ip4 da matches to local IP Address
 reg[15:0]  pkt_status    ; // Packet Status
 
-always @(s_reset_n or posedge app_clk) begin
+always @(negedge s_reset_n or posedge app_clk) begin
    if(s_reset_n == 1'b0) begin
       mac_da_bc     <= 0;
       mac_da_mc     <= 0;
@@ -287,6 +287,10 @@ always @(s_reset_n or posedge app_clk) begin
             mac_sa_mc     <= 0;
             mac_da_bc     <= 0;
             mac_da_mc     <= 0;
+	    tcpf          <= 0;
+	    udpf          <= 0;
+	    arpf          <= 0;
+	    ipv4f         <= 0;
          end 
       end
    end 

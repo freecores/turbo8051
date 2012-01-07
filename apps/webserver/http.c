@@ -25,6 +25,23 @@
 //
 //********************************************************************************************
 #include "includes.h"
+
+extern union flag1
+{
+	BYTE byte;
+	struct
+	{
+		unsigned char key_is_executed:1;
+		unsigned char update_display:1;
+		unsigned char lcd_busy:1;
+		unsigned char key_press:1;
+		unsigned char send_temp:1;
+		unsigned char syn_is_sent:1;
+		unsigned char syn_is_received:1;
+		unsigned char send_temp_timeout:1;
+	}bits;
+}flag1;
+
 //********************************************************************************************
 //
 // Global variable for http.c
@@ -40,22 +57,26 @@ BYTE tag_form[] = "<form action=\"./?\" method=\"get\">";
 // Description : Initial connection to web server
 //
 //********************************************************************************************
-void http_webserver_process ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
+void http_webserver_process ( BYTE *rx_buffer, BYTE **tx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 {
 	WORD dlength, dest_port;
 	BYTE count_time_temp[3];
 	BYTE generic_buf[64];
 	
-	dest_port = (rxtx_buffer[TCP_SRC_PORT_H_P]<<8)|rxtx_buffer[TCP_SRC_PORT_L_P];
+	dest_port = (rx_buffer[TCP_SRC_PORT_H_P]<<8)|rx_buffer[TCP_SRC_PORT_L_P];
+
+	cDebugReg = 0x40;
 	// tcp port 80 start for web server
-	if ( rxtx_buffer [ IP_PROTO_P ] == IP_PROTO_TCP_V && rxtx_buffer[ TCP_DST_PORT_H_P ] == 0 && rxtx_buffer[ TCP_DST_PORT_L_P ] == 80 )
+	if ( rx_buffer [ IP_PROTO_P ] == IP_PROTO_TCP_V && rx_buffer[ TCP_DST_PORT_H_P ] == 0 && rx_buffer[ TCP_DST_PORT_L_P ] == 80 )
 	{
+	        cDebugReg = 0x41;
 		// received packet with flags "SYN", let's send "SYNACK"
-		if ( (rxtx_buffer[ TCP_FLAGS_P ] & TCP_FLAG_SYN_V) )
+		if ( (rx_buffer[ TCP_FLAGS_P ] & TCP_FLAG_SYN_V) )
 		{
-//			tcp_send_synack ( rxtx_buffer, dest_mac, dest_ip );
+	                cDebugReg = 0x42;
+//			tcp_send_synack ( tx_buffer, dest_mac, dest_ip );
 			tcp_send_packet (
-				rxtx_buffer,
+				*tx_buffer,
 				dest_port,
 				80,					// source port
 				TCP_FLAG_SYN_V|TCP_FLAG_ACK_V,			// flag
@@ -65,22 +86,27 @@ void http_webserver_process ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 				0,						// tcp data length
 				dest_mac,		// server mac address
 				dest_ip );		// server ip address
+	                cDebugReg = 0x43;
 			flag1.bits.syn_is_received = 1;
 			return;
 		}
 
-		if ( (rxtx_buffer [ TCP_FLAGS_P ] & TCP_FLAG_ACK_V) )
+		if ( (rx_buffer [ TCP_FLAGS_P ] & TCP_FLAG_ACK_V) )
 		{
+	                cDebugReg = 0x44;
 			// get tcp data length
-			dlength = tcp_get_dlength( rxtx_buffer );
+			dlength = tcp_get_dlength( rx_buffer );
+	                cDebugReg = 0x45;
 			if ( dlength == 0 )
 			{
+	                        cDebugReg = 0x46;
 				// finack, answer with ack
-				if ( (rxtx_buffer[TCP_FLAGS_P] & TCP_FLAG_FIN_V) )
+				if ( (rx_buffer[TCP_FLAGS_P] & TCP_FLAG_FIN_V) )
 				{
-//					tcp_send_ack ( rxtx_buffer, dest_mac, dest_ip );
+	                                cDebugReg = 0x47;
+//					tcp_send_ack ( tx_buffer, dest_mac, dest_ip );
 					tcp_send_packet (
-						rxtx_buffer,
+						*tx_buffer,
 						dest_port,
 						80,						// source port
 						TCP_FLAG_ACK_V,			// flag
@@ -90,26 +116,28 @@ void http_webserver_process ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 						0,						// tcp data length
 						dest_mac,		// server mac address
 						dest_ip );		// server ip address
+	                                cDebugReg = 0x48;
 				}
 				return;
 			}
 			// get avr ip address from request and set to new avr ip address
 			// get send temparature to server configuration
-			if ( http_get_variable ( rxtx_buffer, dlength, "tc", generic_buf ) )
+			if ( http_get_variable ( rx_buffer, dlength, "tc", generic_buf ) )
 			{
+	                        cDebugReg = 0x49;
 				// enable or disable send temparature
-				if ( http_get_variable ( rxtx_buffer, dlength, "en", generic_buf ) )
+				if ( http_get_variable ( rx_buffer, dlength, "en", generic_buf ) )
 					count_time_temp[0] = 1;
 				else
 					count_time_temp[0] = 0;
 				// get hour
-				if ( http_get_variable ( rxtx_buffer, dlength, "h", generic_buf ) )
+				if ( http_get_variable ( rx_buffer, dlength, "h", generic_buf ) )
 				{
 					count_time_temp[1] = (generic_buf[0] - '0') * 10;
 					count_time_temp[1] = count_time_temp[1] + (generic_buf[1] - '0');
 				}
 				// get minute
-				if ( http_get_variable ( rxtx_buffer, dlength, "m", generic_buf ) )
+				if ( http_get_variable ( rx_buffer, dlength, "m", generic_buf ) )
 				{
 					count_time_temp[2] = (generic_buf[0] - '0') * 10;
 					count_time_temp[2] = count_time_temp[2] + (generic_buf[1] - '0');
@@ -120,12 +148,13 @@ void http_webserver_process ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 				count_time[3] = 0;
 			}
 
+	                cDebugReg = 0x4A;
 			// print webpage
-			dlength = http_home( rxtx_buffer );
+			dlength = http_home( rx_buffer );
 			// send ack before send data
-//			tcp_send_ack ( rxtx_buffer, dest_mac, dest_ip );
+//			tcp_send_ack ( tx_buffer, dest_mac, dest_ip );
 			tcp_send_packet (
-						rxtx_buffer,
+						*tx_buffer,
 						dest_port,
 						80,						// source port
 						TCP_FLAG_ACK_V,			// flag
@@ -135,10 +164,11 @@ void http_webserver_process ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 						0,						// tcp data length
 						dest_mac,		// server mac address
 						dest_ip );		// server ip address
+	                cDebugReg = 0x4B;
 			// send tcp data
-//			tcp_send_data ( rxtx_buffer, dest_mac, dest_ip, dlength );
+//			tcp_send_data ( tx_buffer, dest_mac, dest_ip, dlength );
 			tcp_send_packet (
-						rxtx_buffer,
+						*tx_buffer,
 						dest_port,
 						80,						// source port
 						TCP_FLAG_ACK_V | TCP_FLAG_PSH_V | TCP_FLAG_FIN_V,			// flag
@@ -148,6 +178,7 @@ void http_webserver_process ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 						dlength,				// tcp data length
 						dest_mac,		// server mac address
 						dest_ip );		// server ip address
+	                cDebugReg = 0x4C;
 			flag1.bits.syn_is_received = 0;
 		}		
 	}
@@ -213,6 +244,7 @@ BYTE http_get_variable ( BYTE *rxtx_buffer, WORD dlength, BYTE *val_key, BYTE *d
 	// get data position
 	data_p = tcp_get_hlength( rxtx_buffer ) + sizeof(ETH_HEADER) + sizeof(IP_HEADER);
 
+	cDebugReg = 0x4D;
 	// Find '?' in rx buffer, if found '?' in rx buffer then let's find variable key (val_key)
 	for ( ; data_p<dlength; data_p++ )
 	{
@@ -222,6 +254,8 @@ BYTE http_get_variable ( BYTE *rxtx_buffer, WORD dlength, BYTE *val_key, BYTE *d
 	// not found '?' in buffer
 	if ( data_p == dlength )
 		return 0;
+	
+	cDebugReg = 0x4E;
 	
 	// find variable key in buffer 
 	for ( ; data_p<dlength; data_p++ )
@@ -251,6 +285,7 @@ BYTE http_get_variable ( BYTE *rxtx_buffer, WORD dlength, BYTE *val_key, BYTE *d
 		}
 	}
 	
+	cDebugReg = 0x4F;
 	// if found variable keyword, then store variable value in destination buffer ( dest )
 	if ( match != 0 )
 	{

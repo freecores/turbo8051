@@ -60,8 +60,8 @@
 //********************************************************************************************
 extern WORD tcp_get_dlength ( BYTE *rxtx_buffer );
 extern BYTE tcp_get_hlength ( BYTE *rxtx_buffer );
-extern WORD tcp_puts_data ( BYTE *rxtx_buffer, BYTE *data, WORD offset );
-extern WORD tcp_puts_data_p ( BYTE *rxtx_buffer, BYTE *data, WORD offset );
+extern WORD tcp_puts_data ( BYTE *rxtx_buffer, BYTE *datap, WORD offset );
+extern WORD tcp_puts_data_p ( BYTE *rxtx_buffer, BYTE *datap, WORD offset );
 
 extern void tcp_send_packet (
 	BYTE *rxtx_buffer,

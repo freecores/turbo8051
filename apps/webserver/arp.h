@@ -29,7 +29,7 @@
 #define ARP_OPCODE_REQUEST_V	0x0001
 #define ARP_OPCODE_REQUEST_H_V	0x00
 #define ARP_OPCODE_REQUEST_L_V	0x01
-#define ARP_OPCODE_REPLY_V		0x0002
+#define ARP_OPCODE_REPLY_V	0x0002
 #define ARP_OPCODE_REPLY_H_V	0x00
 #define ARP_OPCODE_REPLY_L_V	0x02
 
@@ -60,6 +60,6 @@
 //********************************************************************************************
 extern void arp_generate_packet ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip );
 extern void arp_send_request ( BYTE *rxtx_buffer, BYTE *dest_ip );
-extern void arp_send_reply ( BYTE *rxtx_buffer, BYTE *dest_mac );
+extern void arp_send_reply ( BYTE *rx_buffer, BYTE **tx_buffer, BYTE *dest_mac );
 extern BYTE arp_packet_is_arp ( BYTE *rxtx_buffer, WORD opcode );
 extern BYTE arp_who_is ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip );

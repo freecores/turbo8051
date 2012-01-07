@@ -60,29 +60,32 @@ unsigned char icmp_seq=1;
 // Description : Send ARP reply packet from ARP request packet
 //
 //*******************************************************************************************
-void icmp_generate_packet ( BYTE *rxtx_buffer )
+void icmp_generate_packet ( BYTE *rx_buffer, BYTE *tx_buffer )
 {
 	BYTE i;
 	WORD ck;
 	
 	// In send ICMP request case, generate new ICMP data.
-	if ( rxtx_buffer[ ICMP_TYPE_P ] == ICMP_TYPE_ECHOREQUEST_V )
+	if ( rx_buffer[ ICMP_TYPE_P ] == ICMP_TYPE_ECHOREQUEST_V )
 	{
+	        cDebugReg = 0x20; // Debug 1 */	
 		for ( i=0; i<ICMP_MAX_DATA; i++ )
 		{
-			rxtx_buffer[ ICMP_DATA_P + i ] = 'A' + i;
+			tx_buffer[ ICMP_DATA_P + i ] = 'A' + i;
 		}
 	}
+	cDebugReg = 0x21; // Debug 1 */	
 	// clear icmp checksum
-	rxtx_buffer[ ICMP_CHECKSUM_H_P ] = 0;
-	rxtx_buffer[ ICMP_CHECKSUM_L_P ] = 0;
+	tx_buffer[ ICMP_CHECKSUM_H_P ] = 0;
+	tx_buffer[ ICMP_CHECKSUM_L_P ] = 0;
 
 	// calculate new checksum.
 	// ICMP checksum calculation begin at ICMP type to ICMP data.
 	// Before calculate new checksum the checksum field must be zero.
-	ck = software_checksum ( &rxtx_buffer[ ICMP_TYPE_P ], sizeof(ICMP_PACKET), 0 );
-	rxtx_buffer[ ICMP_CHECKSUM_H_P ] = (ck >> 8 ) & 0xFF;
-	rxtx_buffer[ ICMP_CHECKSUM_L_P ] = ck & 0xFF;
+	ck = software_checksum ( tx_buffer[ ICMP_TYPE_P ], sizeof(ICMP_PACKET), 0 );
+	cDebugReg = 0x22; // Debug 1 */	
+	tx_buffer[ ICMP_CHECKSUM_H_P ] = (ck >> 8 ) & 0xFF;
+	tx_buffer[ ICMP_CHECKSUM_L_P ] = ck & 0xFF;
 }
 //*******************************************************************************************
 //
@@ -90,27 +93,27 @@ void icmp_generate_packet ( BYTE *rxtx_buffer )
 // Description : Send ARP request packet to destination.
 //
 //*******************************************************************************************
-void icmp_send_request ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
+void icmp_send_request ( BYTE *rx_buffer, BYTE **tx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 {	
 	// set ethernet header
-	eth_generate_header ( rxtx_buffer, ETH_TYPE_IP_V, dest_mac );
+	eth_generate_header ( *tx_buffer, ETH_TYPE_IP_V, dest_mac );
 	
 	// generate ip header and checksum
-	ip_generate_header (	rxtx_buffer, sizeof(IP_HEADER) + sizeof(ICMP_PACKET), IP_PROTO_ICMP_V, dest_ip );
+	ip_generate_header ( *tx_buffer, sizeof(IP_HEADER) + sizeof(ICMP_PACKET), IP_PROTO_ICMP_V, dest_ip );
 
 	// generate icmp packet and checksum
-	rxtx_buffer[ ICMP_TYPE_P ] = ICMP_TYPE_ECHOREQUEST_V;
-	rxtx_buffer[ ICMP_CODE_P ] = 0;
-	rxtx_buffer[ ICMP_IDENTIFIER_H_P ] = icmp_id;
-	rxtx_buffer[ ICMP_IDENTIFIER_L_P ] = 0;
-	rxtx_buffer[ ICMP_SEQUENCE_H_P ] = icmp_seq;
-	rxtx_buffer[ ICMP_SEQUENCE_L_P ] = 0;
+	*tx_buffer[ ICMP_TYPE_P ] = ICMP_TYPE_ECHOREQUEST_V;
+	*tx_buffer[ ICMP_CODE_P ] = 0;
+	*tx_buffer[ ICMP_IDENTIFIER_H_P ] = icmp_id;
+	*tx_buffer[ ICMP_IDENTIFIER_L_P ] = 0;
+	*tx_buffer[ ICMP_SEQUENCE_H_P ] = icmp_seq;
+	*tx_buffer[ ICMP_SEQUENCE_L_P ] = 0;
 	icmp_id++;
 	icmp_seq++;
-	icmp_generate_packet ( rxtx_buffer );	
+	icmp_generate_packet ( rx_buffer, *tx_buffer );	
 
 	// send packet to ethernet media
-	enc28j60_packet_send ( rxtx_buffer, sizeof(ETH_HEADER) + sizeof(IP_HEADER) + sizeof(ICMP_PACKET) );
+	enc28j60_packet_send ( &(*tx_buffer), sizeof(ETH_HEADER) + sizeof(IP_HEADER) + sizeof(ICMP_PACKET) );
 }
 //*******************************************************************************************
 //
@@ -118,29 +121,36 @@ void icmp_send_request ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 // Description : Send ARP reply packet to destination.
 //
 //*******************************************************************************************
-BYTE icmp_send_reply ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
+BYTE icmp_send_reply ( BYTE *rx_buffer, BYTE **tx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 {
 	
 	// check protocol is icmp or not?
-	if ( rxtx_buffer [ IP_PROTO_P ] != IP_PROTO_ICMP_V )
+	if ( rx_buffer [ IP_PROTO_P ] != IP_PROTO_ICMP_V )
 		return 0;
 	
+	cDebugReg = 0x23; // Debug 1 */	
 	// check icmp packet type is echo request or not?
-	if ( rxtx_buffer [ ICMP_TYPE_P ] != ICMP_TYPE_ECHOREQUEST_V )
+	if ( rx_buffer [ ICMP_TYPE_P ] != ICMP_TYPE_ECHOREQUEST_V )
 		return 0;
+	cDebugReg = 0x24; // Debug 1 */	
 
 	// set ethernet header
-	eth_generate_header ( rxtx_buffer, ETH_TYPE_IP_V, dest_mac );
+	eth_generate_header ( *tx_buffer, ETH_TYPE_IP_V, dest_mac );
+
+	cDebugReg = 0x25; // Debug 1 */	
 	
 	// generate ip header and checksum
-	ip_generate_header ( rxtx_buffer, (rxtx_buffer[IP_TOTLEN_H_P]<<8)|rxtx_buffer[IP_TOTLEN_L_P], IP_PROTO_ICMP_V, dest_ip );
+	ip_generate_header ( *tx_buffer, (rx_buffer[IP_TOTLEN_H_P]<<8)|rx_buffer[IP_TOTLEN_L_P], IP_PROTO_ICMP_V, dest_ip );
 
+	cDebugReg = 0x26; // Debug 1 */	
 	// generate icmp packet
-	rxtx_buffer[ ICMP_TYPE_P ] = ICMP_TYPE_ECHOREPLY_V;
-	icmp_generate_packet ( rxtx_buffer );
+	*tx_buffer[ ICMP_TYPE_P ] = ICMP_TYPE_ECHOREPLY_V;
+	icmp_generate_packet ( rx_buffer, *tx_buffer );
 
+	cDebugReg = 0x27; // Debug 1 */	
 	// send packet to ethernet media
-	enc28j60_packet_send ( rxtx_buffer, sizeof(ETH_HEADER) + sizeof(IP_HEADER) + sizeof(ICMP_PACKET) );
+	enc28j60_packet_send ( &(*tx_buffer), sizeof(ETH_HEADER) + sizeof(IP_HEADER) + sizeof(ICMP_PACKET) );
+	cDebugReg = 0x28; // Debug 1 */	
 	return 1;
 }
 //*******************************************************************************************
@@ -149,32 +159,35 @@ BYTE icmp_send_reply ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 // Description : Send ARP reply packet to destination.
 //
 //*******************************************************************************************
-BYTE icmp_ping ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
+BYTE icmp_ping ( BYTE *rx_buffer, BYTE **tx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 {
 	BYTE i;
 	WORD dlength;
 	
 	// destination ip was not found on network.
-	if ( arp_who_is ( rxtx_buffer, dest_mac, dest_ip ) == 0 )
+	if ( arp_who_is ( rx_buffer, dest_mac, dest_ip ) == 0 )
 		return 0;
 
+	cDebugReg = 0x29; // Debug 1 */	
 	// send icmp request packet (ping) to server
-	icmp_send_request ( rxtx_buffer, (BYTE*)&server_mac, dest_ip );
+	icmp_send_request ( rx_buffer, &(*tx_buffer), (BYTE*)&server_mac, dest_ip );
 
 	for ( i=0; i<10; i++ )
 	{
 		_delay_ms( 10 );
-		dlength = enc28j60_packet_receive( rxtx_buffer, MAX_RXTX_BUFFER );
+		dlength = enc28j60_packet_receive( &(*tx_buffer), MAX_RXTX_BUFFER );
 
 		if ( dlength )
 		{
 			// check protocol is icmp or not?
-			if ( rxtx_buffer [ IP_PROTO_P ] != IP_PROTO_ICMP_V )
+			if ( rx_buffer [ IP_PROTO_P ] != IP_PROTO_ICMP_V )
 				continue;
+	                cDebugReg = 0x2A; // Debug 1 */	
 	
 			// check icmp packet type is echo reply or not?
-			if ( rxtx_buffer [ ICMP_TYPE_P ] != ICMP_TYPE_ECHOREPLY_V )
+			if ( rx_buffer [ ICMP_TYPE_P ] != ICMP_TYPE_ECHOREPLY_V )
 				continue;
+	                cDebugReg = 0x2B; // Debug 1 */	
 
 			return 1;
 		}

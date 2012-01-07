@@ -44,6 +44,10 @@ $TURBO8051_PROJ/rtl/uart/uart_cfg.v
 //-------------------------------------
 $TURBO8051_PROJ/rtl/clkgen/clkgen.v  
 $TURBO8051_PROJ/rtl/lib/clk_ctl.v
+
+//------------------------------------
+// Core Level Files
+//-----------------------------------
 $TURBO8051_PROJ/rtl/lib/wb_crossbar.v
 $TURBO8051_PROJ/rtl/lib/wb_rd_mem2mem.v
 $TURBO8051_PROJ/rtl/lib/wb_wr_mem2mem.v

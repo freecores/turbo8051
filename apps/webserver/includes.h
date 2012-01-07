@@ -77,3 +77,8 @@ extern BYTE ee_server_ip[];
 //********************************************************************************************
 extern void initial_system( void );
 
+
+__sfr __at (0x80)  cDebugReg; // Debug Reg set to Port-0
+
+// IP Frame Numbering
+//WORD ip_identfier;

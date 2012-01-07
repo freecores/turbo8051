@@ -64,6 +64,31 @@ BYTE *standby_list[4] =
 	"ADC0 & Temp"
 };
 
+extern union flag1
+{
+	BYTE byte;
+	struct
+	{
+		unsigned char key_is_executed:1;
+		unsigned char update_display:1;
+		unsigned char lcd_busy:1;
+		unsigned char key_press:1;
+		unsigned char send_temp:1;
+		unsigned char syn_is_sent:1;
+		unsigned char syn_is_received:1;
+		unsigned char send_temp_timeout:1;
+	}bits;
+}flag1;
+
+extern union flag2
+{
+	BYTE byte;
+	struct
+	{
+		unsigned char key_hold:1;
+		unsigned char unuse:7;
+	}bits;
+}flag2;
 //*****************************************************************************************
 //
 // Function : my_memcpy

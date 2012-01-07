@@ -84,7 +84,7 @@ output ack;
 reg ackw, ackr;
 reg [31:0] data_out;
 reg [2:0] cnt;
-
+integer i;
 //
 // buffer
 reg [7:0] buff [65535:0];  //64kb
@@ -92,6 +92,14 @@ reg [7:0] buff [65535:0];  //64kb
 
 assign ack =  ackw || ackr;
 
+
+// Intialise the memory
+
+initial
+begin
+  for (i=0; i<65536; i=i+1)
+    buff [i] = 8'h00;
+end
 
 //
 // writing to ram

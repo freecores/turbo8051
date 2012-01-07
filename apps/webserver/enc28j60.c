@@ -43,10 +43,10 @@
 //}enc28j60_flag;
 static BYTE Enc28j60Bank;
 static WORD_BYTES next_packet_ptr;
-unsigned int iRxFrmCnt = 0;
-unsigned int iTxFrmCnt = 0;
-unsigned int iRxDescPtr= 0;
-unsigned int iTxDescPtr= 0;
+extern unsigned int iRxFrmCnt ;
+extern unsigned int iTxFrmCnt ;
+extern unsigned int iRxDescPtr;
+extern unsigned int iTxDescPtr;
 
 //*******************************************************************************************
 //
@@ -148,58 +148,45 @@ BYTE enc28j60getrev(void)
 // Description : Send packet to network.
 //
 //*******************************************************************************************
-void enc28j60_packet_send ( XBYTE *buffer, WORD length )
+void enc28j60_packet_send ( BYTE **buffer, WORD length )
 {
-    WORD_BYTES iRxFrmStatus, data_length;
-   __xdata __at (0xA030) unsigned int iMacRxFrmCnt;
    XDWORD *pTxDesPtr;
-   __xdata unsigned int  tDataPtr; // Temp DataPointer
-
+   XDWORD iWrData;
+   XWORD iTxNextPtr;
     pTxDesPtr = (XDWORD *) (0x7040 | iTxDescPtr);
     //*pTxDesPtr = (length & 0xFFF) ;
-    *pTxDesPtr = (XDWORD ) buffer ;
-    *pTxDesPtr = (*pTxDesPtr >> 2); // Aligned 32 bit addressing
-    *pTxDesPtr = (*pTxDesPtr << 12); // Move to Address Position
-    *pTxDesPtr |= (length & 0xFFF); 
+    iWrData = (XDWORD) *buffer;
+    iWrData = iWrData >> 2;  // Aligned 32bit Addressing
+    iWrData = iWrData << 12; // Move the Address
+    iWrData |= (length & 0xFFF);
+    *pTxDesPtr = iWrData;
 //    *pTxDesPtr |= ((buffer << 12) & 0x3FFF000);
     iTxDescPtr = (iTxDescPtr+4) & 0x3F;
     iTxFrmCnt  = iRxFrmCnt+1;
 
+    iTxNextPtr = (WORD) *buffer;
+    iTxNextPtr = iTxNextPtr+length; // 32 Bit Aligned
+    iTxNextPtr &= 0x3FFC; // 4K Aligned, Last 2 bit Zero, 32 Bit Aligned
+    *buffer = (BYTE *)iTxNextPtr;
 }
 //*******************************************************************************************
 //
 // Function : enc28j60_mac_is_linked
 // Description : return MAC link status.
-//
-/*******************************************************************************************
-/*
-BYTE enc28j60_mac_is_linked(void)
-{
-	if ( (enc28j60_read_phyreg(PHSTAT1) & PHSTAT1_LLSTAT ) )
-		return 1;
-	else
-		return 0;
-}
-*/
-//*******************************************************************************************
-//
-// Function : ethPakcetReceive
-// Description : check received packet and return length of data
-//
-//*******************************************************************************************
-//WORD data_length;
-WORD enc28j60_packet_receive ( BYTE *rxtx_buffer, WORD max_length )
+
+WORD enc28j60_packet_receive ( BYTE **rxtx_buffer, WORD max_length )
 {
     WORD_BYTES iRxFrmStatus, data_length;
    __xdata __at (0xA030) unsigned int iMacRxFrmCnt;
    __xdata unsigned long *pRxDesPtr;
 
+   data_length.word = 0; // init
 
     // check if a packet has been received and buffered
     if((iMacRxFrmCnt & 0xF) != 0) { // Check the Rx Q Counter
        pRxDesPtr = (__xdata unsigned long *) (0x7000 | iRxDescPtr);
        data_length.word = *pRxDesPtr & 0xFFF; // Last 12 bit indicate the Length of the Packet
-       rxtx_buffer = ((*pRxDesPtr >> 12) & 0x3FFF) << 2 ; // 32 bit Aligned Address
+       *rxtx_buffer = (BYTE*) (((*pRxDesPtr >> 12) & 0x3FFF) << 2) ; // 32 bit Aligned Address
        iRxFrmStatus.word= *pRxDesPtr >> 26; // Upper 6 Bit Inidcate the Rx Status
        iRxDescPtr = (iRxDescPtr+4) & 0x3F;
        iRxFrmCnt  = iRxFrmCnt+1;

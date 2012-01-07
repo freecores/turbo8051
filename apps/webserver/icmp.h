@@ -44,7 +44,7 @@
 // Prototype function
 //
 //********************************************************************************************
-extern BYTE icmp_send_reply ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip );
-extern void icmp_send_request ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip );
-extern BYTE icmp_ping ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip );
+extern BYTE icmp_send_reply ( BYTE *rx_buffer, BYTE **tx_buffer, BYTE *dest_mac, BYTE *dest_ip );
+extern void icmp_send_request ( BYTE *rx_buffer, BYTE **tx_buffer, BYTE *dest_mac, BYTE *dest_ip );
+extern BYTE icmp_ping ( BYTE *rx_buffer, BYTE **tx_buffer, BYTE *dest_mac, BYTE *dest_ip );
 extern void _delay_ms( int iDelay );

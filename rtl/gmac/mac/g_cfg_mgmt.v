@@ -421,7 +421,7 @@ generic_register #(8,0  ) u_mac_cntrl_reg_2 (
 
  generic_register #(8,0  )  u_mac_cntrl_reg_3 (
 	      .we            ({8{sw_wr_en_0 & wr_be[2] }}),		 
-	      .data_in       (reg_wdata[7:0]    ),
+	      .data_in       (reg_wdata[23:16]    ),
 	      .reset_n       (app_reset_n         ),
 	      .clk           (app_clk             ),
 	      

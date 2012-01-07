@@ -411,6 +411,8 @@ initial begin
    // test case, which has control before reset
    if ( $test$plusargs("gmac_test_2") ) 
        gmac_test2();
+   else if ( $test$plusargs("webserver") ) 
+       webserver();
 
    #1000 wait(reset_out_n == 1);
 
@@ -421,7 +423,8 @@ initial begin
        uart_test1();
    else if ( $test$plusargs("spi_test_1") ) 
        spi_test1();
-   else if ( !$test$plusargs("gmac_test_2") ) begin
+   else if ( !$test$plusargs("gmac_test_2") && 
+	     !$test$plusargs("webserver")) begin
      // 8051 Test Cases
      #80000000
      $display("time ",$time, "\n faulire: end of time\n \n");
@@ -457,6 +460,7 @@ end
 
 `include "gmac_test1.v"
 `include "gmac_test2.v"
+`include "webserver.v"
 `include "uart_test1.v"
 `include "spi_test1.v"
 `include "tb_tasks.v"

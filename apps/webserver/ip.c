@@ -50,7 +50,8 @@
 // +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 //
 //********************************************************************************************
-static WORD ip_identfier=1;
+//static WORD ip_identfier=1;
+WORD ip_identfier;
 //********************************************************************************************
 //
 // Function : ip_generate_packet
@@ -114,16 +115,19 @@ BYTE ip_packet_is_ip ( BYTE *rxtx_buffer )
 {
 	unsigned char i;
 	
+	cDebugReg = 0x30; // Debug 1 */	
 	// if ethernet type is not ip
 	if ( rxtx_buffer[ ETH_TYPE_H_P ] != ETH_TYPE_IP_H_V || rxtx_buffer[ ETH_TYPE_L_P ] != ETH_TYPE_IP_L_V)
 		return 0;
 	
+	cDebugReg = 0x31; // Debug 1 */	
 	// if ip packet not send to avr
 	for ( i=0; i<sizeof(IP_ADDR); i++ )
 	{
 		if ( rxtx_buffer[ IP_DST_IP_P + i ] != avr_ip.byte[i] )
 			return 0;
 	}
+	cDebugReg = 0x32; // Debug 1 */	
 	
 	// destination ip address match with avr ip address
 	return 1;

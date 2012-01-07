@@ -14,7 +14,7 @@
 
 `define MAX_PKT_SIZE 8000 // Max packet size in bytes
 
-`define MAX_HEADER_SIZE 32 // Max size of user-defined packet headers
+`define MAX_HEADER_SIZE 42 // Max size of user-defined packet headers
                            // (in bytes)
 `define IP_EXTENSION_HEADER_SIZE  256 // Max size of IP Extension Header
 

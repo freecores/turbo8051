@@ -67,6 +67,7 @@ WORD tcp_get_dlength ( BYTE *rxtx_buffer )
 {
 	int dlength, hlength;
 
+	cDebugReg = 0x50;
 	dlength = ( rxtx_buffer[ IP_TOTLEN_H_P ] <<8 ) | ( rxtx_buffer[ IP_TOTLEN_L_P ] );
 	dlength -= sizeof(IP_HEADER);
 	hlength = (rxtx_buffer[ TCP_HEADER_LEN_P ]>>4) * 4; // generate len in bytes;
@@ -74,6 +75,7 @@ WORD tcp_get_dlength ( BYTE *rxtx_buffer )
 	if ( dlength <= 0 )
 		dlength=0;
 	
+	cDebugReg = 0x51;
 	return ((WORD)dlength);
 }
 //*****************************************************************************************
@@ -84,6 +86,7 @@ WORD tcp_get_dlength ( BYTE *rxtx_buffer )
 //*****************************************************************************************
 BYTE tcp_get_hlength ( BYTE *rxtx_buffer )
 {
+	cDebugReg = 0x52;
 	return ((rxtx_buffer[ TCP_HEADER_LEN_P ]>>4) * 4); // generate len in bytes;
 }
 //********************************************************************************************
@@ -96,6 +99,7 @@ WORD tcp_puts_data_p ( BYTE *rxtx_buffer, BYTE *datap, WORD offset )
 {
 	BYTE ch;
 	
+	cDebugReg = 0x53;
 	while(ch = *datap++)
 	{
 		rxtx_buffer[ TCP_DATA_P + offset ] = ch;
@@ -112,6 +116,7 @@ WORD tcp_puts_data_p ( BYTE *rxtx_buffer, BYTE *datap, WORD offset )
 //********************************************************************************************
 WORD tcp_puts_data ( BYTE *rxtx_buffer, BYTE *datap, WORD offset )
 {
+	cDebugReg = 0x54;
 	while( *datap )
 	{
 		rxtx_buffer[ TCP_DATA_P + offset ] = *datap++;
@@ -141,8 +146,10 @@ void tcp_send_packet (
 	BYTE i, tseq;
 	WORD ck;
 	
+	cDebugReg = 0x55;
 	// generate ethernet header
 	eth_generate_header ( rxtx_buffer, ETH_TYPE_IP_V, dest_mac );		
+	cDebugReg = 0x56;
 
 	// sequence numbers:
 	// add the rel ack num to SEQACK
@@ -161,6 +168,7 @@ void tcp_send_packet (
 		}
 	}
 	
+	cDebugReg = 0x57;
 	// initial tcp sequence number
 	// setup maximum segment size
 	// require to setup first packet is receive or transmit only
@@ -187,9 +195,11 @@ void tcp_send_packet (
 		// no options: 20 bytes: 5*32/8 = 20
 		rxtx_buffer[ TCP_HEADER_LEN_P ] = 0x50;
 	}
+	cDebugReg = 0x58;
 
 	// generate ip header and checksum
 	ip_generate_header ( rxtx_buffer, (sizeof(IP_HEADER) + sizeof(TCP_HEADER) + dlength), IP_PROTO_TCP_V, dest_ip );
+	cDebugReg = 0x59;
 	
 	// clear sequence ack number before send tcp SYN packet
 	if ( clear_seqack )
@@ -200,6 +210,7 @@ void tcp_send_packet (
 		rxtx_buffer[ TCP_SEQACK_P + 3 ] = 0;
 	}
 		
+	cDebugReg = 0x5A;
 	// setup tcp flags
 	rxtx_buffer [ TCP_FLAGS_P ] = flags;
 	
@@ -222,6 +233,7 @@ void tcp_send_packet (
 	// clear old checksum and calculate new checksum
 	rxtx_buffer[ TCP_CHECKSUM_H_P ] = 0;
 	rxtx_buffer[ TCP_CHECKSUM_L_P ] = 0;
+	cDebugReg = 0x5B;
 	// This is computed as the 16-bit one's complement of the one's complement 
 	// sum of a pseudo header of information from the 
 	// IP header, the TCP header, and the data, padded 
@@ -237,10 +249,13 @@ void tcp_send_packet (
 	// +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 	// +           0           +      IP Protocol      +                    Total length               +
 	// +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-	ck = software_checksum( &rxtx_buffer[IP_SRC_IP_P], sizeof(TCP_HEADER)+dlength+8, IP_PROTO_TCP_V + sizeof(TCP_HEADER) + dlength );
+	ck = software_checksum( rxtx_buffer[IP_SRC_IP_P], sizeof(TCP_HEADER)+dlength+8, IP_PROTO_TCP_V + sizeof(TCP_HEADER) + dlength );
 	rxtx_buffer[ TCP_CHECKSUM_H_P ] = (ck >> 8) & 0xFF;
 	rxtx_buffer[ TCP_CHECKSUM_L_P ] = ck & 0xFF;
+	
+	cDebugReg = 0x5C;
 
 	// send packet to ethernet media
-	enc28j60_packet_send ( rxtx_buffer, sizeof(ETH_HEADER)+sizeof(IP_HEADER)+sizeof(TCP_HEADER)+dlength );
+	enc28j60_packet_send ( &rxtx_buffer, sizeof(ETH_HEADER)+sizeof(IP_HEADER)+sizeof(TCP_HEADER)+dlength );
+	cDebugReg = 0x5D;
 }

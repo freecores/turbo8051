@@ -25,6 +25,23 @@
 //
 //********************************************************************************************
 #include "includes.h"
+
+extern union flag1
+{
+	BYTE byte;
+	struct
+	{
+		unsigned char key_is_executed:1;
+		unsigned char update_display:1;
+		unsigned char lcd_busy:1;
+		unsigned char key_press:1;
+		unsigned char send_temp:1;
+		unsigned char syn_is_sent:1;
+		unsigned char syn_is_received:1;
+		unsigned char send_temp_timeout:1;
+	}bits;
+}flag1;
+
 //********************************************************************************************
 // The User Datagram Protocol offers only a minimal transport service 
 // -- non-guaranteed datagram delivery 
@@ -263,7 +280,7 @@ BYTE udp_receive ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 	udp_generate_header (rxtx_buffer, (rxtx_buffer[UDP_SRC_PORT_H_P]<<8)|rxtx_buffer[UDP_SRC_PORT_L_P], sizeof(UDP_HEADER)+dlength.word);
 
 	// send packet to ethernet media
-	enc28j60_packet_send ( rxtx_buffer, sizeof(ETH_HEADER)+sizeof(IP_HEADER)+sizeof(UDP_HEADER)+dlength.word );
+	enc28j60_packet_send ( &rxtx_buffer, sizeof(ETH_HEADER)+sizeof(IP_HEADER)+sizeof(UDP_HEADER)+dlength.word );
 
 	return 1;
 }
