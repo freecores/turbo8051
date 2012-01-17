@@ -17,7 +17,7 @@ set risc_ext_tests=(fib divmul sort gcd cast xram)
 
 set risc_int_tests=(fib divmul sort gcd cast xram)
 
-echo " Compiling with VCS "
+echo " Compiling with MODELSIM "
 
 ./compile.modelsim | tee ../log/complie.log
 
@@ -100,7 +100,7 @@ foreach risc_ext_test ($risc_ext_tests)
 	  echo "### test ${i}: ${risc_ext_test} --> PASSED"
           @ all_testsx += 1;
 	endif
-        mv ../log/run.log ../log/x_${risc_ext_test}.log
+        mv ../log/run.log ../log/ext_${risc_ext_test}.log
 
 end
         echo "###########################################"
@@ -131,7 +131,7 @@ foreach risc_int_test ($risc_int_tests)
 	  echo "### test ${i}: ${risc_int_test} --> PASSED"
           @ all_testsi += 1;
 	endif
-        mv ../log/run.log ../log/x_${risc_int_test}.log
+        mv ../log/run.log ../log/int_${risc_int_test}.log
 
 end
         echo "###########################################"
