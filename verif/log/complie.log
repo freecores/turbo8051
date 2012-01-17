@@ -1,0 +1,92 @@
+Model Technology ModelSim ACTEL vlog 6.6d Compiler 2010.11 Nov  2 2010
+-- Compiling module tb_top
+-- Compiling module tb_glbl
+-- Compiling module tb_eth_top
+-- Compiling module tb_mii
+-- Compiling module tb_rmii
+-- Compiling module uart_agent
+-- Compiling module AT45DB321
+-- Compiling module acdc_check
+-- Compiling module internal_logic
+-- Compiling module memory_access
+-- Compiling module m25p20
+-- Compiling module oc8051_xram
+-- Compiling module oc8051_xrom
+-- Compiling module turbo8051
+-- Compiling module g_mac_top
+-- Compiling module half_dup_dble_reg
+-- Compiling module g_tx_fsm
+-- Compiling module g_deferral
+-- Compiling module g_tx_top
+-- Compiling module g_rx_fsm
+-- Compiling module g_cfg_mgmt
+-- Compiling module s2f_sync
+-- Compiling module g_md_intf
+-- Compiling module g_deferral_rx
+-- Compiling module g_rx_top
+-- Compiling module g_mii_intf
+-- Compiling module g_mac_core
+-- Compiling module g_eth_parser
+-- Compiling module g_rx_crc32
+-- Compiling module g_tx_crc32
+-- Compiling module async_fifo
+-- Compiling module g_dpath_ctrl
+-- Compiling module spi_core
+-- Compiling module spi_ctl
+-- Compiling module spi_if
+-- Compiling module spi_cfg
+-- Compiling module uart_rxfsm
+-- Compiling module uart_txfsm
+-- Compiling module uart_core
+-- Compiling module uart_cfg
+-- Compiling module clkgen
+-- Compiling module clk_ctl
+-- Compiling module wb_crossbar
+-- Compiling module wb_rd_mem2mem
+-- Compiling module wb_wr_mem2mem
+-- Compiling module oc8051_top
+-- Compiling module oc8051_rom
+-- Compiling module oc8051_alu_src_sel
+-- Compiling module oc8051_alu
+-- Compiling module oc8051_decoder
+-- Compiling module oc8051_divide
+-- Compiling module oc8051_multiply
+-- Compiling module oc8051_memory_interface
+-- Compiling module oc8051_ram_top
+-- Compiling module oc8051_acc
+-- Compiling module oc8051_comp
+-- Compiling module oc8051_sp
+-- Compiling module oc8051_dptr
+-- Compiling module oc8051_cy_select
+-- Compiling module oc8051_psw
+-- Compiling module oc8051_indi_addr
+-- Compiling module oc8051_ports
+-- Compiling module oc8051_b_register
+-- Compiling module oc8051_uart
+-- Compiling module oc8051_int
+-- Compiling module oc8051_tc
+-- Compiling module oc8051_tc2
+-- Compiling module oc8051_sfr
+-- Compiling module oc8051_ram_256x8_two_bist
+-- Scanning library file '../../rtl/lib/registers.v'
+-- Compiling module req_register
+-- Compiling module stat_register
+-- Compiling module generic_register
+-- Compiling module generic_intr_stat_reg
+-- Scanning library file '../../rtl/lib/stat_counter.v'
+-- Compiling module stat_counter
+-- Scanning library file '../../rtl/lib/toggle_sync.v'
+-- Compiling module toggle_sync
+-- Scanning library file '../../rtl/lib/double_sync_low.v'
+-- Compiling module double_sync_low
+-- Scanning library file '../../rtl/lib/async_fifo.v'
+-- Scanning library file '../../rtl/lib/registers.v'
+-- Compiling module bit_register
+-- Scanning library file '../../rtl/lib/stat_counter.v'
+-- Scanning library file '../../rtl/lib/toggle_sync.v'
+-- Scanning library file '../../rtl/lib/double_sync_low.v'
+-- Scanning library file '../../rtl/lib/async_fifo.v'
+
+Top level modules:
+	tb_top
+	oc8051_uart

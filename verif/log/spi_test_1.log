@@ -1,0 +1,490 @@
+Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl 
+
+# 6.6d
+
+# vsim +spi_test_1 -do run.do -c tb_top 
+# //  ModelSim ACTEL 6.6d Nov  2 2010 
+# //
+# //  Copyright 1991-2010 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.tb_top
+# Loading work.turbo8051
+# Loading work.clkgen
+# Loading work.clk_ctl
+# Loading work.wb_crossbar
+# Loading work.g_mac_top
+# Loading work.g_dpath_ctrl
+# Loading work.g_eth_parser
+# Loading work.g_mac_core
+# Loading work.g_rx_top
+# Loading work.g_rx_fsm
+# Loading work.half_dup_dble_reg
+# Loading work.g_rx_crc32
+# Loading work.g_deferral_rx
+# Loading work.g_md_intf
+# Loading work.g_tx_top
+# Loading work.g_deferral
+# Loading work.g_tx_fsm
+# Loading work.g_tx_crc32
+# Loading work.toggle_sync
+# Loading work.g_cfg_mgmt
+# Loading work.s2f_sync
+# Loading work.generic_register
+# Loading work.req_register
+# Loading work.stat_counter
+# Loading work.generic_intr_stat_reg
+# Loading work.g_mii_intf
+# Loading work.async_fifo
+# Loading work.wb_rd_mem2mem
+# Loading work.wb_wr_mem2mem
+# Loading work.uart_core
+# Loading work.uart_cfg
+# Loading work.stat_register
+# Loading work.uart_txfsm
+# Loading work.uart_rxfsm
+# Loading work.double_sync_low
+# Loading work.spi_core
+# Loading work.spi_if
+# Loading work.spi_ctl
+# Loading work.spi_cfg
+# Loading work.oc8051_top
+# Loading work.oc8051_decoder
+# Loading work.oc8051_alu
+# Loading work.oc8051_multiply
+# Loading work.oc8051_divide
+# Loading work.oc8051_ram_top
+# Loading work.oc8051_ram_256x8_two_bist
+# Loading work.oc8051_alu_src_sel
+# Loading work.oc8051_comp
+# Loading work.oc8051_rom
+# Loading work.oc8051_cy_select
+# Loading work.oc8051_indi_addr
+# Loading work.oc8051_memory_interface
+# Loading work.oc8051_sfr
+# Loading work.oc8051_acc
+# Loading work.oc8051_b_register
+# Loading work.oc8051_sp
+# Loading work.oc8051_dptr
+# Loading work.oc8051_psw
+# Loading work.oc8051_ports
+# Loading work.oc8051_int
+# Loading work.oc8051_tc
+# Loading work.oc8051_tc2
+# Loading work.oc8051_xrom
+# Loading work.oc8051_xram
+# Loading work.tb_eth_top
+# Loading work.tb_mii
+# Loading work.tb_rmii
+# Loading work.uart_agent
+# Loading work.m25p20
+# Loading work.memory_access
+# Loading work.acdc_check
+# Loading work.internal_logic
+# Loading work.AT45DB321
+# Loading work.tb_glbl
+# Loading work.bit_register
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by:   Hostname:   ProcessID: 14
+#           Attempting to use alternate WLF file "./wlftdf5ms9".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftdf5ms9
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_rxfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(227): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_txfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
+# do run.do 
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# NOTE : Load memory with Initial delivery content
+# NOTE : Initial Load End
+# NOTE: COMMUNICATION (RE)STARTED
+############################################
+#    Testing ST Flash Read/Write Access       
+############################################
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 06000000
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 80020240
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = d8000000
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0201
+#              6815000 : tb_top.spi_sector_errase : Sending Sector Errase for Address : 000000
+# NOTE : Sector erase cycle has begun
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 05000000
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 80020200
+# NOTE : Only a Read Status Register instruction will be valid
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 80220240
+# Total time Elapsed: 0(us): tb_top.spi_wait_busy : Checking the SPI RDStatus : 03000000
+# NOTE : Sector erase cycle is finished
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 05000000
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 80020200
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 80220240
+# Total time Elapsed: 0(us): tb_top.spi_wait_busy : Checking the SPI RDStatus : 00000000
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 06000000
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 80020240
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 02000000
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 00010203
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 00010203
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 04050607
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 04050607
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 08090a0b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 08090a0b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 0c0d0e0f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 0c0d0e0f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 10111213
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 10111213
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 14151617
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 14151617
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 18191a1b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 18191a1b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 1c1d1e1f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 1c1d1e1f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 20212223
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 20212223
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 24252627
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 24252627
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 28292a2b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 28292a2b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 2c2d2e2f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 2c2d2e2f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 30313233
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 30313233
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 34353637
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 34353637
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 38393a3b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 38393a3b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 3c3d3e3f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 3c3d3e3f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 40414243
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 40414243
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 44454647
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 44454647
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 48494a4b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 48494a4b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 4c4d4e4f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 4c4d4e4f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 50515253
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 50515253
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 54555657
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 54555657
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 58595a5b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 58595a5b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 5c5d5e5f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 5c5d5e5f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 60616263
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 60616263
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 64656667
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 64656667
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 68696a6b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 68696a6b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 6c6d6e6f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 6c6d6e6f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 70717273
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 70717273
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 74757677
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 74757677
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 78797a7b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 78797a7b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 7c7d7e7f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 7c7d7e7f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 80818283
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 80818283
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 84858687
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 84858687
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 88898a8b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 88898a8b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 8c8d8e8f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 8c8d8e8f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 90919293
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 90919293
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 94959697
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 94959697
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 98999a9b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 98999a9b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 9c9d9e9f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 9c9d9e9f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = a0a1a2a3
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : a0a1a2a3
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = a4a5a6a7
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : a4a5a6a7
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = a8a9aaab
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : a8a9aaab
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = acadaeaf
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : acadaeaf
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = b0b1b2b3
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : b0b1b2b3
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = b4b5b6b7
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : b4b5b6b7
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = b8b9babb
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : b8b9babb
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = bcbdbebf
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : bcbdbebf
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = c0c1c2c3
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : c0c1c2c3
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = c4c5c6c7
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : c4c5c6c7
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = c8c9cacb
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : c8c9cacb
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = cccdcecf
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : cccdcecf
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = d0d1d2d3
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : d0d1d2d3
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = d4d5d6d7
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : d4d5d6d7
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = d8d9dadb
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : d8d9dadb
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = dcdddedf
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : dcdddedf
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = e0e1e2e3
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : e0e1e2e3
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = e4e5e6e7
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : e4e5e6e7
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = e8e9eaeb
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : e8e9eaeb
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = ecedeeef
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : ecedeeef
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = f0f1f2f3
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : f0f1f2f3
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = f4f5f6f7
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : f4f5f6f7
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = f8f9fafb
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : f8f9fafb
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = fcfdfeff
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0201
+# NOTE : Page program cycle is started
+# tb_top.spi_page_write : Writing Data : fcfdfeff
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 05000000
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 80020200
+# NOTE : Only a Read Status Register instruction will be valid
+# NOTE : Page program cycle is finished
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 80220240
+# Total time Elapsed: 0(us): tb_top.spi_wait_busy : Checking the SPI RDStatus : 00000000
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 03000000
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 00010203 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 04050607 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 08090a0b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 0c0d0e0f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 10111213 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 14151617 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 18191a1b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 1c1d1e1f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 20212223 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 24252627 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 28292a2b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 2c2d2e2f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 30313233 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 34353637 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 38393a3b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 3c3d3e3f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 40414243 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 44454647 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 48494a4b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 4c4d4e4f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 50515253 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 54555657 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 58595a5b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 5c5d5e5f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 60616263 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 64656667 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 68696a6b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 6c6d6e6f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 70717273 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 74757677 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 78797a7b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 7c7d7e7f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 80818283 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 84858687 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 88898a8b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 8c8d8e8f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 90919293 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 94959697 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 98999a9b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 9c9d9e9f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : a0a1a2a3 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : a4a5a6a7 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : a8a9aaab 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : acadaeaf 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : b0b1b2b3 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : b4b5b6b7 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : b8b9babb 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : bcbdbebf 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : c0c1c2c3 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : c4c5c6c7 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : c8c9cacb 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : cccdcecf 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : d0d1d2d3 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : d4d5d6d7 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : d8d9dadb 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : dcdddedf 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : e0e1e2e3 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : e4e5e6e7 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : e8e9eaeb 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : ecedeeef 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : f0f1f2f3 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : f4f5f6f7 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : f8f9fafb 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : fcfdfeff 
+#############################
+#    Test Statistic            
+# TEST STATUS : PASSED 
+#############################
+# 
+# -------------------------------------------------
+# Test Status
+# warnings: 0, errors: 0
+# 
+# -------------------------------------------------
+# Test Status
+# warnings: 0, errors: 0
+# 
+# =========
+# Test Status: TEST PASSED
+# =========
+# 
+# ** Note: $finish    : ../../verif/lib/tb_glbl.v(64)
+#    Time: 2968996 ns  Iteration: 0  Instance: /tb_top

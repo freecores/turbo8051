@@ -1,0 +1,3274 @@
+ Compiling with MODELSIM 
+Model Technology ModelSim ACTEL vlog 6.6d Compiler 2010.11 Nov  2 2010
+-- Compiling module tb_top
+-- Compiling module tb_glbl
+-- Compiling module tb_eth_top
+-- Compiling module tb_mii
+-- Compiling module tb_rmii
+-- Compiling module uart_agent
+-- Compiling module AT45DB321
+-- Compiling module acdc_check
+-- Compiling module internal_logic
+-- Compiling module memory_access
+-- Compiling module m25p20
+-- Compiling module oc8051_xram
+-- Compiling module oc8051_xrom
+-- Compiling module turbo8051
+-- Compiling module g_mac_top
+-- Compiling module half_dup_dble_reg
+-- Compiling module g_tx_fsm
+-- Compiling module g_deferral
+-- Compiling module g_tx_top
+-- Compiling module g_rx_fsm
+-- Compiling module g_cfg_mgmt
+-- Compiling module s2f_sync
+-- Compiling module g_md_intf
+-- Compiling module g_deferral_rx
+-- Compiling module g_rx_top
+-- Compiling module g_mii_intf
+-- Compiling module g_mac_core
+-- Compiling module g_eth_parser
+-- Compiling module g_rx_crc32
+-- Compiling module g_tx_crc32
+-- Compiling module async_fifo
+-- Compiling module g_dpath_ctrl
+-- Compiling module spi_core
+-- Compiling module spi_ctl
+-- Compiling module spi_if
+-- Compiling module spi_cfg
+-- Compiling module uart_rxfsm
+-- Compiling module uart_txfsm
+-- Compiling module uart_core
+-- Compiling module uart_cfg
+-- Compiling module clkgen
+-- Compiling module clk_ctl
+-- Compiling module wb_crossbar
+-- Compiling module wb_rd_mem2mem
+-- Compiling module wb_wr_mem2mem
+-- Compiling module oc8051_top
+-- Compiling module oc8051_rom
+-- Compiling module oc8051_alu_src_sel
+-- Compiling module oc8051_alu
+-- Compiling module oc8051_decoder
+-- Compiling module oc8051_divide
+-- Compiling module oc8051_multiply
+-- Compiling module oc8051_memory_interface
+-- Compiling module oc8051_ram_top
+-- Compiling module oc8051_acc
+-- Compiling module oc8051_comp
+-- Compiling module oc8051_sp
+-- Compiling module oc8051_dptr
+-- Compiling module oc8051_cy_select
+-- Compiling module oc8051_psw
+-- Compiling module oc8051_indi_addr
+-- Compiling module oc8051_ports
+-- Compiling module oc8051_b_register
+-- Compiling module oc8051_uart
+-- Compiling module oc8051_int
+-- Compiling module oc8051_tc
+-- Compiling module oc8051_tc2
+-- Compiling module oc8051_sfr
+-- Compiling module oc8051_ram_256x8_two_bist
+-- Scanning library file '../../rtl/lib/registers.v'
+-- Compiling module req_register
+-- Compiling module stat_register
+-- Compiling module generic_register
+-- Compiling module generic_intr_stat_reg
+-- Scanning library file '../../rtl/lib/stat_counter.v'
+-- Compiling module stat_counter
+-- Scanning library file '../../rtl/lib/toggle_sync.v'
+-- Compiling module toggle_sync
+-- Scanning library file '../../rtl/lib/double_sync_low.v'
+-- Compiling module double_sync_low
+-- Scanning library file '../../rtl/lib/async_fifo.v'
+-- Scanning library file '../../rtl/lib/registers.v'
+-- Compiling module bit_register
+-- Scanning library file '../../rtl/lib/stat_counter.v'
+-- Scanning library file '../../rtl/lib/toggle_sync.v'
+-- Scanning library file '../../rtl/lib/double_sync_low.v'
+-- Scanning library file '../../rtl/lib/async_fifo.v'
+
+Top level modules:
+	tb_top
+	oc8051_uart
+#### Compile : PASSED
+
+###########################################
+ Runing GMAC/SPI/UART test programs 
+###########################################
+###########################################
+### Running test 1: gmac_test_2
+Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl 
+
+# 6.6d
+
+# vsim +gmac_test_2 -do run.do -c tb_top 
+# //  ModelSim ACTEL 6.6d Nov  2 2010 
+# //
+# //  Copyright 1991-2010 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.tb_top
+# Loading work.turbo8051
+# Loading work.clkgen
+# Loading work.clk_ctl
+# Loading work.wb_crossbar
+# Loading work.g_mac_top
+# Loading work.g_dpath_ctrl
+# Loading work.g_eth_parser
+# Loading work.g_mac_core
+# Loading work.g_rx_top
+# Loading work.g_rx_fsm
+# Loading work.half_dup_dble_reg
+# Loading work.g_rx_crc32
+# Loading work.g_deferral_rx
+# Loading work.g_md_intf
+# Loading work.g_tx_top
+# Loading work.g_deferral
+# Loading work.g_tx_fsm
+# Loading work.g_tx_crc32
+# Loading work.toggle_sync
+# Loading work.g_cfg_mgmt
+# Loading work.s2f_sync
+# Loading work.generic_register
+# Loading work.req_register
+# Loading work.stat_counter
+# Loading work.generic_intr_stat_reg
+# Loading work.g_mii_intf
+# Loading work.async_fifo
+# Loading work.wb_rd_mem2mem
+# Loading work.wb_wr_mem2mem
+# Loading work.uart_core
+# Loading work.uart_cfg
+# Loading work.stat_register
+# Loading work.uart_txfsm
+# Loading work.uart_rxfsm
+# Loading work.double_sync_low
+# Loading work.spi_core
+# Loading work.spi_if
+# Loading work.spi_ctl
+# Loading work.spi_cfg
+# Loading work.oc8051_top
+# Loading work.oc8051_decoder
+# Loading work.oc8051_alu
+# Loading work.oc8051_multiply
+# Loading work.oc8051_divide
+# Loading work.oc8051_ram_top
+# Loading work.oc8051_ram_256x8_two_bist
+# Loading work.oc8051_alu_src_sel
+# Loading work.oc8051_comp
+# Loading work.oc8051_rom
+# Loading work.oc8051_cy_select
+# Loading work.oc8051_indi_addr
+# Loading work.oc8051_memory_interface
+# Loading work.oc8051_sfr
+# Loading work.oc8051_acc
+# Loading work.oc8051_b_register
+# Loading work.oc8051_sp
+# Loading work.oc8051_dptr
+# Loading work.oc8051_psw
+# Loading work.oc8051_ports
+# Loading work.oc8051_int
+# Loading work.oc8051_tc
+# Loading work.oc8051_tc2
+# Loading work.oc8051_xrom
+# Loading work.oc8051_xram
+# Loading work.tb_eth_top
+# Loading work.tb_mii
+# Loading work.tb_rmii
+# Loading work.uart_agent
+# Loading work.m25p20
+# Loading work.memory_access
+# Loading work.acdc_check
+# Loading work.internal_logic
+# Loading work.AT45DB321
+# Loading work.tb_glbl
+# Loading work.bit_register
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by:   Hostname:   ProcessID: 14
+#           Attempting to use alternate WLF file "./wlftqqzjr8".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftqqzjr8
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_rxfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(227): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_txfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
+# do run.do 
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# NOTE : Load memory with Initial delivery content
+# NOTE : Initial Load End
+# NOTE: COMMUNICATION (RE)STARTED
+# Config-Write: Id: 1 Addr = 0000, Cfg. Data = 00114501
+# Clock period configured = 40 ns, data width = 4
+# Config-Write: Id: 1 Addr = 0008, Cfg. Data = 00001616
+# Config-Write: Id: 1 Addr = 0024, Cfg. Data = 70407000
+# Status: End of Transmission Loop
+# 1300 ns: Starting packet transmission to MAC, size = 64
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 24 81
+# 09 63 0d 8d 65 12 01 0d 76 3d ed 8c f9 c6 c5 aa
+# e5 77 12 8f f2 ce e8 c5 5c bd 2d 65 63 0a 80 20
+# aa 9d 96 13 0d 53 6b d5 02 ae 1d cf 21 4c 4b 3d
+# ****
+#              7060000 ns: Completed packet transmission to MAC
+# 8100 ns: Starting packet transmission to MAC, size = 65
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 23 0a
+# ca 3c f2 8a 41 d8 78 89 eb b6 c6 ae bc 2a 0b 71
+# 85 4f 3b 3a 7e 15 f1 d9 62 4c 9f 8f f8 b7 9f 5c
+# 5b 89 49 d0 d7 51 96 0c c2 c8 77 3d 12 fb 72 d9
+# bb
+# ****
+#             13940000 ns: Completed packet transmission to MAC
+# Status: End of Waiting Event Loop
+# 14980 ns: Starting packet transmission to MAC, size = 66
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 7e 6d
+# 39 1f d3 85 78 5b 49 3f 2a 58 86 8e 9c fa 26 73
+# a3 2f b3 5f 44 f7 cb e6 5a 29 ed da 65 b5 df 79
+# 44 d0 2a ab 0e dc 9a fd c3 56 4e 67 0a b6 6f 99
+# f0 ca
+# ****
+#             20900000 ns: Completed packet transmission to MAC
+# 21940 ns: Starting packet transmission to MAC, size = 67
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 38 79
+# b8 94 93 04 59 db 4d d9 6d 76 ca b6 95 46 04 f7
+# 69 b4 88 28 2d c7 2e 08 1c fd 29 1c 86 da 3d 66
+# 70 73 ba 5e fa d5 1a b9 37 96 c0 26 b6 7d dc e1
+# d6 98 d3
+# ****
+#             27940000 ns: Completed packet transmission to MAC
+# 28980 ns: Starting packet transmission to MAC, size = 68
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 86 78
+# 7e db cf 79 fa 61 17 a1 86 50 f5 35 29 c1 c5 98
+# 4b 73 ec 8a 4e a8 a9 a1 0e e6 9f 2a 2a 8d 9e 38
+# 79 c8 ca 13 6b c7 b6 ba c4 b9 92 b4 7f 86 fa f2
+# d8 8a 95 46
+# ****
+#             35060000 ns: Completed packet transmission to MAC
+# 35180 ns: Preamble detected, last IFG = 3518 bits
+# 35781 ns: SFD received, last IFG = 3518 bits
+# 36100 ns: Starting packet transmission to MAC, size = 69
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 32 bd
+# 84 e4 ca a9 a1 8e fb 0b ef c9 36 75 8f 6b 88 ae
+# 9b 92 28 2d 4b c2 1e 0d ec 18 d1 86 41 3b d8 53
+# 56 5b e2 04 73 d8 12 b8 39 e5 a1 2b 81 c8 27 a1
+# 1f dd 21 ca 31
+# ****
+# 40900 ns: Received packet, size = 64
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 46
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 24 81
+# 09 63 0d 8d 65 12 01 0d 76 3d ed 8c f9 c6 c5 aa
+# e5 77 12 8f f2 ce e8 c5 5c bd 2d 65 63 0a 80 20
+# aa 9d 96 13 0d 53 6b d5 02 ae 1d cf 21 4c 4b 3d
+# ****
+# 41900 ns: Preamble detected, last IFG = 96 bits
+#             42260000 ns: Completed packet transmission to MAC
+# 42501 ns: SFD received, last IFG = 96 bits
+# 43300 ns: Starting packet transmission to MAC, size = 70
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 04 58
+# 96 14 12 96 b1 55 ed 2b f5 ad 27 84 a7 e7 b9 49
+# db c9 51 a1 2a fa 45 83 7c 72 fe 68 6f 86 f0 38
+# 40 28 f6 c5 c0 74 39 b0 3c 2a 62 15 e1 17 43 c9
+# 86 25 ec 93 f7 b6
+# ****
+# 47700 ns: Received packet, size = 65
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 47
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 23 0a
+# ca 3c f2 8a 41 d8 78 89 eb b6 c6 ae bc 2a 0b 71
+# 85 4f 3b 3a 7e 15 f1 d9 62 4c 9f 8f f8 b7 9f 5c
+# 5b 89 49 d0 d7 51 96 0c c2 c8 77 3d 12 fb 72 d9
+# bb
+# ****
+# 48700 ns: Preamble detected, last IFG = 96 bits
+# 49301 ns: SFD received, last IFG = 96 bits
+#             49540000 ns: Completed packet transmission to MAC
+# 50580 ns: Starting packet transmission to MAC, size = 71
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 c1 8d
+# 5a 07 2c 0c 71 3b b6 f7 9e 5c 55 20 a0 72 b4 dd
+# 0d 4b 79 9e fd 7b 8f 03 e3 1d b1 44 95 e0 ed 52
+# f8 8d 52 84 46 8c 90 17 6a 84 aa 7c 60 ba 8b a6
+# 25 32 a2 b2 82 de 56
+# ****
+# 54580 ns: Received packet, size = 66
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 48
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 7e 6d
+# 39 1f d3 85 78 5b 49 3f 2a 58 86 8e 9c fa 26 73
+# a3 2f b3 5f 44 f7 cb e6 5a 29 ed da 65 b5 df 79
+# 44 d0 2a ab 0e dc 9a fd c3 56 4e 67 0a b6 6f 99
+# f0 ca
+# ****
+# 55580 ns: Preamble detected, last IFG = 96 bits
+# 56181 ns: SFD received, last IFG = 96 bits
+#             56900000 ns: Completed packet transmission to MAC
+# 57940 ns: Starting packet transmission to MAC, size = 72
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 49 14
+# 3d 4b 5c 47 86 39 b4 d0 2c 8c 07 6a 11 e8 4b 73
+# ec 23 a4 c9 39 df d4 67 9d b0 82 49 d9 20 1c 93
+# e3 2a c8 5d 3a 84 2b 39 12 52 59 d0 6e 97 db a6
+# bb 00 0f 69 16 8d 9c 08
+# ****
+# 61540 ns: Received packet, size = 67
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 49
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 38 79
+# b8 94 93 04 59 db 4d d9 6d 76 ca b6 95 46 04 f7
+# 69 b4 88 28 2d c7 2e 08 1c fd 29 1c 86 da 3d 66
+# 70 73 ba 5e fa d5 1a b9 37 96 c0 26 b6 7d dc e1
+# d6 98 d3
+# ****
+# 62540 ns: Preamble detected, last IFG = 96 bits
+# 63141 ns: SFD received, last IFG = 96 bits
+#             64340000 ns: Completed packet transmission to MAC
+# 65380 ns: Starting packet transmission to MAC, size = 73
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 0c 59
+# c5 cf 90 51 69 77 4a d8 9b c4 b8 b7 86 30 77 b5
+# d4 07 76 e9 8b 01 db 80 c2 c5 30 af 66 af e9 f8
+# 06 ef e1 95 ee 60 e5 28 64 29 e1 77 6e 81 d5 68
+# f0 aa 0f f1 7d 1f 08 38 e7
+# ****
+# 68580 ns: Received packet, size = 68
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 50
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 86 78
+# 7e db cf 79 fa 61 17 a1 86 50 f5 35 29 c1 c5 98
+# 4b 73 ec 8a 4e a8 a9 a1 0e e6 9f 2a 2a 8d 9e 38
+# 79 c8 ca 13 6b c7 b6 ba c4 b9 92 b4 7f 86 fa f2
+# d8 8a 95 46
+# ****
+# 69580 ns: Preamble detected, last IFG = 96 bits
+# 70181 ns: SFD received, last IFG = 96 bits
+#             71860000 ns: Completed packet transmission to MAC
+# 75700 ns: Received packet, size = 69
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 51
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 32 bd
+# 84 e4 ca a9 a1 8e fb 0b ef c9 36 75 8f 6b 88 ae
+# 9b 92 28 2d 4b c2 1e 0d ec 18 d1 86 41 3b d8 53
+# 56 5b e2 04 73 d8 12 b8 39 e5 a1 2b 81 c8 27 a1
+# 1f dd 21 ca 31
+# ****
+# 76700 ns: Preamble detected, last IFG = 96 bits
+# 77301 ns: SFD received, last IFG = 96 bits
+# 82900 ns: Received packet, size = 70
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 52
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 04 58
+# 96 14 12 96 b1 55 ed 2b f5 ad 27 84 a7 e7 b9 49
+# db c9 51 a1 2a fa 45 83 7c 72 fe 68 6f 86 f0 38
+# 40 28 f6 c5 c0 74 39 b0 3c 2a 62 15 e1 17 43 c9
+# 86 25 ec 93 f7 b6
+# ****
+# 83900 ns: Preamble detected, last IFG = 96 bits
+# 84501 ns: SFD received, last IFG = 96 bits
+# 90180 ns: Received packet, size = 71
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 53
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 c1 8d
+# 5a 07 2c 0c 71 3b b6 f7 9e 5c 55 20 a0 72 b4 dd
+# 0d 4b 79 9e fd 7b 8f 03 e3 1d b1 44 95 e0 ed 52
+# f8 8d 52 84 46 8c 90 17 6a 84 aa 7c 60 ba 8b a6
+# 25 32 a2 b2 82 de 56
+# ****
+# 91180 ns: Preamble detected, last IFG = 96 bits
+# 91781 ns: SFD received, last IFG = 96 bits
+# 97540 ns: Received packet, size = 72
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 54
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 49 14
+# 3d 4b 5c 47 86 39 b4 d0 2c 8c 07 6a 11 e8 4b 73
+# ec 23 a4 c9 39 df d4 67 9d b0 82 49 d9 20 1c 93
+# e3 2a c8 5d 3a 84 2b 39 12 52 59 d0 6e 97 db a6
+# bb 00 0f 69 16 8d 9c 08
+# ****
+# 98540 ns: Preamble detected, last IFG = 96 bits
+# 99141 ns: SFD received, last IFG = 96 bits
+# 104980 ns: Received packet, size = 73
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 55
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 0c 59
+# c5 cf 90 51 69 77 4a d8 9b c4 b8 b7 86 30 77 b5
+# d4 07 76 e9 8b 01 db 80 c2 c5 30 af 66 af e9 f8
+# 06 ef e1 95 ee 60 e5 28 64 29 e1 77 6e 81 d5 68
+# f0 aa 0f f1 7d 1f 08 38 e7
+# ****
+# Status: End of Waiting Delay Loop
+#############################
+#    TB MII Statistic            
+#  TB TO DUT :                 
+#      Frm cnt       :          10  
+#      Byte cnt      :         685  
+#  DUT TO TB :                  
+#      Frm cnt       :          10  
+#      Byte cnt      :         685  
+#      Pause Frm  cnt:           0  
+#      Alig Err   cnt:           0  
+#      usized Err cnt:           0  
+#      crc Err    cnt:           0  
+#      Length Err cnt:          10  
+#############################
+# 
+# -------------------------------------------------
+# Test Status
+# warnings: 0, errors: 0
+# 
+# -------------------------------------------------
+# Test Status
+# warnings: 0, errors: 0
+# 
+# =========
+# Test Status: TEST PASSED
+# =========
+# 
+# ** Note: $finish    : ../../verif/lib/tb_glbl.v(64)
+#    Time: 172861 ns  Iteration: 0  Instance: /tb_top
+### test 1: gmac_test_2 --> PASSED
+### Running test 2: gmac_test_1
+Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl 
+
+# 6.6d
+
+# vsim +gmac_test_1 -do run.do -c tb_top 
+# //  ModelSim ACTEL 6.6d Nov  2 2010 
+# //
+# //  Copyright 1991-2010 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.tb_top
+# Loading work.turbo8051
+# Loading work.clkgen
+# Loading work.clk_ctl
+# Loading work.wb_crossbar
+# Loading work.g_mac_top
+# Loading work.g_dpath_ctrl
+# Loading work.g_eth_parser
+# Loading work.g_mac_core
+# Loading work.g_rx_top
+# Loading work.g_rx_fsm
+# Loading work.half_dup_dble_reg
+# Loading work.g_rx_crc32
+# Loading work.g_deferral_rx
+# Loading work.g_md_intf
+# Loading work.g_tx_top
+# Loading work.g_deferral
+# Loading work.g_tx_fsm
+# Loading work.g_tx_crc32
+# Loading work.toggle_sync
+# Loading work.g_cfg_mgmt
+# Loading work.s2f_sync
+# Loading work.generic_register
+# Loading work.req_register
+# Loading work.stat_counter
+# Loading work.generic_intr_stat_reg
+# Loading work.g_mii_intf
+# Loading work.async_fifo
+# Loading work.wb_rd_mem2mem
+# Loading work.wb_wr_mem2mem
+# Loading work.uart_core
+# Loading work.uart_cfg
+# Loading work.stat_register
+# Loading work.uart_txfsm
+# Loading work.uart_rxfsm
+# Loading work.double_sync_low
+# Loading work.spi_core
+# Loading work.spi_if
+# Loading work.spi_ctl
+# Loading work.spi_cfg
+# Loading work.oc8051_top
+# Loading work.oc8051_decoder
+# Loading work.oc8051_alu
+# Loading work.oc8051_multiply
+# Loading work.oc8051_divide
+# Loading work.oc8051_ram_top
+# Loading work.oc8051_ram_256x8_two_bist
+# Loading work.oc8051_alu_src_sel
+# Loading work.oc8051_comp
+# Loading work.oc8051_rom
+# Loading work.oc8051_cy_select
+# Loading work.oc8051_indi_addr
+# Loading work.oc8051_memory_interface
+# Loading work.oc8051_sfr
+# Loading work.oc8051_acc
+# Loading work.oc8051_b_register
+# Loading work.oc8051_sp
+# Loading work.oc8051_dptr
+# Loading work.oc8051_psw
+# Loading work.oc8051_ports
+# Loading work.oc8051_int
+# Loading work.oc8051_tc
+# Loading work.oc8051_tc2
+# Loading work.oc8051_xrom
+# Loading work.oc8051_xram
+# Loading work.tb_eth_top
+# Loading work.tb_mii
+# Loading work.tb_rmii
+# Loading work.uart_agent
+# Loading work.m25p20
+# Loading work.memory_access
+# Loading work.acdc_check
+# Loading work.internal_logic
+# Loading work.AT45DB321
+# Loading work.tb_glbl
+# Loading work.bit_register
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by:   Hostname:   ProcessID: 14
+#           Attempting to use alternate WLF file "./wlft7gx1ee".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlft7gx1ee
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_rxfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(227): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_txfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
+# do run.do 
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# NOTE : Load memory with Initial delivery content
+# NOTE : Initial Load End
+# NOTE: COMMUNICATION (RE)STARTED
+# Config-Write: Id: 1 Addr = 0000, Cfg. Data = 00114501
+# Clock period configured = 40 ns, data width = 4
+# Config-Write: Id: 1 Addr = 0008, Cfg. Data = 00001616
+# Config-Write: Id: 1 Addr = 0024, Cfg. Data = 70407000
+# 1300 ns: Starting packet transmission to MAC, size = 64
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 24 81
+# 09 63 0d 8d 65 12 01 0d 76 3d ed 8c f9 c6 c5 aa
+# e5 77 12 8f f2 ce e8 c5 5c bd 2d 65 63 0a 80 20
+# aa 9d 96 13 0d 53 6b d5 02 ae 1d cf 21 4c 4b 3d
+# ****
+#              7060000 ns: Completed packet transmission to MAC
+# 8100 ns: Starting packet transmission to MAC, size = 65
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 23 0a
+# ca 3c f2 8a 41 d8 78 89 eb b6 c6 ae bc 2a 0b 71
+# 85 4f 3b 3a 7e 15 f1 d9 62 4c 9f 8f f8 b7 9f 5c
+# 5b 89 49 d0 d7 51 96 0c c2 c8 77 3d 12 fb 72 d9
+# bb
+# ****
+# Config-Write: Id: 4 Addr = 7040, Cfg. Data = 28400040
+# 9740 ns: Preamble detected, last IFG = 974 bits
+# 10341 ns: SFD received, last IFG = 974 bits
+#             13940000 ns: Completed packet transmission to MAC
+# 14980 ns: Starting packet transmission to MAC, size = 66
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 7e 6d
+# 39 1f d3 85 78 5b 49 3f 2a 58 86 8e 9c fa 26 73
+# a3 2f b3 5f 44 f7 cb e6 5a 29 ed da 65 b5 df 79
+# 44 d0 2a ab 0e dc 9a fd c3 56 4e 67 0a b6 6f 99
+# f0 ca
+# ****
+# Config-Write: Id: 4 Addr = 7044, Cfg. Data = 28410041
+# 15460 ns: Received packet, size = 64
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 46
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 24 81
+# 09 63 0d 8d 65 12 01 0d 76 3d ed 8c f9 c6 c5 aa
+# e5 77 12 8f f2 ce e8 c5 5c bd 2d 65 63 0a 80 20
+# aa 9d 96 13 0d 53 6b d5 02 ae 1d cf 21 4c 4b 3d
+# ****
+# 16460 ns: Preamble detected, last IFG = 96 bits
+# 17061 ns: SFD received, last IFG = 96 bits
+#             20900000 ns: Completed packet transmission to MAC
+# 21940 ns: Starting packet transmission to MAC, size = 67
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 38 79
+# b8 94 93 04 59 db 4d d9 6d 76 ca b6 95 46 04 f7
+# 69 b4 88 28 2d c7 2e 08 1c fd 29 1c 86 da 3d 66
+# 70 73 ba 5e fa d5 1a b9 37 96 c0 26 b6 7d dc e1
+# d6 98 d3
+# ****
+# Config-Write: Id: 4 Addr = 7048, Cfg. Data = 28421042
+# 22260 ns: Received packet, size = 65
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 47
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 23 0a
+# ca 3c f2 8a 41 d8 78 89 eb b6 c6 ae bc 2a 0b 71
+# 85 4f 3b 3a 7e 15 f1 d9 62 4c 9f 8f f8 b7 9f 5c
+# 5b 89 49 d0 d7 51 96 0c c2 c8 77 3d 12 fb 72 d9
+# bb
+# ****
+# 23260 ns: Preamble detected, last IFG = 96 bits
+# 23861 ns: SFD received, last IFG = 96 bits
+#             27940000 ns: Completed packet transmission to MAC
+# 28980 ns: Starting packet transmission to MAC, size = 68
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 86 78
+# 7e db cf 79 fa 61 17 a1 86 50 f5 35 29 c1 c5 98
+# 4b 73 ec 8a 4e a8 a9 a1 0e e6 9f 2a 2a 8d 9e 38
+# 79 c8 ca 13 6b c7 b6 ba c4 b9 92 b4 7f 86 fa f2
+# d8 8a 95 46
+# ****
+# 29140 ns: Received packet, size = 66
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 48
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 7e 6d
+# 39 1f d3 85 78 5b 49 3f 2a 58 86 8e 9c fa 26 73
+# a3 2f b3 5f 44 f7 cb e6 5a 29 ed da 65 b5 df 79
+# 44 d0 2a ab 0e dc 9a fd c3 56 4e 67 0a b6 6f 99
+# f0 ca
+# ****
+# Config-Write: Id: 4 Addr = 704c, Cfg. Data = 28432043
+# 30580 ns: Preamble detected, last IFG = 140 bits
+# 31181 ns: SFD received, last IFG = 140 bits
+#             35060000 ns: Completed packet transmission to MAC
+# 36100 ns: Starting packet transmission to MAC, size = 69
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 32 bd
+# 84 e4 ca a9 a1 8e fb 0b ef c9 36 75 8f 6b 88 ae
+# 9b 92 28 2d 4b c2 1e 0d ec 18 d1 86 41 3b d8 53
+# 56 5b e2 04 73 d8 12 b8 39 e5 a1 2b 81 c8 27 a1
+# 1f dd 21 ca 31
+# ****
+# Config-Write: Id: 4 Addr = 7050, Cfg. Data = 28443044
+# 36540 ns: Received packet, size = 67
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 49
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 38 79
+# b8 94 93 04 59 db 4d d9 6d 76 ca b6 95 46 04 f7
+# 69 b4 88 28 2d c7 2e 08 1c fd 29 1c 86 da 3d 66
+# 70 73 ba 5e fa d5 1a b9 37 96 c0 26 b6 7d dc e1
+# d6 98 d3
+# ****
+# 37540 ns: Preamble detected, last IFG = 96 bits
+# 38141 ns: SFD received, last IFG = 96 bits
+#             42260000 ns: Completed packet transmission to MAC
+# 43300 ns: Starting packet transmission to MAC, size = 70
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 04 58
+# 96 14 12 96 b1 55 ed 2b f5 ad 27 84 a7 e7 b9 49
+# db c9 51 a1 2a fa 45 83 7c 72 fe 68 6f 86 f0 38
+# 40 28 f6 c5 c0 74 39 b0 3c 2a 62 15 e1 17 43 c9
+# 86 25 ec 93 f7 b6
+# ****
+# 43580 ns: Received packet, size = 68
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 50
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 86 78
+# 7e db cf 79 fa 61 17 a1 86 50 f5 35 29 c1 c5 98
+# 4b 73 ec 8a 4e a8 a9 a1 0e e6 9f 2a 2a 8d 9e 38
+# 79 c8 ca 13 6b c7 b6 ba c4 b9 92 b4 7f 86 fa f2
+# d8 8a 95 46
+# ****
+# Config-Write: Id: 4 Addr = 7054, Cfg. Data = 28454045
+# 44860 ns: Preamble detected, last IFG = 124 bits
+# 45461 ns: SFD received, last IFG = 124 bits
+#             49540000 ns: Completed packet transmission to MAC
+# Config-Write: Id: 4 Addr = 7058, Cfg. Data = 28466046
+# 50580 ns: Starting packet transmission to MAC, size = 71
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 c1 8d
+# 5a 07 2c 0c 71 3b b6 f7 9e 5c 55 20 a0 72 b4 dd
+# 0d 4b 79 9e fd 7b 8f 03 e3 1d b1 44 95 e0 ed 52
+# f8 8d 52 84 46 8c 90 17 6a 84 aa 7c 60 ba 8b a6
+# 25 32 a2 b2 82 de 56
+# ****
+# 50980 ns: Received packet, size = 69
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 51
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 32 bd
+# 84 e4 ca a9 a1 8e fb 0b ef c9 36 75 8f 6b 88 ae
+# 9b 92 28 2d 4b c2 1e 0d ec 18 d1 86 41 3b d8 53
+# 56 5b e2 04 73 d8 12 b8 39 e5 a1 2b 81 c8 27 a1
+# 1f dd 21 ca 31
+# ****
+# 51980 ns: Preamble detected, last IFG = 96 bits
+# 52581 ns: SFD received, last IFG = 96 bits
+#             56900000 ns: Completed packet transmission to MAC
+# 57940 ns: Starting packet transmission to MAC, size = 72
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 49 14
+# 3d 4b 5c 47 86 39 b4 d0 2c 8c 07 6a 11 e8 4b 73
+# ec 23 a4 c9 39 df d4 67 9d b0 82 49 d9 20 1c 93
+# e3 2a c8 5d 3a 84 2b 39 12 52 59 d0 6e 97 db a6
+# bb 00 0f 69 16 8d 9c 08
+# ****
+# 58180 ns: Received packet, size = 70
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 52
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 04 58
+# 96 14 12 96 b1 55 ed 2b f5 ad 27 84 a7 e7 b9 49
+# db c9 51 a1 2a fa 45 83 7c 72 fe 68 6f 86 f0 38
+# 40 28 f6 c5 c0 74 39 b0 3c 2a 62 15 e1 17 43 c9
+# 86 25 ec 93 f7 b6
+# ****
+# Config-Write: Id: 4 Addr = 705c, Cfg. Data = 28478047
+# 59180 ns: Preamble detected, last IFG = 96 bits
+# 59781 ns: SFD received, last IFG = 96 bits
+#             64340000 ns: Completed packet transmission to MAC
+# 65380 ns: Starting packet transmission to MAC, size = 73
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 0c 59
+# c5 cf 90 51 69 77 4a d8 9b c4 b8 b7 86 30 77 b5
+# d4 07 76 e9 8b 01 db 80 c2 c5 30 af 66 af e9 f8
+# 06 ef e1 95 ee 60 e5 28 64 29 e1 77 6e 81 d5 68
+# f0 aa 0f f1 7d 1f 08 38 e7
+# ****
+# 65460 ns: Received packet, size = 71
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 53
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 c1 8d
+# 5a 07 2c 0c 71 3b b6 f7 9e 5c 55 20 a0 72 b4 dd
+# 0d 4b 79 9e fd 7b 8f 03 e3 1d b1 44 95 e0 ed 52
+# f8 8d 52 84 46 8c 90 17 6a 84 aa 7c 60 ba 8b a6
+# 25 32 a2 b2 82 de 56
+# ****
+# Config-Write: Id: 4 Addr = 7060, Cfg. Data = 2848a048
+# 66780 ns: Preamble detected, last IFG = 128 bits
+# 67381 ns: SFD received, last IFG = 128 bits
+#             71860000 ns: Completed packet transmission to MAC
+# 73140 ns: Received packet, size = 72
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 54
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 49 14
+# 3d 4b 5c 47 86 39 b4 d0 2c 8c 07 6a 11 e8 4b 73
+# ec 23 a4 c9 39 df d4 67 9d b0 82 49 d9 20 1c 93
+# e3 2a c8 5d 3a 84 2b 39 12 52 59 d0 6e 97 db a6
+# bb 00 0f 69 16 8d 9c 08
+# ****
+# Config-Write: Id: 4 Addr = 7064, Cfg. Data = 2849c049
+# 74420 ns: Preamble detected, last IFG = 124 bits
+# 75021 ns: SFD received, last IFG = 124 bits
+# 80860 ns: Received packet, size = 73
+# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
+# Length error, type/length field = 1792, expected value = 55
+# Contents:
+# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 0c 59
+# c5 cf 90 51 69 77 4a d8 9b c4 b8 b7 86 30 77 b5
+# d4 07 76 e9 8b 01 db 80 c2 c5 30 af 66 af e9 f8
+# 06 ef e1 95 ee 60 e5 28 64 29 e1 77 6e 81 d5 68
+# f0 aa 0f f1 7d 1f 08 38 e7
+# ****
+#############################
+#    TB MII Statistic            
+#  TB TO DUT :                 
+#      Frm cnt       :          10  
+#      Byte cnt      :         685  
+#  DUT TO TB :                  
+#      Frm cnt       :          10  
+#      Byte cnt      :         685  
+#      Pause Frm  cnt:           0  
+#      Alig Err   cnt:           0  
+#      usized Err cnt:           0  
+#      crc Err    cnt:           0  
+#      Length Err cnt:          10  
+#############################
+# 
+# -------------------------------------------------
+# Test Status
+# warnings: 0, errors: 0
+# 
+# -------------------------------------------------
+# Test Status
+# warnings: 0, errors: 0
+# 
+# =========
+# Test Status: TEST PASSED
+# =========
+# 
+# ** Note: $finish    : ../../verif/lib/tb_glbl.v(64)
+#    Time: 174676 ns  Iteration: 0  Instance: /tb_top
+### test 2: gmac_test_1 --> PASSED
+### Running test 3: uart_test_1
+Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl 
+
+# 6.6d
+
+# vsim +uart_test_1 -do run.do -c tb_top 
+# //  ModelSim ACTEL 6.6d Nov  2 2010 
+# //
+# //  Copyright 1991-2010 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.tb_top
+# Loading work.turbo8051
+# Loading work.clkgen
+# Loading work.clk_ctl
+# Loading work.wb_crossbar
+# Loading work.g_mac_top
+# Loading work.g_dpath_ctrl
+# Loading work.g_eth_parser
+# Loading work.g_mac_core
+# Loading work.g_rx_top
+# Loading work.g_rx_fsm
+# Loading work.half_dup_dble_reg
+# Loading work.g_rx_crc32
+# Loading work.g_deferral_rx
+# Loading work.g_md_intf
+# Loading work.g_tx_top
+# Loading work.g_deferral
+# Loading work.g_tx_fsm
+# Loading work.g_tx_crc32
+# Loading work.toggle_sync
+# Loading work.g_cfg_mgmt
+# Loading work.s2f_sync
+# Loading work.generic_register
+# Loading work.req_register
+# Loading work.stat_counter
+# Loading work.generic_intr_stat_reg
+# Loading work.g_mii_intf
+# Loading work.async_fifo
+# Loading work.wb_rd_mem2mem
+# Loading work.wb_wr_mem2mem
+# Loading work.uart_core
+# Loading work.uart_cfg
+# Loading work.stat_register
+# Loading work.uart_txfsm
+# Loading work.uart_rxfsm
+# Loading work.double_sync_low
+# Loading work.spi_core
+# Loading work.spi_if
+# Loading work.spi_ctl
+# Loading work.spi_cfg
+# Loading work.oc8051_top
+# Loading work.oc8051_decoder
+# Loading work.oc8051_alu
+# Loading work.oc8051_multiply
+# Loading work.oc8051_divide
+# Loading work.oc8051_ram_top
+# Loading work.oc8051_ram_256x8_two_bist
+# Loading work.oc8051_alu_src_sel
+# Loading work.oc8051_comp
+# Loading work.oc8051_rom
+# Loading work.oc8051_cy_select
+# Loading work.oc8051_indi_addr
+# Loading work.oc8051_memory_interface
+# Loading work.oc8051_sfr
+# Loading work.oc8051_acc
+# Loading work.oc8051_b_register
+# Loading work.oc8051_sp
+# Loading work.oc8051_dptr
+# Loading work.oc8051_psw
+# Loading work.oc8051_ports
+# Loading work.oc8051_int
+# Loading work.oc8051_tc
+# Loading work.oc8051_tc2
+# Loading work.oc8051_xrom
+# Loading work.oc8051_xram
+# Loading work.tb_eth_top
+# Loading work.tb_mii
+# Loading work.tb_rmii
+# Loading work.uart_agent
+# Loading work.m25p20
+# Loading work.memory_access
+# Loading work.acdc_check
+# Loading work.internal_logic
+# Loading work.AT45DB321
+# Loading work.tb_glbl
+# Loading work.bit_register
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by:   Hostname:   ProcessID: 14
+#           Attempting to use alternate WLF file "./wlft22nc1m".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlft22nc1m
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_rxfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(227): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_txfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
+# do run.do 
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# NOTE : Load memory with Initial delivery content
+# NOTE : Initial Load End
+# NOTE: COMMUNICATION (RE)STARTED
+# Config-Write: Id: 3 Addr = 0000, Cfg. Data = 00000017
+# 
+# ... Writing char  36 ...
+# ... Write data 24 to UART done cnt :          1 ...
+# 
+# 
+# ... Writing char 129 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  24
+# ... Read Data from UART done cnt :         1...
+# ... Write data 81 to UART done cnt :          2 ...
+# 
+# 
+# ... Writing char   9 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  81
+# ... Read Data from UART done cnt :         2...
+# ... Write data 09 to UART done cnt :          3 ...
+# 
+# 
+# ... Writing char  99 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  09
+# ... Read Data from UART done cnt :         3...
+# ... Write data 63 to UART done cnt :          4 ...
+# 
+# 
+# ... Writing char  13 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  63
+# ... Read Data from UART done cnt :         4...
+# ... Write data 0d to UART done cnt :          5 ...
+# 
+# 
+# ... Writing char 141 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  0d
+# ... Read Data from UART done cnt :         5...
+# ... Write data 8d to UART done cnt :          6 ...
+# 
+# 
+# ... Writing char 101 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  8d
+# ... Read Data from UART done cnt :         6...
+# ... Write data 65 to UART done cnt :          7 ...
+# 
+# 
+# ... Writing char  18 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  65
+# ... Read Data from UART done cnt :         7...
+# ... Write data 12 to UART done cnt :          8 ...
+# 
+# 
+# ... Writing char   1 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  12
+# ... Read Data from UART done cnt :         8...
+# ... Write data 01 to UART done cnt :          9 ...
+# 
+# 
+# ... Writing char  13 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  01
+# ... Read Data from UART done cnt :         9...
+# ... Write data 0d to UART done cnt :         10 ...
+# 
+# 
+# ... Writing char 118 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  0d
+# ... Read Data from UART done cnt :        10...
+# ... Write data 76 to UART done cnt :         11 ...
+# 
+# 
+# ... Writing char  61 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  76
+# ... Read Data from UART done cnt :        11...
+# ... Write data 3d to UART done cnt :         12 ...
+# 
+# 
+# ... Writing char 237 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  3d
+# ... Read Data from UART done cnt :        12...
+# ... Write data ed to UART done cnt :         13 ...
+# 
+# 
+# ... Writing char 140 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  ed
+# ... Read Data from UART done cnt :        13...
+# ... Write data 8c to UART done cnt :         14 ...
+# 
+# 
+# ... Writing char 249 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  8c
+# ... Read Data from UART done cnt :        14...
+# ... Write data f9 to UART done cnt :         15 ...
+# 
+# 
+# ... Writing char 198 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  f9
+# ... Read Data from UART done cnt :        15...
+# ... Write data c6 to UART done cnt :         16 ...
+# 
+# 
+# ... Writing char 197 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  c6
+# ... Read Data from UART done cnt :        16...
+# ... Write data c5 to UART done cnt :         17 ...
+# 
+# 
+# ... Writing char 170 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  c5
+# ... Read Data from UART done cnt :        17...
+# ... Write data aa to UART done cnt :         18 ...
+# 
+# 
+# ... Writing char 229 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  aa
+# ... Read Data from UART done cnt :        18...
+# ... Write data e5 to UART done cnt :         19 ...
+# 
+# 
+# ... Writing char 119 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  e5
+# ... Read Data from UART done cnt :        19...
+# ... Write data 77 to UART done cnt :         20 ...
+# 
+# 
+# ... Writing char  18 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  77
+# ... Read Data from UART done cnt :        20...
+# ... Write data 12 to UART done cnt :         21 ...
+# 
+# 
+# ... Writing char 143 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  12
+# ... Read Data from UART done cnt :        21...
+# ... Write data 8f to UART done cnt :         22 ...
+# 
+# 
+# ... Writing char 242 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  8f
+# ... Read Data from UART done cnt :        22...
+# ... Write data f2 to UART done cnt :         23 ...
+# 
+# 
+# ... Writing char 206 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  f2
+# ... Read Data from UART done cnt :        23...
+# ... Write data ce to UART done cnt :         24 ...
+# 
+# 
+# ... Writing char 232 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  ce
+# ... Read Data from UART done cnt :        24...
+# ... Write data e8 to UART done cnt :         25 ...
+# 
+# 
+# ... Writing char 197 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  e8
+# ... Read Data from UART done cnt :        25...
+# ... Write data c5 to UART done cnt :         26 ...
+# 
+# 
+# ... Writing char  92 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  c5
+# ... Read Data from UART done cnt :        26...
+# ... Write data 5c to UART done cnt :         27 ...
+# 
+# 
+# ... Writing char 189 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  5c
+# ... Read Data from UART done cnt :        27...
+# ... Write data bd to UART done cnt :         28 ...
+# 
+# 
+# ... Writing char  45 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  bd
+# ... Read Data from UART done cnt :        28...
+# ... Write data 2d to UART done cnt :         29 ...
+# 
+# 
+# ... Writing char 101 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  2d
+# ... Read Data from UART done cnt :        29...
+# ... Write data 65 to UART done cnt :         30 ...
+# 
+# 
+# ... Writing char  99 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  65
+# ... Read Data from UART done cnt :        30...
+# ... Write data 63 to UART done cnt :         31 ...
+# 
+# 
+# ... Writing char  10 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  63
+# ... Read Data from UART done cnt :        31...
+# ... Write data 0a to UART done cnt :         32 ...
+# 
+# 
+# ... Writing char 128 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  0a
+# ... Read Data from UART done cnt :        32...
+# ... Write data 80 to UART done cnt :         33 ...
+# 
+# 
+# ... Writing char  32 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  80
+# ... Read Data from UART done cnt :        33...
+# ... Write data 20 to UART done cnt :         34 ...
+# 
+# 
+# ... Writing char 170 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  20
+# ... Read Data from UART done cnt :        34...
+# ... Write data aa to UART done cnt :         35 ...
+# 
+# 
+# ... Writing char 157 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  aa
+# ... Read Data from UART done cnt :        35...
+# ... Write data 9d to UART done cnt :         36 ...
+# 
+# 
+# ... Writing char 150 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  9d
+# ... Read Data from UART done cnt :        36...
+# ... Write data 96 to UART done cnt :         37 ...
+# 
+# 
+# ... Writing char  19 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  96
+# ... Read Data from UART done cnt :        37...
+# ... Write data 13 to UART done cnt :         38 ...
+# 
+# 
+# ... Writing char  13 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  13
+# ... Read Data from UART done cnt :        38...
+# ... Write data 0d to UART done cnt :         39 ...
+# 
+# 
+# ... Writing char  83 ...
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  0d
+# ... Read Data from UART done cnt :        39...
+# ... Write data 53 to UART done cnt :         40 ...
+# 
+# (tb_top.tb_uart.read_char_chk.loop_2) Data match  53
+# ... Read Data from UART done cnt :        40...
+# -------------------- Reporting Configuration --------------------
+# 	Data bit number setting is : 8
+# 	Stop bit number setting is : 1
+# 	Divisor of Uart clock   is : 3
+# 	Parity is enable
+# 	Even parity setting
+# 	FIFO mode is disable
+# -----------------------------------------------------------------
+# -------------------- Reporting Status --------------------
+# 
+# 	Number of character received is :    40
+# 	Number of character sent     is :    40
+# 	Number of parity error rxd   is :     0
+# 	Number of stop1  error rxd   is :     0
+# 	Number of stop2  error rxd   is :     0
+# 	Number of timeout error      is :     0
+# 	Number of error              is :     0
+# -----------------------------------------------------------------
+# 
+# -------------------------------------------------
+# Test Status
+# warnings: 0, errors: 0
+# 
+# -------------------------------------------------
+# Test Status
+# warnings: 0, errors: 0
+# 
+# =========
+# Test Status: TEST PASSED
+# =========
+# 
+# ** Note: $finish    : ../../verif/lib/tb_glbl.v(64)
+#    Time: 157871 ns  Iteration: 0  Instance: /tb_top
+### test 3: uart_test_1 --> PASSED
+### Running test 4: spi_test_1
+Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl 
+
+# 6.6d
+
+# vsim +spi_test_1 -do run.do -c tb_top 
+# //  ModelSim ACTEL 6.6d Nov  2 2010 
+# //
+# //  Copyright 1991-2010 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.tb_top
+# Loading work.turbo8051
+# Loading work.clkgen
+# Loading work.clk_ctl
+# Loading work.wb_crossbar
+# Loading work.g_mac_top
+# Loading work.g_dpath_ctrl
+# Loading work.g_eth_parser
+# Loading work.g_mac_core
+# Loading work.g_rx_top
+# Loading work.g_rx_fsm
+# Loading work.half_dup_dble_reg
+# Loading work.g_rx_crc32
+# Loading work.g_deferral_rx
+# Loading work.g_md_intf
+# Loading work.g_tx_top
+# Loading work.g_deferral
+# Loading work.g_tx_fsm
+# Loading work.g_tx_crc32
+# Loading work.toggle_sync
+# Loading work.g_cfg_mgmt
+# Loading work.s2f_sync
+# Loading work.generic_register
+# Loading work.req_register
+# Loading work.stat_counter
+# Loading work.generic_intr_stat_reg
+# Loading work.g_mii_intf
+# Loading work.async_fifo
+# Loading work.wb_rd_mem2mem
+# Loading work.wb_wr_mem2mem
+# Loading work.uart_core
+# Loading work.uart_cfg
+# Loading work.stat_register
+# Loading work.uart_txfsm
+# Loading work.uart_rxfsm
+# Loading work.double_sync_low
+# Loading work.spi_core
+# Loading work.spi_if
+# Loading work.spi_ctl
+# Loading work.spi_cfg
+# Loading work.oc8051_top
+# Loading work.oc8051_decoder
+# Loading work.oc8051_alu
+# Loading work.oc8051_multiply
+# Loading work.oc8051_divide
+# Loading work.oc8051_ram_top
+# Loading work.oc8051_ram_256x8_two_bist
+# Loading work.oc8051_alu_src_sel
+# Loading work.oc8051_comp
+# Loading work.oc8051_rom
+# Loading work.oc8051_cy_select
+# Loading work.oc8051_indi_addr
+# Loading work.oc8051_memory_interface
+# Loading work.oc8051_sfr
+# Loading work.oc8051_acc
+# Loading work.oc8051_b_register
+# Loading work.oc8051_sp
+# Loading work.oc8051_dptr
+# Loading work.oc8051_psw
+# Loading work.oc8051_ports
+# Loading work.oc8051_int
+# Loading work.oc8051_tc
+# Loading work.oc8051_tc2
+# Loading work.oc8051_xrom
+# Loading work.oc8051_xram
+# Loading work.tb_eth_top
+# Loading work.tb_mii
+# Loading work.tb_rmii
+# Loading work.uart_agent
+# Loading work.m25p20
+# Loading work.memory_access
+# Loading work.acdc_check
+# Loading work.internal_logic
+# Loading work.AT45DB321
+# Loading work.tb_glbl
+# Loading work.bit_register
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by:   Hostname:   ProcessID: 14
+#           Attempting to use alternate WLF file "./wlftdf5ms9".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftdf5ms9
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_rxfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(227): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_txfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
+# do run.do 
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# i : 00
+# NOTE : Load memory with Initial delivery content
+# NOTE : Initial Load End
+# NOTE: COMMUNICATION (RE)STARTED
+############################################
+#    Testing ST Flash Read/Write Access       
+############################################
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 06000000
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 80020240
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = d8000000
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0201
+#              6815000 : tb_top.spi_sector_errase : Sending Sector Errase for Address : 000000
+# NOTE : Sector erase cycle has begun
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 05000000
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 80020200
+# NOTE : Only a Read Status Register instruction will be valid
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 80220240
+# Total time Elapsed: 0(us): tb_top.spi_wait_busy : Checking the SPI RDStatus : 03000000
+# NOTE : Sector erase cycle is finished
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 05000000
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 80020200
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 80220240
+# Total time Elapsed: 0(us): tb_top.spi_wait_busy : Checking the SPI RDStatus : 00000000
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 06000000
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 80020240
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 02000000
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 00010203
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 00010203
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 04050607
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 04050607
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 08090a0b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 08090a0b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 0c0d0e0f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 0c0d0e0f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 10111213
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 10111213
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 14151617
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 14151617
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 18191a1b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 18191a1b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 1c1d1e1f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 1c1d1e1f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 20212223
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 20212223
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 24252627
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 24252627
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 28292a2b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 28292a2b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 2c2d2e2f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 2c2d2e2f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 30313233
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 30313233
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 34353637
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 34353637
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 38393a3b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 38393a3b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 3c3d3e3f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 3c3d3e3f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 40414243
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 40414243
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 44454647
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 44454647
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 48494a4b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 48494a4b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 4c4d4e4f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 4c4d4e4f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 50515253
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 50515253
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 54555657
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 54555657
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 58595a5b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 58595a5b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 5c5d5e5f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 5c5d5e5f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 60616263
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 60616263
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 64656667
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 64656667
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 68696a6b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 68696a6b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 6c6d6e6f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 6c6d6e6f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 70717273
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 70717273
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 74757677
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 74757677
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 78797a7b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 78797a7b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 7c7d7e7f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 7c7d7e7f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 80818283
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 80818283
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 84858687
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 84858687
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 88898a8b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 88898a8b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 8c8d8e8f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 8c8d8e8f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 90919293
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 90919293
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 94959697
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 94959697
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 98999a9b
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 98999a9b
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 9c9d9e9f
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : 9c9d9e9f
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = a0a1a2a3
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : a0a1a2a3
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = a4a5a6a7
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : a4a5a6a7
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = a8a9aaab
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : a8a9aaab
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = acadaeaf
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : acadaeaf
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = b0b1b2b3
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : b0b1b2b3
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = b4b5b6b7
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : b4b5b6b7
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = b8b9babb
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : b8b9babb
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = bcbdbebf
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : bcbdbebf
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = c0c1c2c3
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : c0c1c2c3
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = c4c5c6c7
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : c4c5c6c7
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = c8c9cacb
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : c8c9cacb
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = cccdcecf
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : cccdcecf
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = d0d1d2d3
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : d0d1d2d3
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = d4d5d6d7
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : d4d5d6d7
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = d8d9dadb
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : d8d9dadb
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = dcdddedf
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : dcdddedf
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = e0e1e2e3
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : e0e1e2e3
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = e4e5e6e7
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : e4e5e6e7
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = e8e9eaeb
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : e8e9eaeb
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = ecedeeef
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : ecedeeef
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = f0f1f2f3
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : f0f1f2f3
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = f4f5f6f7
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : f4f5f6f7
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = f8f9fafb
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# tb_top.spi_page_write : Writing Data : f8f9fafb
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = fcfdfeff
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0201
+# NOTE : Page program cycle is started
+# tb_top.spi_page_write : Writing Data : fcfdfeff
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 05000000
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 80020200
+# NOTE : Only a Read Status Register instruction will be valid
+# NOTE : Page program cycle is finished
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 80220240
+# Total time Elapsed: 0(us): tb_top.spi_wait_busy : Checking the SPI RDStatus : 00000000
+# Config-Write: Id: 2 Addr = 0004, Cfg. Data = 03000000
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0200
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 00010203 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 04050607 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 08090a0b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 0c0d0e0f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 10111213 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 14151617 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 18191a1b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 1c1d1e1f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 20212223 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 24252627 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 28292a2b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 2c2d2e2f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 30313233 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 34353637 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 38393a3b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 3c3d3e3f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 40414243 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 44454647 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 48494a4b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 4c4d4e4f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 50515253 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 54555657 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 58595a5b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 5c5d5e5f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 60616263 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 64656667 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 68696a6b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 6c6d6e6f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 70717273 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 74757677 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 78797a7b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 7c7d7e7f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 80818283 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 84858687 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 88898a8b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 8c8d8e8f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 90919293 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 94959697 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 98999a9b 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : 9c9d9e9f 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : a0a1a2a3 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : a4a5a6a7 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : a8a9aaab 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : acadaeaf 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : b0b1b2b3 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : b4b5b6b7 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : b8b9babb 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : bcbdbebf 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : c0c1c2c3 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : c4c5c6c7 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : c8c9cacb 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : cccdcecf 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : d0d1d2d3 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : d4d5d6d7 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : d8d9dadb 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : dcdddedf 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : e0e1e2e3 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : e4e5e6e7 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : e8e9eaeb 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : ecedeeef 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : f0f1f2f3 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : f4f5f6f7 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : f8f9fafb 
+# Config-Write: Id: 2 Addr = 0000, Cfg. Data = 803a0200
+# tb_top.spi_page_read_verify : STATUS :  Data Matched : fcfdfeff 
+#############################
+#    Test Statistic            
+# TEST STATUS : PASSED 
+#############################
+# 
+# -------------------------------------------------
+# Test Status
+# warnings: 0, errors: 0
+# 
+# -------------------------------------------------
+# Test Status
+# warnings: 0, errors: 0
+# 
+# =========
+# Test Status: TEST PASSED
+# =========
+# 
+# ** Note: $finish    : ../../verif/lib/tb_glbl.v(64)
+#    Time: 2968996 ns  Iteration: 0  Instance: /tb_top
+### test 4: spi_test_1 --> PASSED
+###########################################
+
+###########################################
+###  Test Logs                            
+   test 1: ../log/gmac_test_2.log
+   test 2: ../log/gmac_test_1.log
+   test 3: ../log/uart_test_1.log
+   test 4: ../log/spi_test_1.log
+###########################################
+
+
+###########################################
+### tesing 8051 programs from external rom
+###########################################
+###########################################
+Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl 
+
+# 6.6d
+
+# vsim +EXTERNAL_ROM -do run.do -c tb_top 
+# //  ModelSim ACTEL 6.6d Nov  2 2010 
+# //
+# //  Copyright 1991-2010 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.tb_top
+# Loading work.turbo8051
+# Loading work.clkgen
+# Loading work.clk_ctl
+# Loading work.wb_crossbar
+# Loading work.g_mac_top
+# Loading work.g_dpath_ctrl
+# Loading work.g_eth_parser
+# Loading work.g_mac_core
+# Loading work.g_rx_top
+# Loading work.g_rx_fsm
+# Loading work.half_dup_dble_reg
+# Loading work.g_rx_crc32
+# Loading work.g_deferral_rx
+# Loading work.g_md_intf
+# Loading work.g_tx_top
+# Loading work.g_deferral
+# Loading work.g_tx_fsm
+# Loading work.g_tx_crc32
+# Loading work.toggle_sync
+# Loading work.g_cfg_mgmt
+# Loading work.s2f_sync
+# Loading work.generic_register
+# Loading work.req_register
+# Loading work.stat_counter
+# Loading work.generic_intr_stat_reg
+# Loading work.g_mii_intf
+# Loading work.async_fifo
+# Loading work.wb_rd_mem2mem
+# Loading work.wb_wr_mem2mem
+# Loading work.uart_core
+# Loading work.uart_cfg
+# Loading work.stat_register
+# Loading work.uart_txfsm
+# Loading work.uart_rxfsm
+# Loading work.double_sync_low
+# Loading work.spi_core
+# Loading work.spi_if
+# Loading work.spi_ctl
+# Loading work.spi_cfg
+# Loading work.oc8051_top
+# Loading work.oc8051_decoder
+# Loading work.oc8051_alu
+# Loading work.oc8051_multiply
+# Loading work.oc8051_divide
+# Loading work.oc8051_ram_top
+# Loading work.oc8051_ram_256x8_two_bist
+# Loading work.oc8051_alu_src_sel
+# Loading work.oc8051_comp
+# Loading work.oc8051_rom
+# Loading work.oc8051_cy_select
+# Loading work.oc8051_indi_addr
+# Loading work.oc8051_memory_interface
+# Loading work.oc8051_sfr
+# Loading work.oc8051_acc
+# Loading work.oc8051_b_register
+# Loading work.oc8051_sp
+# Loading work.oc8051_dptr
+# Loading work.oc8051_psw
+# Loading work.oc8051_ports
+# Loading work.oc8051_int
+# Loading work.oc8051_tc
+# Loading work.oc8051_tc2
+# Loading work.oc8051_xrom
+# Loading work.oc8051_xram
+# Loading work.tb_eth_top
+# Loading work.tb_mii
+# Loading work.tb_rmii
+# Loading work.uart_agent
+# Loading work.m25p20
+# Loading work.memory_access
+# Loading work.acdc_check
+# Loading work.internal_logic
+# Loading work.AT45DB321
+# Loading work.tb_glbl
+# Loading work.bit_register
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by:   Hostname:   ProcessID: 14
+#           Attempting to use alternate WLF file "./wlftg8faj1".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftg8faj1
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_rxfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(227): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_txfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
+# do run.do 
+# i : 02
+# i : 00
+# i : 08
+# i : 12
+# i : 01
+# i : 51
+# i : 80
+# i : fe
+# i : 75
+# i : 81
+# NOTE : Load memory with Initial delivery content
+# NOTE : Initial Load End
+# NOTE: COMMUNICATION (RE)STARTED
+################################
+# time                62216 Passed
+################################
+# ** Note: $finish    : ../tb/tb_top.v(448)
+#    Time: 62316 ns  Iteration: 0  Instance: /tb_top
+### test 1: fib --> PASSED
+Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl 
+
+# 6.6d
+
+# vsim +EXTERNAL_ROM -do run.do -c tb_top 
+# //  ModelSim ACTEL 6.6d Nov  2 2010 
+# //
+# //  Copyright 1991-2010 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.tb_top
+# Loading work.turbo8051
+# Loading work.clkgen
+# Loading work.clk_ctl
+# Loading work.wb_crossbar
+# Loading work.g_mac_top
+# Loading work.g_dpath_ctrl
+# Loading work.g_eth_parser
+# Loading work.g_mac_core
+# Loading work.g_rx_top
+# Loading work.g_rx_fsm
+# Loading work.half_dup_dble_reg
+# Loading work.g_rx_crc32
+# Loading work.g_deferral_rx
+# Loading work.g_md_intf
+# Loading work.g_tx_top
+# Loading work.g_deferral
+# Loading work.g_tx_fsm
+# Loading work.g_tx_crc32
+# Loading work.toggle_sync
+# Loading work.g_cfg_mgmt
+# Loading work.s2f_sync
+# Loading work.generic_register
+# Loading work.req_register
+# Loading work.stat_counter
+# Loading work.generic_intr_stat_reg
+# Loading work.g_mii_intf
+# Loading work.async_fifo
+# Loading work.wb_rd_mem2mem
+# Loading work.wb_wr_mem2mem
+# Loading work.uart_core
+# Loading work.uart_cfg
+# Loading work.stat_register
+# Loading work.uart_txfsm
+# Loading work.uart_rxfsm
+# Loading work.double_sync_low
+# Loading work.spi_core
+# Loading work.spi_if
+# Loading work.spi_ctl
+# Loading work.spi_cfg
+# Loading work.oc8051_top
+# Loading work.oc8051_decoder
+# Loading work.oc8051_alu
+# Loading work.oc8051_multiply
+# Loading work.oc8051_divide
+# Loading work.oc8051_ram_top
+# Loading work.oc8051_ram_256x8_two_bist
+# Loading work.oc8051_alu_src_sel
+# Loading work.oc8051_comp
+# Loading work.oc8051_rom
+# Loading work.oc8051_cy_select
+# Loading work.oc8051_indi_addr
+# Loading work.oc8051_memory_interface
+# Loading work.oc8051_sfr
+# Loading work.oc8051_acc
+# Loading work.oc8051_b_register
+# Loading work.oc8051_sp
+# Loading work.oc8051_dptr
+# Loading work.oc8051_psw
+# Loading work.oc8051_ports
+# Loading work.oc8051_int
+# Loading work.oc8051_tc
+# Loading work.oc8051_tc2
+# Loading work.oc8051_xrom
+# Loading work.oc8051_xram
+# Loading work.tb_eth_top
+# Loading work.tb_mii
+# Loading work.tb_rmii
+# Loading work.uart_agent
+# Loading work.m25p20
+# Loading work.memory_access
+# Loading work.acdc_check
+# Loading work.internal_logic
+# Loading work.AT45DB321
+# Loading work.tb_glbl
+# Loading work.bit_register
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by:   Hostname:   ProcessID: 14
+#           Attempting to use alternate WLF file "./wlftin6zdt".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftin6zdt
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_rxfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(227): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_txfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
+# do run.do 
+# i : 02
+# i : 00
+# i : 08
+# i : 12
+# i : 00
+# i : 64
+# i : 80
+# i : fe
+# i : 75
+# i : 81
+# NOTE : Load memory with Initial delivery content
+# NOTE : Initial Load End
+# NOTE: COMMUNICATION (RE)STARTED
+################################
+# time                45976 Passed
+################################
+# ** Note: $finish    : ../tb/tb_top.v(448)
+#    Time: 46076 ns  Iteration: 0  Instance: /tb_top
+### test 2: divmul --> PASSED
+Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl 
+
+# 6.6d
+
+# vsim +EXTERNAL_ROM -do run.do -c tb_top 
+# //  ModelSim ACTEL 6.6d Nov  2 2010 
+# //
+# //  Copyright 1991-2010 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.tb_top
+# Loading work.turbo8051
+# Loading work.clkgen
+# Loading work.clk_ctl
+# Loading work.wb_crossbar
+# Loading work.g_mac_top
+# Loading work.g_dpath_ctrl
+# Loading work.g_eth_parser
+# Loading work.g_mac_core
+# Loading work.g_rx_top
+# Loading work.g_rx_fsm
+# Loading work.half_dup_dble_reg
+# Loading work.g_rx_crc32
+# Loading work.g_deferral_rx
+# Loading work.g_md_intf
+# Loading work.g_tx_top
+# Loading work.g_deferral
+# Loading work.g_tx_fsm
+# Loading work.g_tx_crc32
+# Loading work.toggle_sync
+# Loading work.g_cfg_mgmt
+# Loading work.s2f_sync
+# Loading work.generic_register
+# Loading work.req_register
+# Loading work.stat_counter
+# Loading work.generic_intr_stat_reg
+# Loading work.g_mii_intf
+# Loading work.async_fifo
+# Loading work.wb_rd_mem2mem
+# Loading work.wb_wr_mem2mem
+# Loading work.uart_core
+# Loading work.uart_cfg
+# Loading work.stat_register
+# Loading work.uart_txfsm
+# Loading work.uart_rxfsm
+# Loading work.double_sync_low
+# Loading work.spi_core
+# Loading work.spi_if
+# Loading work.spi_ctl
+# Loading work.spi_cfg
+# Loading work.oc8051_top
+# Loading work.oc8051_decoder
+# Loading work.oc8051_alu
+# Loading work.oc8051_multiply
+# Loading work.oc8051_divide
+# Loading work.oc8051_ram_top
+# Loading work.oc8051_ram_256x8_two_bist
+# Loading work.oc8051_alu_src_sel
+# Loading work.oc8051_comp
+# Loading work.oc8051_rom
+# Loading work.oc8051_cy_select
+# Loading work.oc8051_indi_addr
+# Loading work.oc8051_memory_interface
+# Loading work.oc8051_sfr
+# Loading work.oc8051_acc
+# Loading work.oc8051_b_register
+# Loading work.oc8051_sp
+# Loading work.oc8051_dptr
+# Loading work.oc8051_psw
+# Loading work.oc8051_ports
+# Loading work.oc8051_int
+# Loading work.oc8051_tc
+# Loading work.oc8051_tc2
+# Loading work.oc8051_xrom
+# Loading work.oc8051_xram
+# Loading work.tb_eth_top
+# Loading work.tb_mii
+# Loading work.tb_rmii
+# Loading work.uart_agent
+# Loading work.m25p20
+# Loading work.memory_access
+# Loading work.acdc_check
+# Loading work.internal_logic
+# Loading work.AT45DB321
+# Loading work.tb_glbl
+# Loading work.bit_register
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by:   Hostname:   ProcessID: 14
+#           Attempting to use alternate WLF file "./wlfty0wib6".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlfty0wib6
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_rxfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(227): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_txfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
+# do run.do 
+# i : 02
+# i : 00
+# i : 08
+# i : 12
+# i : 01
+# i : 1f
+# i : 80
+# i : fe
+# i : 75
+# i : 81
+# NOTE : Load memory with Initial delivery content
+# NOTE : Initial Load End
+# NOTE: COMMUNICATION (RE)STARTED
+################################
+# time               184436 Passed
+################################
+# ** Note: $finish    : ../tb/tb_top.v(448)
+#    Time: 184536 ns  Iteration: 0  Instance: /tb_top
+### test 3: sort --> PASSED
+Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl 
+
+# 6.6d
+
+# vsim +EXTERNAL_ROM -do run.do -c tb_top 
+# //  ModelSim ACTEL 6.6d Nov  2 2010 
+# //
+# //  Copyright 1991-2010 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.tb_top
+# Loading work.turbo8051
+# Loading work.clkgen
+# Loading work.clk_ctl
+# Loading work.wb_crossbar
+# Loading work.g_mac_top
+# Loading work.g_dpath_ctrl
+# Loading work.g_eth_parser
+# Loading work.g_mac_core
+# Loading work.g_rx_top
+# Loading work.g_rx_fsm
+# Loading work.half_dup_dble_reg
+# Loading work.g_rx_crc32
+# Loading work.g_deferral_rx
+# Loading work.g_md_intf
+# Loading work.g_tx_top
+# Loading work.g_deferral
+# Loading work.g_tx_fsm
+# Loading work.g_tx_crc32
+# Loading work.toggle_sync
+# Loading work.g_cfg_mgmt
+# Loading work.s2f_sync
+# Loading work.generic_register
+# Loading work.req_register
+# Loading work.stat_counter
+# Loading work.generic_intr_stat_reg
+# Loading work.g_mii_intf
+# Loading work.async_fifo
+# Loading work.wb_rd_mem2mem
+# Loading work.wb_wr_mem2mem
+# Loading work.uart_core
+# Loading work.uart_cfg
+# Loading work.stat_register
+# Loading work.uart_txfsm
+# Loading work.uart_rxfsm
+# Loading work.double_sync_low
+# Loading work.spi_core
+# Loading work.spi_if
+# Loading work.spi_ctl
+# Loading work.spi_cfg
+# Loading work.oc8051_top
+# Loading work.oc8051_decoder
+# Loading work.oc8051_alu
+# Loading work.oc8051_multiply
+# Loading work.oc8051_divide
+# Loading work.oc8051_ram_top
+# Loading work.oc8051_ram_256x8_two_bist
+# Loading work.oc8051_alu_src_sel
+# Loading work.oc8051_comp
+# Loading work.oc8051_rom
+# Loading work.oc8051_cy_select
+# Loading work.oc8051_indi_addr
+# Loading work.oc8051_memory_interface
+# Loading work.oc8051_sfr
+# Loading work.oc8051_acc
+# Loading work.oc8051_b_register
+# Loading work.oc8051_sp
+# Loading work.oc8051_dptr
+# Loading work.oc8051_psw
+# Loading work.oc8051_ports
+# Loading work.oc8051_int
+# Loading work.oc8051_tc
+# Loading work.oc8051_tc2
+# Loading work.oc8051_xrom
+# Loading work.oc8051_xram
+# Loading work.tb_eth_top
+# Loading work.tb_mii
+# Loading work.tb_rmii
+# Loading work.uart_agent
+# Loading work.m25p20
+# Loading work.memory_access
+# Loading work.acdc_check
+# Loading work.internal_logic
+# Loading work.AT45DB321
+# Loading work.tb_glbl
+# Loading work.bit_register
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by:   Hostname:   ProcessID: 14
+#           Attempting to use alternate WLF file "./wlftddiavq".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftddiavq
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_rxfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(227): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_txfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
+# do run.do 
+# i : 02
+# i : 00
+# i : 08
+# i : 12
+# i : 00
+# i : 64
+# i : 80
+# i : fe
+# i : 75
+# i : 81
+# NOTE : Load memory with Initial delivery content
+# NOTE : Initial Load End
+# NOTE: COMMUNICATION (RE)STARTED
+################################
+# time                33776 Passed
+################################
+# ** Note: $finish    : ../tb/tb_top.v(448)
+#    Time: 33876 ns  Iteration: 0  Instance: /tb_top
+### test 4: gcd --> PASSED
+Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl 
+
+# 6.6d
+
+# vsim +EXTERNAL_ROM -do run.do -c tb_top 
+# //  ModelSim ACTEL 6.6d Nov  2 2010 
+# //
+# //  Copyright 1991-2010 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.tb_top
+# Loading work.turbo8051
+# Loading work.clkgen
+# Loading work.clk_ctl
+# Loading work.wb_crossbar
+# Loading work.g_mac_top
+# Loading work.g_dpath_ctrl
+# Loading work.g_eth_parser
+# Loading work.g_mac_core
+# Loading work.g_rx_top
+# Loading work.g_rx_fsm
+# Loading work.half_dup_dble_reg
+# Loading work.g_rx_crc32
+# Loading work.g_deferral_rx
+# Loading work.g_md_intf
+# Loading work.g_tx_top
+# Loading work.g_deferral
+# Loading work.g_tx_fsm
+# Loading work.g_tx_crc32
+# Loading work.toggle_sync
+# Loading work.g_cfg_mgmt
+# Loading work.s2f_sync
+# Loading work.generic_register
+# Loading work.req_register
+# Loading work.stat_counter
+# Loading work.generic_intr_stat_reg
+# Loading work.g_mii_intf
+# Loading work.async_fifo
+# Loading work.wb_rd_mem2mem
+# Loading work.wb_wr_mem2mem
+# Loading work.uart_core
+# Loading work.uart_cfg
+# Loading work.stat_register
+# Loading work.uart_txfsm
+# Loading work.uart_rxfsm
+# Loading work.double_sync_low
+# Loading work.spi_core
+# Loading work.spi_if
+# Loading work.spi_ctl
+# Loading work.spi_cfg
+# Loading work.oc8051_top
+# Loading work.oc8051_decoder
+# Loading work.oc8051_alu
+# Loading work.oc8051_multiply
+# Loading work.oc8051_divide
+# Loading work.oc8051_ram_top
+# Loading work.oc8051_ram_256x8_two_bist
+# Loading work.oc8051_alu_src_sel
+# Loading work.oc8051_comp
+# Loading work.oc8051_rom
+# Loading work.oc8051_cy_select
+# Loading work.oc8051_indi_addr
+# Loading work.oc8051_memory_interface
+# Loading work.oc8051_sfr
+# Loading work.oc8051_acc
+# Loading work.oc8051_b_register
+# Loading work.oc8051_sp
+# Loading work.oc8051_dptr
+# Loading work.oc8051_psw
+# Loading work.oc8051_ports
+# Loading work.oc8051_int
+# Loading work.oc8051_tc
+# Loading work.oc8051_tc2
+# Loading work.oc8051_xrom
+# Loading work.oc8051_xram
+# Loading work.tb_eth_top
+# Loading work.tb_mii
+# Loading work.tb_rmii
+# Loading work.uart_agent
+# Loading work.m25p20
+# Loading work.memory_access
+# Loading work.acdc_check
+# Loading work.internal_logic
+# Loading work.AT45DB321
+# Loading work.tb_glbl
+# Loading work.bit_register
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by:   Hostname:   ProcessID: 14
+#           Attempting to use alternate WLF file "./wlftfiaaw0".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftfiaaw0
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_rxfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(227): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_txfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
+# do run.do 
+# i : 02
+# i : 00
+# i : 08
+# i : 12
+# i : 00
+# i : 65
+# i : 80
+# i : fe
+# i : 75
+# i : 81
+# NOTE : Load memory with Initial delivery content
+# NOTE : Initial Load End
+# NOTE: COMMUNICATION (RE)STARTED
+################################
+# time                29536 Passed
+################################
+# ** Note: $finish    : ../tb/tb_top.v(448)
+#    Time: 29636 ns  Iteration: 0  Instance: /tb_top
+### test 5: cast --> PASSED
+Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl 
+
+# 6.6d
+
+# vsim +EXTERNAL_ROM -do run.do -c tb_top 
+# //  ModelSim ACTEL 6.6d Nov  2 2010 
+# //
+# //  Copyright 1991-2010 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.tb_top
+# Loading work.turbo8051
+# Loading work.clkgen
+# Loading work.clk_ctl
+# Loading work.wb_crossbar
+# Loading work.g_mac_top
+# Loading work.g_dpath_ctrl
+# Loading work.g_eth_parser
+# Loading work.g_mac_core
+# Loading work.g_rx_top
+# Loading work.g_rx_fsm
+# Loading work.half_dup_dble_reg
+# Loading work.g_rx_crc32
+# Loading work.g_deferral_rx
+# Loading work.g_md_intf
+# Loading work.g_tx_top
+# Loading work.g_deferral
+# Loading work.g_tx_fsm
+# Loading work.g_tx_crc32
+# Loading work.toggle_sync
+# Loading work.g_cfg_mgmt
+# Loading work.s2f_sync
+# Loading work.generic_register
+# Loading work.req_register
+# Loading work.stat_counter
+# Loading work.generic_intr_stat_reg
+# Loading work.g_mii_intf
+# Loading work.async_fifo
+# Loading work.wb_rd_mem2mem
+# Loading work.wb_wr_mem2mem
+# Loading work.uart_core
+# Loading work.uart_cfg
+# Loading work.stat_register
+# Loading work.uart_txfsm
+# Loading work.uart_rxfsm
+# Loading work.double_sync_low
+# Loading work.spi_core
+# Loading work.spi_if
+# Loading work.spi_ctl
+# Loading work.spi_cfg
+# Loading work.oc8051_top
+# Loading work.oc8051_decoder
+# Loading work.oc8051_alu
+# Loading work.oc8051_multiply
+# Loading work.oc8051_divide
+# Loading work.oc8051_ram_top
+# Loading work.oc8051_ram_256x8_two_bist
+# Loading work.oc8051_alu_src_sel
+# Loading work.oc8051_comp
+# Loading work.oc8051_rom
+# Loading work.oc8051_cy_select
+# Loading work.oc8051_indi_addr
+# Loading work.oc8051_memory_interface
+# Loading work.oc8051_sfr
+# Loading work.oc8051_acc
+# Loading work.oc8051_b_register
+# Loading work.oc8051_sp
+# Loading work.oc8051_dptr
+# Loading work.oc8051_psw
+# Loading work.oc8051_ports
+# Loading work.oc8051_int
+# Loading work.oc8051_tc
+# Loading work.oc8051_tc2
+# Loading work.oc8051_xrom
+# Loading work.oc8051_xram
+# Loading work.tb_eth_top
+# Loading work.tb_mii
+# Loading work.tb_rmii
+# Loading work.uart_agent
+# Loading work.m25p20
+# Loading work.memory_access
+# Loading work.acdc_check
+# Loading work.internal_logic
+# Loading work.AT45DB321
+# Loading work.tb_glbl
+# Loading work.bit_register
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by:   Hostname:   ProcessID: 14
+#           Attempting to use alternate WLF file "./wlftc8emq2".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftc8emq2
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_rxfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(227): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_txfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
+# do run.do 
+# i : 02
+# i : 00
+# i : 08
+# i : 12
+# i : 00
+# i : 64
+# i : 80
+# i : fe
+# i : 75
+# i : 81
+# NOTE : Load memory with Initial delivery content
+# NOTE : Initial Load End
+# NOTE: COMMUNICATION (RE)STARTED
+################################
+# time              4411896 Passed
+################################
+# ** Note: $finish    : ../tb/tb_top.v(448)
+#    Time: 4411996 ns  Iteration: 0  Instance: /tb_top
+### test 6: xram --> PASSED
+###########################################
+
+
+###########################################
+### tesing 8051 programs from internal rom
+###########################################
+###########################################
+Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl 
+
+# 6.6d
+
+# vsim +INTERNAL_ROM -do run.do -c tb_top 
+# //  ModelSim ACTEL 6.6d Nov  2 2010 
+# //
+# //  Copyright 1991-2010 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.tb_top
+# Loading work.turbo8051
+# Loading work.clkgen
+# Loading work.clk_ctl
+# Loading work.wb_crossbar
+# Loading work.g_mac_top
+# Loading work.g_dpath_ctrl
+# Loading work.g_eth_parser
+# Loading work.g_mac_core
+# Loading work.g_rx_top
+# Loading work.g_rx_fsm
+# Loading work.half_dup_dble_reg
+# Loading work.g_rx_crc32
+# Loading work.g_deferral_rx
+# Loading work.g_md_intf
+# Loading work.g_tx_top
+# Loading work.g_deferral
+# Loading work.g_tx_fsm
+# Loading work.g_tx_crc32
+# Loading work.toggle_sync
+# Loading work.g_cfg_mgmt
+# Loading work.s2f_sync
+# Loading work.generic_register
+# Loading work.req_register
+# Loading work.stat_counter
+# Loading work.generic_intr_stat_reg
+# Loading work.g_mii_intf
+# Loading work.async_fifo
+# Loading work.wb_rd_mem2mem
+# Loading work.wb_wr_mem2mem
+# Loading work.uart_core
+# Loading work.uart_cfg
+# Loading work.stat_register
+# Loading work.uart_txfsm
+# Loading work.uart_rxfsm
+# Loading work.double_sync_low
+# Loading work.spi_core
+# Loading work.spi_if
+# Loading work.spi_ctl
+# Loading work.spi_cfg
+# Loading work.oc8051_top
+# Loading work.oc8051_decoder
+# Loading work.oc8051_alu
+# Loading work.oc8051_multiply
+# Loading work.oc8051_divide
+# Loading work.oc8051_ram_top
+# Loading work.oc8051_ram_256x8_two_bist
+# Loading work.oc8051_alu_src_sel
+# Loading work.oc8051_comp
+# Loading work.oc8051_rom
+# Loading work.oc8051_cy_select
+# Loading work.oc8051_indi_addr
+# Loading work.oc8051_memory_interface
+# Loading work.oc8051_sfr
+# Loading work.oc8051_acc
+# Loading work.oc8051_b_register
+# Loading work.oc8051_sp
+# Loading work.oc8051_dptr
+# Loading work.oc8051_psw
+# Loading work.oc8051_ports
+# Loading work.oc8051_int
+# Loading work.oc8051_tc
+# Loading work.oc8051_tc2
+# Loading work.oc8051_xrom
+# Loading work.oc8051_xram
+# Loading work.tb_eth_top
+# Loading work.tb_mii
+# Loading work.tb_rmii
+# Loading work.uart_agent
+# Loading work.m25p20
+# Loading work.memory_access
+# Loading work.acdc_check
+# Loading work.internal_logic
+# Loading work.AT45DB321
+# Loading work.tb_glbl
+# Loading work.bit_register
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by:   Hostname:   ProcessID: 14
+#           Attempting to use alternate WLF file "./wlft2f91sk".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlft2f91sk
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_rxfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(227): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_txfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
+# do run.do 
+# i : 02
+# i : 00
+# i : 08
+# i : 12
+# i : 01
+# i : 51
+# i : 80
+# i : fe
+# i : 75
+# i : 81
+# NOTE : Load memory with Initial delivery content
+# NOTE : Initial Load End
+# NOTE: COMMUNICATION (RE)STARTED
+################################
+# time                62216 Passed
+################################
+# ** Note: $finish    : ../tb/tb_top.v(448)
+#    Time: 62316 ns  Iteration: 0  Instance: /tb_top
+### test 1: fib --> PASSED
+Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl 
+
+# 6.6d
+
+# vsim +INTERNAL_ROM -do run.do -c tb_top 
+# //  ModelSim ACTEL 6.6d Nov  2 2010 
+# //
+# //  Copyright 1991-2010 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.tb_top
+# Loading work.turbo8051
+# Loading work.clkgen
+# Loading work.clk_ctl
+# Loading work.wb_crossbar
+# Loading work.g_mac_top
+# Loading work.g_dpath_ctrl
+# Loading work.g_eth_parser
+# Loading work.g_mac_core
+# Loading work.g_rx_top
+# Loading work.g_rx_fsm
+# Loading work.half_dup_dble_reg
+# Loading work.g_rx_crc32
+# Loading work.g_deferral_rx
+# Loading work.g_md_intf
+# Loading work.g_tx_top
+# Loading work.g_deferral
+# Loading work.g_tx_fsm
+# Loading work.g_tx_crc32
+# Loading work.toggle_sync
+# Loading work.g_cfg_mgmt
+# Loading work.s2f_sync
+# Loading work.generic_register
+# Loading work.req_register
+# Loading work.stat_counter
+# Loading work.generic_intr_stat_reg
+# Loading work.g_mii_intf
+# Loading work.async_fifo
+# Loading work.wb_rd_mem2mem
+# Loading work.wb_wr_mem2mem
+# Loading work.uart_core
+# Loading work.uart_cfg
+# Loading work.stat_register
+# Loading work.uart_txfsm
+# Loading work.uart_rxfsm
+# Loading work.double_sync_low
+# Loading work.spi_core
+# Loading work.spi_if
+# Loading work.spi_ctl
+# Loading work.spi_cfg
+# Loading work.oc8051_top
+# Loading work.oc8051_decoder
+# Loading work.oc8051_alu
+# Loading work.oc8051_multiply
+# Loading work.oc8051_divide
+# Loading work.oc8051_ram_top
+# Loading work.oc8051_ram_256x8_two_bist
+# Loading work.oc8051_alu_src_sel
+# Loading work.oc8051_comp
+# Loading work.oc8051_rom
+# Loading work.oc8051_cy_select
+# Loading work.oc8051_indi_addr
+# Loading work.oc8051_memory_interface
+# Loading work.oc8051_sfr
+# Loading work.oc8051_acc
+# Loading work.oc8051_b_register
+# Loading work.oc8051_sp
+# Loading work.oc8051_dptr
+# Loading work.oc8051_psw
+# Loading work.oc8051_ports
+# Loading work.oc8051_int
+# Loading work.oc8051_tc
+# Loading work.oc8051_tc2
+# Loading work.oc8051_xrom
+# Loading work.oc8051_xram
+# Loading work.tb_eth_top
+# Loading work.tb_mii
+# Loading work.tb_rmii
+# Loading work.uart_agent
+# Loading work.m25p20
+# Loading work.memory_access
+# Loading work.acdc_check
+# Loading work.internal_logic
+# Loading work.AT45DB321
+# Loading work.tb_glbl
+# Loading work.bit_register
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by:   Hostname:   ProcessID: 14
+#           Attempting to use alternate WLF file "./wlftckcg14".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftckcg14
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_rxfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(227): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_txfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
+# do run.do 
+# i : 02
+# i : 00
+# i : 08
+# i : 12
+# i : 00
+# i : 64
+# i : 80
+# i : fe
+# i : 75
+# i : 81
+# NOTE : Load memory with Initial delivery content
+# NOTE : Initial Load End
+# NOTE: COMMUNICATION (RE)STARTED
+################################
+# time                45976 Passed
+################################
+# ** Note: $finish    : ../tb/tb_top.v(448)
+#    Time: 46076 ns  Iteration: 0  Instance: /tb_top
+### test 2: divmul --> PASSED
+Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl 
+
+# 6.6d
+
+# vsim +INTERNAL_ROM -do run.do -c tb_top 
+# //  ModelSim ACTEL 6.6d Nov  2 2010 
+# //
+# //  Copyright 1991-2010 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.tb_top
+# Loading work.turbo8051
+# Loading work.clkgen
+# Loading work.clk_ctl
+# Loading work.wb_crossbar
+# Loading work.g_mac_top
+# Loading work.g_dpath_ctrl
+# Loading work.g_eth_parser
+# Loading work.g_mac_core
+# Loading work.g_rx_top
+# Loading work.g_rx_fsm
+# Loading work.half_dup_dble_reg
+# Loading work.g_rx_crc32
+# Loading work.g_deferral_rx
+# Loading work.g_md_intf
+# Loading work.g_tx_top
+# Loading work.g_deferral
+# Loading work.g_tx_fsm
+# Loading work.g_tx_crc32
+# Loading work.toggle_sync
+# Loading work.g_cfg_mgmt
+# Loading work.s2f_sync
+# Loading work.generic_register
+# Loading work.req_register
+# Loading work.stat_counter
+# Loading work.generic_intr_stat_reg
+# Loading work.g_mii_intf
+# Loading work.async_fifo
+# Loading work.wb_rd_mem2mem
+# Loading work.wb_wr_mem2mem
+# Loading work.uart_core
+# Loading work.uart_cfg
+# Loading work.stat_register
+# Loading work.uart_txfsm
+# Loading work.uart_rxfsm
+# Loading work.double_sync_low
+# Loading work.spi_core
+# Loading work.spi_if
+# Loading work.spi_ctl
+# Loading work.spi_cfg
+# Loading work.oc8051_top
+# Loading work.oc8051_decoder
+# Loading work.oc8051_alu
+# Loading work.oc8051_multiply
+# Loading work.oc8051_divide
+# Loading work.oc8051_ram_top
+# Loading work.oc8051_ram_256x8_two_bist
+# Loading work.oc8051_alu_src_sel
+# Loading work.oc8051_comp
+# Loading work.oc8051_rom
+# Loading work.oc8051_cy_select
+# Loading work.oc8051_indi_addr
+# Loading work.oc8051_memory_interface
+# Loading work.oc8051_sfr
+# Loading work.oc8051_acc
+# Loading work.oc8051_b_register
+# Loading work.oc8051_sp
+# Loading work.oc8051_dptr
+# Loading work.oc8051_psw
+# Loading work.oc8051_ports
+# Loading work.oc8051_int
+# Loading work.oc8051_tc
+# Loading work.oc8051_tc2
+# Loading work.oc8051_xrom
+# Loading work.oc8051_xram
+# Loading work.tb_eth_top
+# Loading work.tb_mii
+# Loading work.tb_rmii
+# Loading work.uart_agent
+# Loading work.m25p20
+# Loading work.memory_access
+# Loading work.acdc_check
+# Loading work.internal_logic
+# Loading work.AT45DB321
+# Loading work.tb_glbl
+# Loading work.bit_register
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by:   Hostname:   ProcessID: 14
+#           Attempting to use alternate WLF file "./wlftq1m3jq".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftq1m3jq
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_rxfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(227): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_txfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
+# do run.do 
+# i : 02
+# i : 00
+# i : 08
+# i : 12
+# i : 01
+# i : 1f
+# i : 80
+# i : fe
+# i : 75
+# i : 81
+# NOTE : Load memory with Initial delivery content
+# NOTE : Initial Load End
+# NOTE: COMMUNICATION (RE)STARTED
+################################
+# time               184436 Passed
+################################
+# ** Note: $finish    : ../tb/tb_top.v(448)
+#    Time: 184536 ns  Iteration: 0  Instance: /tb_top
+### test 3: sort --> PASSED
+Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl 
+
+# 6.6d
+
+# vsim +INTERNAL_ROM -do run.do -c tb_top 
+# //  ModelSim ACTEL 6.6d Nov  2 2010 
+# //
+# //  Copyright 1991-2010 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.tb_top
+# Loading work.turbo8051
+# Loading work.clkgen
+# Loading work.clk_ctl
+# Loading work.wb_crossbar
+# Loading work.g_mac_top
+# Loading work.g_dpath_ctrl
+# Loading work.g_eth_parser
+# Loading work.g_mac_core
+# Loading work.g_rx_top
+# Loading work.g_rx_fsm
+# Loading work.half_dup_dble_reg
+# Loading work.g_rx_crc32
+# Loading work.g_deferral_rx
+# Loading work.g_md_intf
+# Loading work.g_tx_top
+# Loading work.g_deferral
+# Loading work.g_tx_fsm
+# Loading work.g_tx_crc32
+# Loading work.toggle_sync
+# Loading work.g_cfg_mgmt
+# Loading work.s2f_sync
+# Loading work.generic_register
+# Loading work.req_register
+# Loading work.stat_counter
+# Loading work.generic_intr_stat_reg
+# Loading work.g_mii_intf
+# Loading work.async_fifo
+# Loading work.wb_rd_mem2mem
+# Loading work.wb_wr_mem2mem
+# Loading work.uart_core
+# Loading work.uart_cfg
+# Loading work.stat_register
+# Loading work.uart_txfsm
+# Loading work.uart_rxfsm
+# Loading work.double_sync_low
+# Loading work.spi_core
+# Loading work.spi_if
+# Loading work.spi_ctl
+# Loading work.spi_cfg
+# Loading work.oc8051_top
+# Loading work.oc8051_decoder
+# Loading work.oc8051_alu
+# Loading work.oc8051_multiply
+# Loading work.oc8051_divide
+# Loading work.oc8051_ram_top
+# Loading work.oc8051_ram_256x8_two_bist
+# Loading work.oc8051_alu_src_sel
+# Loading work.oc8051_comp
+# Loading work.oc8051_rom
+# Loading work.oc8051_cy_select
+# Loading work.oc8051_indi_addr
+# Loading work.oc8051_memory_interface
+# Loading work.oc8051_sfr
+# Loading work.oc8051_acc
+# Loading work.oc8051_b_register
+# Loading work.oc8051_sp
+# Loading work.oc8051_dptr
+# Loading work.oc8051_psw
+# Loading work.oc8051_ports
+# Loading work.oc8051_int
+# Loading work.oc8051_tc
+# Loading work.oc8051_tc2
+# Loading work.oc8051_xrom
+# Loading work.oc8051_xram
+# Loading work.tb_eth_top
+# Loading work.tb_mii
+# Loading work.tb_rmii
+# Loading work.uart_agent
+# Loading work.m25p20
+# Loading work.memory_access
+# Loading work.acdc_check
+# Loading work.internal_logic
+# Loading work.AT45DB321
+# Loading work.tb_glbl
+# Loading work.bit_register
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by:   Hostname:   ProcessID: 14
+#           Attempting to use alternate WLF file "./wlfttxndz9".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlfttxndz9
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_rxfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(227): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_txfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
+# do run.do 
+# i : 02
+# i : 00
+# i : 08
+# i : 12
+# i : 00
+# i : 64
+# i : 80
+# i : fe
+# i : 75
+# i : 81
+# NOTE : Load memory with Initial delivery content
+# NOTE : Initial Load End
+# NOTE: COMMUNICATION (RE)STARTED
+################################
+# time                33776 Passed
+################################
+# ** Note: $finish    : ../tb/tb_top.v(448)
+#    Time: 33876 ns  Iteration: 0  Instance: /tb_top
+### test 4: gcd --> PASSED
+Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl 
+
+# 6.6d
+
+# vsim +INTERNAL_ROM -do run.do -c tb_top 
+# //  ModelSim ACTEL 6.6d Nov  2 2010 
+# //
+# //  Copyright 1991-2010 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.tb_top
+# Loading work.turbo8051
+# Loading work.clkgen
+# Loading work.clk_ctl
+# Loading work.wb_crossbar
+# Loading work.g_mac_top
+# Loading work.g_dpath_ctrl
+# Loading work.g_eth_parser
+# Loading work.g_mac_core
+# Loading work.g_rx_top
+# Loading work.g_rx_fsm
+# Loading work.half_dup_dble_reg
+# Loading work.g_rx_crc32
+# Loading work.g_deferral_rx
+# Loading work.g_md_intf
+# Loading work.g_tx_top
+# Loading work.g_deferral
+# Loading work.g_tx_fsm
+# Loading work.g_tx_crc32
+# Loading work.toggle_sync
+# Loading work.g_cfg_mgmt
+# Loading work.s2f_sync
+# Loading work.generic_register
+# Loading work.req_register
+# Loading work.stat_counter
+# Loading work.generic_intr_stat_reg
+# Loading work.g_mii_intf
+# Loading work.async_fifo
+# Loading work.wb_rd_mem2mem
+# Loading work.wb_wr_mem2mem
+# Loading work.uart_core
+# Loading work.uart_cfg
+# Loading work.stat_register
+# Loading work.uart_txfsm
+# Loading work.uart_rxfsm
+# Loading work.double_sync_low
+# Loading work.spi_core
+# Loading work.spi_if
+# Loading work.spi_ctl
+# Loading work.spi_cfg
+# Loading work.oc8051_top
+# Loading work.oc8051_decoder
+# Loading work.oc8051_alu
+# Loading work.oc8051_multiply
+# Loading work.oc8051_divide
+# Loading work.oc8051_ram_top
+# Loading work.oc8051_ram_256x8_two_bist
+# Loading work.oc8051_alu_src_sel
+# Loading work.oc8051_comp
+# Loading work.oc8051_rom
+# Loading work.oc8051_cy_select
+# Loading work.oc8051_indi_addr
+# Loading work.oc8051_memory_interface
+# Loading work.oc8051_sfr
+# Loading work.oc8051_acc
+# Loading work.oc8051_b_register
+# Loading work.oc8051_sp
+# Loading work.oc8051_dptr
+# Loading work.oc8051_psw
+# Loading work.oc8051_ports
+# Loading work.oc8051_int
+# Loading work.oc8051_tc
+# Loading work.oc8051_tc2
+# Loading work.oc8051_xrom
+# Loading work.oc8051_xram
+# Loading work.tb_eth_top
+# Loading work.tb_mii
+# Loading work.tb_rmii
+# Loading work.uart_agent
+# Loading work.m25p20
+# Loading work.memory_access
+# Loading work.acdc_check
+# Loading work.internal_logic
+# Loading work.AT45DB321
+# Loading work.tb_glbl
+# Loading work.bit_register
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by:   Hostname:   ProcessID: 14
+#           Attempting to use alternate WLF file "./wlft1sdqy9".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlft1sdqy9
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_rxfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(227): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_txfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
+# do run.do 
+# i : 02
+# i : 00
+# i : 08
+# i : 12
+# i : 00
+# i : 65
+# i : 80
+# i : fe
+# i : 75
+# i : 81
+# NOTE : Load memory with Initial delivery content
+# NOTE : Initial Load End
+# NOTE: COMMUNICATION (RE)STARTED
+################################
+# time                29536 Passed
+################################
+# ** Note: $finish    : ../tb/tb_top.v(448)
+#    Time: 29636 ns  Iteration: 0  Instance: /tb_top
+### test 5: cast --> PASSED
+Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl 
+
+# 6.6d
+
+# vsim +INTERNAL_ROM -do run.do -c tb_top 
+# //  ModelSim ACTEL 6.6d Nov  2 2010 
+# //
+# //  Copyright 1991-2010 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.tb_top
+# Loading work.turbo8051
+# Loading work.clkgen
+# Loading work.clk_ctl
+# Loading work.wb_crossbar
+# Loading work.g_mac_top
+# Loading work.g_dpath_ctrl
+# Loading work.g_eth_parser
+# Loading work.g_mac_core
+# Loading work.g_rx_top
+# Loading work.g_rx_fsm
+# Loading work.half_dup_dble_reg
+# Loading work.g_rx_crc32
+# Loading work.g_deferral_rx
+# Loading work.g_md_intf
+# Loading work.g_tx_top
+# Loading work.g_deferral
+# Loading work.g_tx_fsm
+# Loading work.g_tx_crc32
+# Loading work.toggle_sync
+# Loading work.g_cfg_mgmt
+# Loading work.s2f_sync
+# Loading work.generic_register
+# Loading work.req_register
+# Loading work.stat_counter
+# Loading work.generic_intr_stat_reg
+# Loading work.g_mii_intf
+# Loading work.async_fifo
+# Loading work.wb_rd_mem2mem
+# Loading work.wb_wr_mem2mem
+# Loading work.uart_core
+# Loading work.uart_cfg
+# Loading work.stat_register
+# Loading work.uart_txfsm
+# Loading work.uart_rxfsm
+# Loading work.double_sync_low
+# Loading work.spi_core
+# Loading work.spi_if
+# Loading work.spi_ctl
+# Loading work.spi_cfg
+# Loading work.oc8051_top
+# Loading work.oc8051_decoder
+# Loading work.oc8051_alu
+# Loading work.oc8051_multiply
+# Loading work.oc8051_divide
+# Loading work.oc8051_ram_top
+# Loading work.oc8051_ram_256x8_two_bist
+# Loading work.oc8051_alu_src_sel
+# Loading work.oc8051_comp
+# Loading work.oc8051_rom
+# Loading work.oc8051_cy_select
+# Loading work.oc8051_indi_addr
+# Loading work.oc8051_memory_interface
+# Loading work.oc8051_sfr
+# Loading work.oc8051_acc
+# Loading work.oc8051_b_register
+# Loading work.oc8051_sp
+# Loading work.oc8051_dptr
+# Loading work.oc8051_psw
+# Loading work.oc8051_ports
+# Loading work.oc8051_int
+# Loading work.oc8051_tc
+# Loading work.oc8051_tc2
+# Loading work.oc8051_xrom
+# Loading work.oc8051_xram
+# Loading work.tb_eth_top
+# Loading work.tb_mii
+# Loading work.tb_rmii
+# Loading work.uart_agent
+# Loading work.m25p20
+# Loading work.memory_access
+# Loading work.acdc_check
+# Loading work.internal_logic
+# Loading work.AT45DB321
+# Loading work.tb_glbl
+# Loading work.bit_register
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by:   Hostname:   ProcessID: 14
+#           Attempting to use alternate WLF file "./wlftixja49".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftixja49
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_rxfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(227): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_txfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
+# do run.do 
+# i : 02
+# i : 00
+# i : 08
+# i : 12
+# i : 00
+# i : 64
+# i : 80
+# i : fe
+# i : 75
+# i : 81
+# NOTE : Load memory with Initial delivery content
+# NOTE : Initial Load End
+# NOTE: COMMUNICATION (RE)STARTED
+################################
+# time              4411896 Passed
+################################
+# ** Note: $finish    : ../tb/tb_top.v(448)
+#    Time: 4411996 ns  Iteration: 0  Instance: /tb_top
+### test 6: xram --> PASSED
+###########################################
+
+###########################################
+###  Test Summary                          
+### 
+### Failed 0 of 4 misc tests
+### Failed 0 of 6 external rom tests
+### Failed 0 of 6 internal rom tests
+###########################################

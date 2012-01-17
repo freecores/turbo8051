@@ -1,0 +1,124 @@
+Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl 
+
+# 6.6d
+
+# vsim +INTERNAL_ROM -do run.do -c tb_top 
+# //  ModelSim ACTEL 6.6d Nov  2 2010 
+# //
+# //  Copyright 1991-2010 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading sv_std.std
+# Loading work.tb_top
+# Loading work.turbo8051
+# Loading work.clkgen
+# Loading work.clk_ctl
+# Loading work.wb_crossbar
+# Loading work.g_mac_top
+# Loading work.g_dpath_ctrl
+# Loading work.g_eth_parser
+# Loading work.g_mac_core
+# Loading work.g_rx_top
+# Loading work.g_rx_fsm
+# Loading work.half_dup_dble_reg
+# Loading work.g_rx_crc32
+# Loading work.g_deferral_rx
+# Loading work.g_md_intf
+# Loading work.g_tx_top
+# Loading work.g_deferral
+# Loading work.g_tx_fsm
+# Loading work.g_tx_crc32
+# Loading work.toggle_sync
+# Loading work.g_cfg_mgmt
+# Loading work.s2f_sync
+# Loading work.generic_register
+# Loading work.req_register
+# Loading work.stat_counter
+# Loading work.generic_intr_stat_reg
+# Loading work.g_mii_intf
+# Loading work.async_fifo
+# Loading work.wb_rd_mem2mem
+# Loading work.wb_wr_mem2mem
+# Loading work.uart_core
+# Loading work.uart_cfg
+# Loading work.stat_register
+# Loading work.uart_txfsm
+# Loading work.uart_rxfsm
+# Loading work.double_sync_low
+# Loading work.spi_core
+# Loading work.spi_if
+# Loading work.spi_ctl
+# Loading work.spi_cfg
+# Loading work.oc8051_top
+# Loading work.oc8051_decoder
+# Loading work.oc8051_alu
+# Loading work.oc8051_multiply
+# Loading work.oc8051_divide
+# Loading work.oc8051_ram_top
+# Loading work.oc8051_ram_256x8_two_bist
+# Loading work.oc8051_alu_src_sel
+# Loading work.oc8051_comp
+# Loading work.oc8051_rom
+# Loading work.oc8051_cy_select
+# Loading work.oc8051_indi_addr
+# Loading work.oc8051_memory_interface
+# Loading work.oc8051_sfr
+# Loading work.oc8051_acc
+# Loading work.oc8051_b_register
+# Loading work.oc8051_sp
+# Loading work.oc8051_dptr
+# Loading work.oc8051_psw
+# Loading work.oc8051_ports
+# Loading work.oc8051_int
+# Loading work.oc8051_tc
+# Loading work.oc8051_tc2
+# Loading work.oc8051_xrom
+# Loading work.oc8051_xram
+# Loading work.tb_eth_top
+# Loading work.tb_mii
+# Loading work.tb_rmii
+# Loading work.uart_agent
+# Loading work.m25p20
+# Loading work.memory_access
+# Loading work.acdc_check
+# Loading work.internal_logic
+# Loading work.AT45DB321
+# Loading work.tb_glbl
+# Loading work.bit_register
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by:   Hostname:   ProcessID: 14
+#           Attempting to use alternate WLF file "./wlfttfzj99".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlfttfzj99
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_rxfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(227): [TFMPC] - Too few port connections. Expected 14, found 12.
+#         Region: /tb_top/u_core/u_uart_core/u_txfifo
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
+# do run.do 
+# i : 02
+# i : 00
+# i : 08
+# i : 12
+# i : 00
+# i : 64
+# i : 80
+# i : fe
+# i : 75
+# i : 81
+# NOTE : Load memory with Initial delivery content
+# NOTE : Initial Load End
+# NOTE: COMMUNICATION (RE)STARTED
+################################
+# time                45976 Passed
+################################
+# ** Note: $finish    : ../tb/tb_top.v(448)
+#    Time: 46076 ns  Iteration: 0  Instance: /tb_top
