@@ -43,7 +43,6 @@
 
 //-------------------------------------------
 // async_fifo:: async FIFO
-//    Basic RTL is ported from p600 async_fifo.v
 //    Following two ports are newly added
 //        1. At write clock domain:
 //           wr_total_free_space -->  Indicate total free transfer available 
