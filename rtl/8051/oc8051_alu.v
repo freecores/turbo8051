@@ -153,7 +153,15 @@ reg da_tmp, da_tmp1;
 //
 wire [15:0] inc, dec;
 
+
 oc8051_multiply oc8051_mul1(.clk(clk), .rst(rst), .enable(enable_mul), .src1(src1), .src2(src2), .des1(mulsrc1), .des2(mulsrc2), .desOv(mulOv));
+
+
+
+
+
+
+
 oc8051_divide oc8051_div1(.clk(clk), .rst(rst), .enable(enable_div), .src1(src1), .src2(src2), .des1(divsrc1), .des2(divsrc2), .desOv(divOv));
 
 /* Add */

@@ -121,13 +121,24 @@ input   scanb_en;
   	xilinx_ram.dwidth = 8,
   	xilinx_ram.awidth = 8;
 
-`else
+`elsif OC8051_RAM_VIRTUALSILICON
 
-  `ifdef OC8051_RAM_VIRTUALSILICON
+`elsif  OC8051_RAM_ACTEL
+    
+      oc8051_actel_ram_256x8  oc8051_ram1(
+      	.RWCLK  ( clk            ),
+      	.RESET  ( rst            ),
+      	.REN   ( rd_en          ),
+      	.RADDR ( rd_addr        ),
+      	.RD    ( rd_data        ),
+      
+      	.WEN    ( wr             ),
+      	.WADDR ( wr_addr        ),
+      	.WD    ( wr_data        )
+      );
+    
 
-  `else
-
-    `ifdef OC8051_RAM_GENERIC
+`elsif  OC8051_RAM_GENERIC
     
       generic_dpram #(8, 8) oc8051_ram1(
       	.rclk  ( clk            ),
@@ -145,7 +156,7 @@ input   scanb_en;
       	.di    ( wr_data        )
       );
     
-    `else
+`else
 
       reg    [7:0]  rd_data;
       //
@@ -172,8 +183,6 @@ input   scanb_en;
         else if (rd_en)
           rd_data <= #1 buff[rd_addr];
       end
-    `endif  //OC8051_RAM_GENERIC
-  `endif    //OC8051_RAM_VIRTUALSILICON  
 `endif      //OC8051_RAM_XILINX
 
 endmodule

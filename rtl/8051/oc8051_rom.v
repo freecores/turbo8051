@@ -888,6 +888,9 @@ always @(posedge clk or posedge rst)
    ea_int <= #1 1'b1;
   else ea_int <= #1 !ea;
 
+`elsif OC8051_ACTEL_ROM
+
+
 `else
 
 

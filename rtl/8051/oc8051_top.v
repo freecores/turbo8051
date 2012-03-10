@@ -818,7 +818,7 @@ oc8051_sfr oc8051_sfr1(
 `endif
 
 
-// synopsys translate_on
+// synopsys translate_off
 // Debug Purpose only
 // Stack Pointer Push & Pop analysis
 reg [7:0]   StackMem[$];
@@ -849,6 +849,6 @@ begin
    end
 end
 
-// synopsys translate_off
+// synopsys translate_on
 
 endmodule

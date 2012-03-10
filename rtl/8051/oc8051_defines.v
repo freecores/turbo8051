@@ -61,7 +61,7 @@
 //
 // oc8051 ITERNAL ROM
 //
-`define OC8051_ROM
+//`define OC8051_ROM
 
 
 //
@@ -74,8 +74,10 @@
 //`define OC8051_RAM_VIRTUALSILICON
 //`define OC8051_RAM_GENERIC
 
+//`define OC8051_RAM_ACTEL
 
 //`define OC8051_XILINX_ROM
+//`define OC8051_ACTEL_ROM
 
 //
 // oc8051 simulation defines
@@ -529,4 +531,3 @@
 
 `define OC8051_RMW_Y 1'b1  // yes
 `define OC8051_RMW_N 1'b0  // no
-
