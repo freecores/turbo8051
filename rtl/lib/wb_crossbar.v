@@ -351,15 +351,17 @@ end
 
 always @(negedge rst_n or posedge clk) begin
    if(rst_n == 0) begin
-      master_busy  <= 0;
-      slave_busy   <= 0;
+      master_busy   = 0;
+      slave_busy    = 0;
+      cur_target_id = 0;
+      
    end
    else begin
       for(i = 0; i < WB_MASTER; i = i + 1) begin
          cur_target_id                     = wbd_taddr_master_t[i];
          if(master_busy[i] == 0) begin
             if(wbd_stb_master[i] & slave_busy[cur_target_id] == 0) begin
-               master_mx_id[i] = cur_target_id;
+               master_mx_id[i] <= cur_target_id;
                slave_mx_id [cur_target_id] = i;
                slave_busy[cur_target_id]   = 1;
                master_busy[i]              = 1;

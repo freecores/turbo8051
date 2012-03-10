@@ -273,7 +273,7 @@ always @(posedge clk or negedge reset_n) begin
 
       `SPI_CS_HLD : begin
          if(sck_ne) begin
-             cs_int_n = cs_data[0];
+             cs_int_n <= cs_data[0];
             if(sck_cnt == cfg_sck_cs_period) begin
                if(cfg_op_type == 1) begin // Read Mode
                   cfg_dataout <= (byte_cnt[1:0] == 2'b00) ? { byte_in, cfg_dataout[23:0] } :

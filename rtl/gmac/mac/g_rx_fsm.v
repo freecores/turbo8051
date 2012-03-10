@@ -361,7 +361,7 @@ assign adj_cf2rx_max_pkt_sz = cf2rx_max_pkt_sz;
       clr_rx_error_from_rx_fsm = 1'b0;
 
 
-      casex(rx_fsm_cur_st)       // synopsys parallel_case full_case
+      case(rx_fsm_cur_st)       
 	rx_fsm_idle_st:
 	  // Waiting for packet from mii block
 	  // Continues accepting data only if

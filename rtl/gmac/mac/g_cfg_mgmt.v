@@ -885,7 +885,7 @@ generic_intr_stat_reg	#(9) u_intr_stat (
 		 . data_out         (reg_13[8:0]                 ) 
 	      );
 
-assign reg_13[31:8] = 23'h0;
+assign reg_13[31:9] = 23'h0;
 
 // IP SA [31:0]
 
@@ -977,5 +977,4 @@ assign reg_14 = cfg_ip_sa[31:0];
 
 assign reg_15 = cfg_mac_filter[31:0];
 endmodule 
-
 
