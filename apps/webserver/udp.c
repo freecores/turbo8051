@@ -156,9 +156,12 @@ BYTE udp_receive ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 	WORD_BYTES dlength, adc0;
 	BYTE generic_buf[64], temp, count_time_temp[3], tmp;
 
+	        cDebugReg = 0x60; // Debug 1 
 	// check UDP packet and check destination port
-	if ( rxtx_buffer[IP_PROTO_P] != IP_PROTO_UDP_V || rxtx_buffer[UDP_DST_PORT_H_P] != UDP_AVR_PORT_H_V || rxtx_buffer[ UDP_DST_PORT_L_P ] != UDP_AVR_PORT_L_V )
+	if ( rxtx_buffer[IP_PROTO_P] != IP_PROTO_UDP_V || rxtx_buffer[UDP_DST_PORT_H_P] != UDP_AVR_PORT_H_V || rxtx_buffer[ UDP_DST_PORT_L_P ] != UDP_AVR_PORT_L_V ) {
+	        cDebugReg = 0x61; // Debug 1 
 		return 0;
+	}	
 	
 	// check UDP command, UDP command are first and second byte
 	// "GA" command is Get All command, AVR will be send all data to AVRnet CPannel
@@ -176,6 +179,7 @@ BYTE udp_receive ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 	// for example : GA100512250010010.1.1.1;10.1.1.76\r\n = LED1 on, LED2 off, ADC0 0512, Temp 25, Disable send temp, Hour 01, Min 00
 	if ( rxtx_buffer[UDP_DATA_P] == 'G' && rxtx_buffer[UDP_DATA_P+1] == 'A' && rxtx_buffer[UDP_DATA_P+2] == '\r' && rxtx_buffer[UDP_DATA_P+3] == '\n')
 	{
+	        cDebugReg = 0x62; 
 	}
 	// "ST" command is set send temperature configuration command
 	// "ST" command format is STEHHMM\r\n
@@ -186,6 +190,7 @@ BYTE udp_receive ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 	// for example : ST10115\r\n = Enable send temp, 1-Hour, 15-Minutes
 	else if ( rxtx_buffer[UDP_DATA_P] == 'S' && rxtx_buffer[UDP_DATA_P+1] == 'T' && rxtx_buffer[UDP_DATA_P+7] == '\r' && rxtx_buffer[UDP_DATA_P+8] == '\n')
 	{
+	        cDebugReg = 0x63; 
 		dlength.word = udp_puts_data ( rxtx_buffer, "STOK\r\n", 0 );
 	}
 	// "SI" command is set AVR IP address command
@@ -197,20 +202,25 @@ BYTE udp_receive ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 	// for example : SI10.1.1.1;10.1.1.76;\r\n
 	else if ( rxtx_buffer[UDP_DATA_P] == 'S' && rxtx_buffer[UDP_DATA_P+1] == 'I' )
 	{
+	        cDebugReg = 0x64; 
 		// find \r\n
 		for(tmp=UDP_DATA_P; tmp<UDP_DATA_P+128; tmp++)
 		{
+	                cDebugReg = 0x65; 
 			if(rxtx_buffer[UDP_DATA_P+tmp]=='\r' && rxtx_buffer[UDP_DATA_P+tmp+1]=='\n')
 			{
+	                        cDebugReg = 0x66; 
 				temp = 0;
 				break;
 			}
 		}
 		if(temp==0)
 		{
+	                cDebugReg = 0x67; 
 		}
 		else
 		{
+	                cDebugReg = 0x68; 
 			dlength.word = udp_puts_data ( rxtx_buffer, "ERROR\r\n", 0 );
 		}
 	}
@@ -223,17 +233,21 @@ BYTE udp_receive ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 	// for example : WLHello World!;I'm AVRnet;\r\n
 	else if ( rxtx_buffer[UDP_DATA_P] == 'W' && rxtx_buffer[UDP_DATA_P+1] == 'L')
 	{
+	        cDebugReg = 0x69; 
 		// find \r\n
 		for(tmp=UDP_DATA_P; tmp<UDP_DATA_P+128; tmp++)
 		{
+	                cDebugReg = 0x6A; 
 			if(rxtx_buffer[UDP_DATA_P+tmp]=='\r' && rxtx_buffer[UDP_DATA_P+tmp+1]=='\n')
 			{
+	                        cDebugReg = 0x6B; 
 				temp = 0;
 				break;
 			}
 		}
 		if(temp==0)
 		{
+	                cDebugReg = 0x6C; 
 			tmp=0;
 			// find end of 1'st line and replace it with '\n'
 			while( rxtx_buffer[UDP_DATA_P+tmp] != ';' ) tmp++;
@@ -251,6 +265,7 @@ BYTE udp_receive ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 		}
 		else
 		{
+	                cDebugReg = 0x6D; 
 			dlength.word = udp_puts_data ( rxtx_buffer, "ERROR\r\n", 0 );
 		}
 	}
@@ -261,24 +276,30 @@ BYTE udp_receive ( BYTE *rxtx_buffer, BYTE *dest_mac, BYTE *dest_ip )
 	// \r\n is end of command
 	else if(rxtx_buffer[UDP_DATA_P]=='S' && rxtx_buffer[UDP_DATA_P+1]=='L' && rxtx_buffer[UDP_DATA_P+4]=='\r' && rxtx_buffer[UDP_DATA_P+5]=='\n')
 	{
+	        cDebugReg = 0x6E; 
 		// send command response
 		dlength.word = udp_puts_data ( rxtx_buffer, "SLOK\r\n", 0 );
 	}
 	else
 	{
+	        cDebugReg = 0x6F; 
 		// unknown command, send "ERROR" to client
 		dlength.word = udp_puts_data ( rxtx_buffer, "ERROR\r\n", 0 );
 	}
 
+	cDebugReg = 0x70; 
 	// set ethernet header
 	eth_generate_header (rxtx_buffer, ETH_TYPE_IP_V, dest_mac );
 	
+	cDebugReg = 0x71; 
 	// generate ip header and checksum
 	ip_generate_header (rxtx_buffer, sizeof(IP_HEADER)+sizeof(UDP_HEADER)+dlength.word, IP_PROTO_UDP_V, dest_ip );
 
+	cDebugReg = 0x72; 
 	// generate UDP header
 	udp_generate_header (rxtx_buffer, (rxtx_buffer[UDP_SRC_PORT_H_P]<<8)|rxtx_buffer[UDP_SRC_PORT_L_P], sizeof(UDP_HEADER)+dlength.word);
 
+	cDebugReg = 0x73; 
 	// send packet to ethernet media
 	enc28j60_packet_send ( &rxtx_buffer, sizeof(ETH_HEADER)+sizeof(IP_HEADER)+sizeof(UDP_HEADER)+dlength.word );
 

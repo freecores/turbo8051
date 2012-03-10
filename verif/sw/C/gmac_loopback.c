@@ -1,9 +1,7 @@
 /*
- * Copyright (c) 1999-2001 Tony Givargis.  Permission to copy is granted
- * provided that this header remains intact.  This software is provided
- * with no warranties.
- *
- * Version : 2.9
+ * GMAC Software Loop Back.
+ * Software continously check the Rx Q counter, If the RX Q counter is not zero,
+ * Then it read the Rx descriptor and copy the information back to tx descriptor
  */
 
 /*---------------------------------------------------------------------------*/

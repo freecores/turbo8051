@@ -5,6 +5,7 @@ if(! -e work) then
 endif
 
 vlog -work work +define+SFLASH_SPDUP \
++incdir+../../rtl/defs \
 -v ../../rtl/lib/registers.v \
 -v ../../rtl/lib/stat_counter.v \
 -v ../../rtl/lib/toggle_sync.v \

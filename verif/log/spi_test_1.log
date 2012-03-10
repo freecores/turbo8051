@@ -63,7 +63,6 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # Loading work.oc8051_ram_256x8_two_bist
 # Loading work.oc8051_alu_src_sel
 # Loading work.oc8051_comp
-# Loading work.oc8051_rom
 # Loading work.oc8051_cy_select
 # Loading work.oc8051_indi_addr
 # Loading work.oc8051_memory_interface
@@ -90,11 +89,6 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # Loading work.AT45DB321
 # Loading work.tb_glbl
 # Loading work.bit_register
-# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
-#           File in use by:   Hostname:   ProcessID: 14
-#           Attempting to use alternate WLF file "./wlftdf5ms9".
-# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlftdf5ms9
 # ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
 #         Region: /tb_top/u_core/u_uart_core/u_rxfifo
 # ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
@@ -124,7 +118,7 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # Config-Write: Id: 2 Addr = 0000, Cfg. Data = 80020240
 # Config-Write: Id: 2 Addr = 0004, Cfg. Data = d8000000
 # Config-Write: Id: 2 Addr = 0000, Cfg. Data = 801a0201
-#              6815000 : tb_top.spi_sector_errase : Sending Sector Errase for Address : 000000
+#              6775000 : tb_top.spi_sector_errase : Sending Sector Errase for Address : 000000
 # NOTE : Sector erase cycle has begun
 # Config-Write: Id: 2 Addr = 0004, Cfg. Data = 05000000
 # Config-Write: Id: 2 Addr = 0000, Cfg. Data = 80020200
@@ -487,4 +481,4 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # =========
 # 
 # ** Note: $finish    : ../../verif/lib/tb_glbl.v(64)
-#    Time: 2968996 ns  Iteration: 0  Instance: /tb_top
+#    Time: 2968956 ns  Iteration: 0  Instance: /tb_top

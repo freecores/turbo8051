@@ -89,4 +89,5 @@ Model Technology ModelSim ACTEL vlog 6.6d Compiler 2010.11 Nov  2 2010
 
 Top level modules:
 	tb_top
+	oc8051_rom
 	oc8051_uart

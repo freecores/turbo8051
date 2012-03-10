@@ -63,7 +63,6 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # Loading work.oc8051_ram_256x8_two_bist
 # Loading work.oc8051_alu_src_sel
 # Loading work.oc8051_comp
-# Loading work.oc8051_rom
 # Loading work.oc8051_cy_select
 # Loading work.oc8051_indi_addr
 # Loading work.oc8051_memory_interface
@@ -90,11 +89,6 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # Loading work.AT45DB321
 # Loading work.tb_glbl
 # Loading work.bit_register
-# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
-#           File in use by:   Hostname:   ProcessID: 14
-#           Attempting to use alternate WLF file "./wlftqqzjr8".
-# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlftqqzjr8
 # ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
 #         Region: /tb_top/u_core/u_uart_core/u_rxfifo
 # ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
@@ -104,25 +98,25 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
 # ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
 # do run.do 
+# i : 02
 # i : 00
+# i : 08
+# i : 12
 # i : 00
-# i : 00
-# i : 00
-# i : 00
-# i : 00
-# i : 00
-# i : 00
-# i : 00
-# i : 00
+# i : 64
+# i : 80
+# i : fe
+# i : 75
+# i : 81
 # NOTE : Load memory with Initial delivery content
 # NOTE : Initial Load End
 # NOTE: COMMUNICATION (RE)STARTED
 # Config-Write: Id: 1 Addr = 0000, Cfg. Data = 00114501
-# Clock period configured = 40 ns, data width = 4
 # Config-Write: Id: 1 Addr = 0008, Cfg. Data = 00001616
+# Clock period configured = 40 ns, data width = 4
 # Config-Write: Id: 1 Addr = 0024, Cfg. Data = 70407000
 # Status: End of Transmission Loop
-# 1300 ns: Starting packet transmission to MAC, size = 64
+# 1260 ns: Starting packet transmission to MAC, size = 64
 # SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
 # Contents:
 # 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 24 81
@@ -130,8 +124,8 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # e5 77 12 8f f2 ce e8 c5 5c bd 2d 65 63 0a 80 20
 # aa 9d 96 13 0d 53 6b d5 02 ae 1d cf 21 4c 4b 3d
 # ****
-#              7060000 ns: Completed packet transmission to MAC
-# 8100 ns: Starting packet transmission to MAC, size = 65
+#              7020000 ns: Completed packet transmission to MAC
+# 8060 ns: Starting packet transmission to MAC, size = 65
 # SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
 # Contents:
 # 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 23 0a
@@ -140,9 +134,9 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # 5b 89 49 d0 d7 51 96 0c c2 c8 77 3d 12 fb 72 d9
 # bb
 # ****
-#             13940000 ns: Completed packet transmission to MAC
+#             13900000 ns: Completed packet transmission to MAC
 # Status: End of Waiting Event Loop
-# 14980 ns: Starting packet transmission to MAC, size = 66
+# 14940 ns: Starting packet transmission to MAC, size = 66
 # SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
 # Contents:
 # 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 7e 6d
@@ -151,8 +145,8 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # 44 d0 2a ab 0e dc 9a fd c3 56 4e 67 0a b6 6f 99
 # f0 ca
 # ****
-#             20900000 ns: Completed packet transmission to MAC
-# 21940 ns: Starting packet transmission to MAC, size = 67
+#             20860000 ns: Completed packet transmission to MAC
+# 21900 ns: Starting packet transmission to MAC, size = 67
 # SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
 # Contents:
 # 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 38 79
@@ -161,8 +155,8 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # 70 73 ba 5e fa d5 1a b9 37 96 c0 26 b6 7d dc e1
 # d6 98 d3
 # ****
-#             27940000 ns: Completed packet transmission to MAC
-# 28980 ns: Starting packet transmission to MAC, size = 68
+#             27900000 ns: Completed packet transmission to MAC
+# 28940 ns: Starting packet transmission to MAC, size = 68
 # SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
 # Contents:
 # 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 86 78
@@ -171,10 +165,8 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # 79 c8 ca 13 6b c7 b6 ba c4 b9 92 b4 7f 86 fa f2
 # d8 8a 95 46
 # ****
-#             35060000 ns: Completed packet transmission to MAC
-# 35180 ns: Preamble detected, last IFG = 3518 bits
-# 35781 ns: SFD received, last IFG = 3518 bits
-# 36100 ns: Starting packet transmission to MAC, size = 69
+#             35020000 ns: Completed packet transmission to MAC
+# 36060 ns: Starting packet transmission to MAC, size = 69
 # SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
 # Contents:
 # 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 32 bd
@@ -183,19 +175,8 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # 56 5b e2 04 73 d8 12 b8 39 e5 a1 2b 81 c8 27 a1
 # 1f dd 21 ca 31
 # ****
-# 40900 ns: Received packet, size = 64
-# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
-# Length error, type/length field = 1792, expected value = 46
-# Contents:
-# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 24 81
-# 09 63 0d 8d 65 12 01 0d 76 3d ed 8c f9 c6 c5 aa
-# e5 77 12 8f f2 ce e8 c5 5c bd 2d 65 63 0a 80 20
-# aa 9d 96 13 0d 53 6b d5 02 ae 1d cf 21 4c 4b 3d
-# ****
-# 41900 ns: Preamble detected, last IFG = 96 bits
-#             42260000 ns: Completed packet transmission to MAC
-# 42501 ns: SFD received, last IFG = 96 bits
-# 43300 ns: Starting packet transmission to MAC, size = 70
+#             42220000 ns: Completed packet transmission to MAC
+# 43260 ns: Starting packet transmission to MAC, size = 70
 # SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
 # Contents:
 # 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 04 58
@@ -204,20 +185,8 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # 40 28 f6 c5 c0 74 39 b0 3c 2a 62 15 e1 17 43 c9
 # 86 25 ec 93 f7 b6
 # ****
-# 47700 ns: Received packet, size = 65
-# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
-# Length error, type/length field = 1792, expected value = 47
-# Contents:
-# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 23 0a
-# ca 3c f2 8a 41 d8 78 89 eb b6 c6 ae bc 2a 0b 71
-# 85 4f 3b 3a 7e 15 f1 d9 62 4c 9f 8f f8 b7 9f 5c
-# 5b 89 49 d0 d7 51 96 0c c2 c8 77 3d 12 fb 72 d9
-# bb
-# ****
-# 48700 ns: Preamble detected, last IFG = 96 bits
-# 49301 ns: SFD received, last IFG = 96 bits
-#             49540000 ns: Completed packet transmission to MAC
-# 50580 ns: Starting packet transmission to MAC, size = 71
+#             49500000 ns: Completed packet transmission to MAC
+# 50540 ns: Starting packet transmission to MAC, size = 71
 # SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
 # Contents:
 # 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 c1 8d
@@ -226,20 +195,8 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # f8 8d 52 84 46 8c 90 17 6a 84 aa 7c 60 ba 8b a6
 # 25 32 a2 b2 82 de 56
 # ****
-# 54580 ns: Received packet, size = 66
-# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
-# Length error, type/length field = 1792, expected value = 48
-# Contents:
-# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 7e 6d
-# 39 1f d3 85 78 5b 49 3f 2a 58 86 8e 9c fa 26 73
-# a3 2f b3 5f 44 f7 cb e6 5a 29 ed da 65 b5 df 79
-# 44 d0 2a ab 0e dc 9a fd c3 56 4e 67 0a b6 6f 99
-# f0 ca
-# ****
-# 55580 ns: Preamble detected, last IFG = 96 bits
-# 56181 ns: SFD received, last IFG = 96 bits
-#             56900000 ns: Completed packet transmission to MAC
-# 57940 ns: Starting packet transmission to MAC, size = 72
+#             56860000 ns: Completed packet transmission to MAC
+# 57900 ns: Starting packet transmission to MAC, size = 72
 # SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
 # Contents:
 # 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 49 14
@@ -248,20 +205,8 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # e3 2a c8 5d 3a 84 2b 39 12 52 59 d0 6e 97 db a6
 # bb 00 0f 69 16 8d 9c 08
 # ****
-# 61540 ns: Received packet, size = 67
-# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
-# Length error, type/length field = 1792, expected value = 49
-# Contents:
-# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 38 79
-# b8 94 93 04 59 db 4d d9 6d 76 ca b6 95 46 04 f7
-# 69 b4 88 28 2d c7 2e 08 1c fd 29 1c 86 da 3d 66
-# 70 73 ba 5e fa d5 1a b9 37 96 c0 26 b6 7d dc e1
-# d6 98 d3
-# ****
-# 62540 ns: Preamble detected, last IFG = 96 bits
-# 63141 ns: SFD received, last IFG = 96 bits
-#             64340000 ns: Completed packet transmission to MAC
-# 65380 ns: Starting packet transmission to MAC, size = 73
+#             64300000 ns: Completed packet transmission to MAC
+# 65340 ns: Starting packet transmission to MAC, size = 73
 # SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
 # Contents:
 # 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 0c 59
@@ -270,77 +215,7 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # 06 ef e1 95 ee 60 e5 28 64 29 e1 77 6e 81 d5 68
 # f0 aa 0f f1 7d 1f 08 38 e7
 # ****
-# 68580 ns: Received packet, size = 68
-# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
-# Length error, type/length field = 1792, expected value = 50
-# Contents:
-# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 86 78
-# 7e db cf 79 fa 61 17 a1 86 50 f5 35 29 c1 c5 98
-# 4b 73 ec 8a 4e a8 a9 a1 0e e6 9f 2a 2a 8d 9e 38
-# 79 c8 ca 13 6b c7 b6 ba c4 b9 92 b4 7f 86 fa f2
-# d8 8a 95 46
-# ****
-# 69580 ns: Preamble detected, last IFG = 96 bits
-# 70181 ns: SFD received, last IFG = 96 bits
-#             71860000 ns: Completed packet transmission to MAC
-# 75700 ns: Received packet, size = 69
-# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
-# Length error, type/length field = 1792, expected value = 51
-# Contents:
-# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 32 bd
-# 84 e4 ca a9 a1 8e fb 0b ef c9 36 75 8f 6b 88 ae
-# 9b 92 28 2d 4b c2 1e 0d ec 18 d1 86 41 3b d8 53
-# 56 5b e2 04 73 d8 12 b8 39 e5 a1 2b 81 c8 27 a1
-# 1f dd 21 ca 31
-# ****
-# 76700 ns: Preamble detected, last IFG = 96 bits
-# 77301 ns: SFD received, last IFG = 96 bits
-# 82900 ns: Received packet, size = 70
-# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
-# Length error, type/length field = 1792, expected value = 52
-# Contents:
-# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 04 58
-# 96 14 12 96 b1 55 ed 2b f5 ad 27 84 a7 e7 b9 49
-# db c9 51 a1 2a fa 45 83 7c 72 fe 68 6f 86 f0 38
-# 40 28 f6 c5 c0 74 39 b0 3c 2a 62 15 e1 17 43 c9
-# 86 25 ec 93 f7 b6
-# ****
-# 83900 ns: Preamble detected, last IFG = 96 bits
-# 84501 ns: SFD received, last IFG = 96 bits
-# 90180 ns: Received packet, size = 71
-# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
-# Length error, type/length field = 1792, expected value = 53
-# Contents:
-# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 c1 8d
-# 5a 07 2c 0c 71 3b b6 f7 9e 5c 55 20 a0 72 b4 dd
-# 0d 4b 79 9e fd 7b 8f 03 e3 1d b1 44 95 e0 ed 52
-# f8 8d 52 84 46 8c 90 17 6a 84 aa 7c 60 ba 8b a6
-# 25 32 a2 b2 82 de 56
-# ****
-# 91180 ns: Preamble detected, last IFG = 96 bits
-# 91781 ns: SFD received, last IFG = 96 bits
-# 97540 ns: Received packet, size = 72
-# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
-# Length error, type/length field = 1792, expected value = 54
-# Contents:
-# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 49 14
-# 3d 4b 5c 47 86 39 b4 d0 2c 8c 07 6a 11 e8 4b 73
-# ec 23 a4 c9 39 df d4 67 9d b0 82 49 d9 20 1c 93
-# e3 2a c8 5d 3a 84 2b 39 12 52 59 d0 6e 97 db a6
-# bb 00 0f 69 16 8d 9c 08
-# ****
-# 98540 ns: Preamble detected, last IFG = 96 bits
-# 99141 ns: SFD received, last IFG = 96 bits
-# 104980 ns: Received packet, size = 73
-# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
-# Length error, type/length field = 1792, expected value = 55
-# Contents:
-# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 0c 59
-# c5 cf 90 51 69 77 4a d8 9b c4 b8 b7 86 30 77 b5
-# d4 07 76 e9 8b 01 db 80 c2 c5 30 af 66 af e9 f8
-# 06 ef e1 95 ee 60 e5 28 64 29 e1 77 6e 81 d5 68
-# f0 aa 0f f1 7d 1f 08 38 e7
-# ****
+#             71820000 ns: Completed packet transmission to MAC
 # Status: End of Waiting Delay Loop
 #############################
 #    TB MII Statistic            
@@ -348,26 +223,28 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 #      Frm cnt       :          10  
 #      Byte cnt      :         685  
 #  DUT TO TB :                  
-#      Frm cnt       :          10  
-#      Byte cnt      :         685  
+#      Frm cnt       :           0  
+#      Byte cnt      :           0  
 #      Pause Frm  cnt:           0  
 #      Alig Err   cnt:           0  
 #      usized Err cnt:           0  
 #      crc Err    cnt:           0  
-#      Length Err cnt:          10  
+#      Length Err cnt:           0  
 #############################
+# A200 TB =>            171820000 ns ERROR :: tb_top.tb_glbl.test_err ERROR detected          1 
+# A200 TB =>            171820000 ns ERROR :: tb_top.tb_glbl.test_err ERROR detected          2 
 # 
 # -------------------------------------------------
 # Test Status
-# warnings: 0, errors: 0
+# warnings: 0, errors: 2
 # 
 # -------------------------------------------------
 # Test Status
-# warnings: 0, errors: 0
+# warnings: 0, errors: 2
 # 
 # =========
-# Test Status: TEST PASSED
+# Test Status: TEST FAILED
 # =========
 # 
 # ** Note: $finish    : ../../verif/lib/tb_glbl.v(64)
-#    Time: 172861 ns  Iteration: 0  Instance: /tb_top
+#    Time: 172821 ns  Iteration: 0  Instance: /tb_top

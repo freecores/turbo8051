@@ -63,7 +63,6 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # Loading work.oc8051_ram_256x8_two_bist
 # Loading work.oc8051_alu_src_sel
 # Loading work.oc8051_comp
-# Loading work.oc8051_rom
 # Loading work.oc8051_cy_select
 # Loading work.oc8051_indi_addr
 # Loading work.oc8051_memory_interface
@@ -90,11 +89,6 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # Loading work.AT45DB321
 # Loading work.tb_glbl
 # Loading work.bit_register
-# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
-#           File in use by:   Hostname:   ProcessID: 14
-#           Attempting to use alternate WLF file "./wlftckcg14".
-# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlftckcg14
 # ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
 #         Region: /tb_top/u_core/u_uart_core/u_rxfifo
 # ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.

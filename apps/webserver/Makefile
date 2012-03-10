@@ -3,7 +3,7 @@
 #
 
 SHELL = /bin/sh
-SDCCFLAGS = --model-large -I /home/dinesha/download/sdcc/device/include/mcs51 -I /home/dinesha/download/sdcc/device/include/  -L /home/dinesha/download/sdcc/device/lib/build/large --debug 
+SDCCFLAGS = --model-large -I /cygdrive/c/Program\ Files/SDCC/include/mcs51 -I /cygdrive/c/Program\ Files/SDCC/include/  -L /cygdrive/c/Program\ Files/SDCC/lib/large --debug 
 ASLINKFLAGS = --code-loc 0x040 --data-loc 0x0000 --stack-loc 0x040 --xram-loc 0x0000
 MODULES = main.rel menu.rel ip.rel lcd.rel tcp.rel udp.rel icmp.rel http.rel ethernet.rel arp.rel enc28j60.rel
 
