@@ -101,8 +101,8 @@ initial begin
 end
 
 
-wire [7:0]   phy_txd            ;
-wire [7:0]   phy_rxd            ;
+wire [3:0]   phy_txd            ;
+wire [3:0]   phy_rxd            ;
 
 //---------------------------------
 // Reg Bus Interface Signal
