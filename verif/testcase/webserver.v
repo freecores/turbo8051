@@ -6,7 +6,7 @@ reg [9:0]  desc_tx_qbase;
 reg [7:0]  iFrmCnt;
 
 reg [31:0] outfile;
-
+begin
   //--------------------------
   // Data Memory MAP
   //-------------------------
@@ -115,6 +115,6 @@ reg [31:0] outfile;
   if(`TB_AGENTS_GMAC.full_mii.receive_crc_err_count)
        `TB_GLBL.test_err;
 
-
+end
 endtask
 

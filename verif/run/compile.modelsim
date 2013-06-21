@@ -5,7 +5,16 @@ if(! -e work) then
 endif
 
 vlog -work work +define+SFLASH_SPDUP \
+-sv \
++incdir+../defs \
 +incdir+../../rtl/defs \
++incdir+../../rtl/8051 \
++incdir+../agents/spi \
++incdir+../agents/spi/st_m25p20a \
++incdir+../agents/ethernet \
++incdir+../lib \
++incdir+../testcase \
++incdir+../tb \
 -v ../../rtl/lib/registers.v \
 -v ../../rtl/lib/stat_counter.v \
 -v ../../rtl/lib/toggle_sync.v \

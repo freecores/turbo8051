@@ -252,7 +252,7 @@ reg  [TAR_WD -1:0]     master_mx_id[WB_MASTER-1:0];
 reg  [TAR_WD -1:0]     slave_mx_id [WB_SLAVE-1:0];
 
 reg  [TAR_WD-1 :0]     cur_target_id;
-wire  [TAR_WD-1:0]     wbd_taddr_master_t[WB_MASTER]; // target address from master 
+wire  [TAR_WD-1:0]     wbd_taddr_master_t[WB_MASTER:0]; // target address from master 
 wire  [D_WD-1:0]       wbd_din_master_t[WB_MASTER-1:0]; // target address from master 
 reg   [D_WD-1:0]       wbd_dout_master_t[WB_MASTER-1:0]; // target address from master 
 wire  [ADR_WD-1:0]     wbd_adr_master_t[WB_MASTER-1:0]; // target address from master 

@@ -4,7 +4,7 @@
 
 
 task spi_test1;
-
+begin
 
  $display("############################################");
  $display("   Testing ST Flash Read/Write Access       ");
@@ -28,4 +28,5 @@ task spi_test1;
 
 
   tb_top.spi_tb_status(); // SPI Tb Init
+end
 endtask

@@ -1,102 +1,30 @@
-Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl 
+Reading /mtitcl/vsim/pref.tcl 
 
-# 6.6d
+# 10.2b
 
 # vsim +gmac_test_2 -do run.do -c tb_top 
-# //  ModelSim ACTEL 6.6d Nov  2 2010 
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: ../../rtl/uart/uart_core.v(211): (vopt-2685) [TFMPC] - Too few port connections for 'u_rxfifo'.  Expected 14, found 12.
+# ** Warning: ../../rtl/uart/uart_core.v(211): (vopt-2718) [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: ../../rtl/uart/uart_core.v(211): (vopt-2718) [TFMPC] - Missing connection for port 'afull'.
+# ** Warning: ../../rtl/uart/uart_core.v(227): (vopt-2685) [TFMPC] - Too few port connections for 'u_txfifo'.  Expected 14, found 12.
+# ** Warning: ../../rtl/uart/uart_core.v(227): (vopt-2718) [TFMPC] - Missing connection for port 'aempty'.
+# ** Warning: ../../rtl/uart/uart_core.v(227): (vopt-2718) [TFMPC] - Missing connection for port 'afull'.
+# //  Questa Sim-64
+# //  Version 10.2b linux_x86_64 May 16 2013
 # //
-# //  Copyright 1991-2010 Mentor Graphics Corporation
-# //              All Rights Reserved.
+# //  Copyright 1991-2013 Mentor Graphics Corporation
+# //  All Rights Reserved.
 # //
-# //  THIS WORK CONTAINS TRADE SECRET AND 
-# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
-# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
-# //  AND IS SUBJECT TO LICENSE TERMS.
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
 # //
 # Loading sv_std.std
-# Loading work.tb_top
-# Loading work.turbo8051
-# Loading work.clkgen
-# Loading work.clk_ctl
-# Loading work.wb_crossbar
-# Loading work.g_mac_top
-# Loading work.g_dpath_ctrl
-# Loading work.g_eth_parser
-# Loading work.g_mac_core
-# Loading work.g_rx_top
-# Loading work.g_rx_fsm
-# Loading work.half_dup_dble_reg
-# Loading work.g_rx_crc32
-# Loading work.g_deferral_rx
-# Loading work.g_md_intf
-# Loading work.g_tx_top
-# Loading work.g_deferral
-# Loading work.g_tx_fsm
-# Loading work.g_tx_crc32
-# Loading work.toggle_sync
-# Loading work.g_cfg_mgmt
-# Loading work.s2f_sync
-# Loading work.generic_register
-# Loading work.req_register
-# Loading work.stat_counter
-# Loading work.generic_intr_stat_reg
-# Loading work.g_mii_intf
-# Loading work.async_fifo
-# Loading work.wb_rd_mem2mem
-# Loading work.wb_wr_mem2mem
-# Loading work.uart_core
-# Loading work.uart_cfg
-# Loading work.stat_register
-# Loading work.uart_txfsm
-# Loading work.uart_rxfsm
-# Loading work.double_sync_low
-# Loading work.spi_core
-# Loading work.spi_if
-# Loading work.spi_ctl
-# Loading work.spi_cfg
-# Loading work.oc8051_top
-# Loading work.oc8051_decoder
-# Loading work.oc8051_alu
-# Loading work.oc8051_multiply
-# Loading work.oc8051_divide
-# Loading work.oc8051_ram_top
-# Loading work.oc8051_ram_256x8_two_bist
-# Loading work.oc8051_alu_src_sel
-# Loading work.oc8051_comp
-# Loading work.oc8051_cy_select
-# Loading work.oc8051_indi_addr
-# Loading work.oc8051_memory_interface
-# Loading work.oc8051_sfr
-# Loading work.oc8051_acc
-# Loading work.oc8051_b_register
-# Loading work.oc8051_sp
-# Loading work.oc8051_dptr
-# Loading work.oc8051_psw
-# Loading work.oc8051_ports
-# Loading work.oc8051_int
-# Loading work.oc8051_tc
-# Loading work.oc8051_tc2
-# Loading work.oc8051_xrom
-# Loading work.oc8051_xram
-# Loading work.tb_eth_top
-# Loading work.tb_mii
-# Loading work.tb_rmii
-# Loading work.uart_agent
-# Loading work.m25p20
-# Loading work.memory_access
-# Loading work.acdc_check
-# Loading work.internal_logic
-# Loading work.AT45DB321
-# Loading work.tb_glbl
-# Loading work.bit_register
-# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(211): [TFMPC] - Too few port connections. Expected 14, found 12.
-#         Region: /tb_top/u_core/u_uart_core/u_rxfifo
-# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'afull'.
-# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(211): [TFMPC] - Missing connection for port 'aempty'.
-# ** Warning: (vsim-3017) ../../rtl/uart/uart_core.v(227): [TFMPC] - Too few port connections. Expected 14, found 12.
-#         Region: /tb_top/u_core/u_uart_core/u_txfifo
-# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'afull'.
-# ** Warning: (vsim-3722) ../../rtl/uart/uart_core.v(227): [TFMPC] - Missing connection for port 'aempty'.
+# Loading work.tb_top(fast)
+# Loading work.oc8051_top(fast)
+# Loading work.tb_eth_top(fast)
+# Loading work.AT45DB321(fast)
 # do run.do 
 # i : 02
 # i : 00
@@ -110,6 +38,9 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # i : 81
 # NOTE : Load memory with Initial delivery content
 # NOTE : Initial Load End
+# ** Warning: (vsim-3533) [FOFIW] - Failed to open file "../test_log_files/test1_events.log" for writing.
+# No such file or directory. (errno = ENOENT)    : ../testcase/gmac_test2.v(20)
+#    Time: 0 ps  Iteration: 0  Instance: /tb_top
 # NOTE: COMMUNICATION (RE)STARTED
 # Config-Write: Id: 1 Addr = 0000, Cfg. Data = 00114501
 # Config-Write: Id: 1 Addr = 0008, Cfg. Data = 00001616
@@ -165,86 +96,8 @@ Reading D:/Actel/Libero_v9.1/Model/tcl/vsim/pref.tcl
 # 79 c8 ca 13 6b c7 b6 ba c4 b9 92 b4 7f 86 fa f2
 # d8 8a 95 46
 # ****
-#             35020000 ns: Completed packet transmission to MAC
-# 36060 ns: Starting packet transmission to MAC, size = 69
-# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
-# Contents:
-# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 32 bd
-# 84 e4 ca a9 a1 8e fb 0b ef c9 36 75 8f 6b 88 ae
-# 9b 92 28 2d 4b c2 1e 0d ec 18 d1 86 41 3b d8 53
-# 56 5b e2 04 73 d8 12 b8 39 e5 a1 2b 81 c8 27 a1
-# 1f dd 21 ca 31
-# ****
-#             42220000 ns: Completed packet transmission to MAC
-# 43260 ns: Starting packet transmission to MAC, size = 70
-# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
-# Contents:
-# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 04 58
-# 96 14 12 96 b1 55 ed 2b f5 ad 27 84 a7 e7 b9 49
-# db c9 51 a1 2a fa 45 83 7c 72 fe 68 6f 86 f0 38
-# 40 28 f6 c5 c0 74 39 b0 3c 2a 62 15 e1 17 43 c9
-# 86 25 ec 93 f7 b6
-# ****
-#             49500000 ns: Completed packet transmission to MAC
-# 50540 ns: Starting packet transmission to MAC, size = 71
-# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
-# Contents:
-# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 c1 8d
-# 5a 07 2c 0c 71 3b b6 f7 9e 5c 55 20 a0 72 b4 dd
-# 0d 4b 79 9e fd 7b 8f 03 e3 1d b1 44 95 e0 ed 52
-# f8 8d 52 84 46 8c 90 17 6a 84 aa 7c 60 ba 8b a6
-# 25 32 a2 b2 82 de 56
-# ****
-#             56860000 ns: Completed packet transmission to MAC
-# 57900 ns: Starting packet transmission to MAC, size = 72
-# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
-# Contents:
-# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 49 14
-# 3d 4b 5c 47 86 39 b4 d0 2c 8c 07 6a 11 e8 4b 73
-# ec 23 a4 c9 39 df d4 67 9d b0 82 49 d9 20 1c 93
-# e3 2a c8 5d 3a 84 2b 39 12 52 59 d0 6e 97 db a6
-# bb 00 0f 69 16 8d 9c 08
-# ****
-#             64300000 ns: Completed packet transmission to MAC
-# 65340 ns: Starting packet transmission to MAC, size = 73
-# SA = 12:34:56:78:9a:bc, DA = 16:22:33:44:55:66, type/length = 0700
-# Contents:
-# 16 22 33 44 55 66 12 34 56 78 9a bc 07 00 0c 59
-# c5 cf 90 51 69 77 4a d8 9b c4 b8 b7 86 30 77 b5
-# d4 07 76 e9 8b 01 db 80 c2 c5 30 af 66 af e9 f8
-# 06 ef e1 95 ee 60 e5 28 64 29 e1 77 6e 81 d5 68
-# f0 aa 0f f1 7d 1f 08 38 e7
-# ****
-#             71820000 ns: Completed packet transmission to MAC
-# Status: End of Waiting Delay Loop
-#############################
-#    TB MII Statistic            
-#  TB TO DUT :                 
-#      Frm cnt       :          10  
-#      Byte cnt      :         685  
-#  DUT TO TB :                  
-#      Frm cnt       :           0  
-#      Byte cnt      :           0  
-#      Pause Frm  cnt:           0  
-#      Alig Err   cnt:           0  
-#      usized Err cnt:           0  
-#      crc Err    cnt:           0  
-#      Length Err cnt:           0  
-#############################
-# A200 TB =>            171820000 ns ERROR :: tb_top.tb_glbl.test_err ERROR detected          1 
-# A200 TB =>            171820000 ns ERROR :: tb_top.tb_glbl.test_err ERROR detected          2 
-# 
-# -------------------------------------------------
-# Test Status
-# warnings: 0, errors: 2
-# 
-# -------------------------------------------------
-# Test Status
-# warnings: 0, errors: 2
-# 
-# =========
-# Test Status: TEST FAILED
-# =========
-# 
-# ** Note: $finish    : ../../verif/lib/tb_glbl.v(64)
-#    Time: 172821 ns  Iteration: 0  Instance: /tb_top
+################################
+# time                33776 Passed
+################################
+# ** Note: $finish    : ../tb/tb_top.v(448)
+#    Time: 33876 ns  Iteration: 0  Instance: /tb_top

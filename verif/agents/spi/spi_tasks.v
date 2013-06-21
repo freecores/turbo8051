@@ -218,15 +218,16 @@ task spi_op_over;
 endtask
 
 task spi_wait_busy;
-    reg [31:0] read_data = 1;
-    bit        exit_flag;
+    reg [31:0] read_data;
+    reg        exit_flag;
     integer    pretime;
-    begin
+begin
+    read_data = 1;
 
     pretime = $time;
 
      
-  exit_flag = 1;
+   exit_flag = 1;
    while(exit_flag == 1) begin 
 
     tb_top.cpu_write('h2,'h4,{8'h05,24'h0});

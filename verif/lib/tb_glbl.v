@@ -14,22 +14,26 @@ module tb_glbl;
 
 
   task init;
-    begin
+  begin
     err_count = 32'h0;
     warn_count = 32'h0;
-    end
+  end
   endtask
 
   task test_pass;
+  begin
    $display ("\n=========");
    $display ("Test Status: TEST PASSED");
    $display ("=========\n");   
+  end
   endtask
 
   task test_fail;
+  begin
    $display ("\n=========");
    $display ("Test Status: TEST FAILED");
    $display ("=========\n");   
+ end
   endtask
   
   
@@ -48,9 +52,11 @@ module tb_glbl;
   endtask
 
   task test_stats;
-   $display ("\n-------------------------------------------------");
-   $display ("Test Status");	  
-   $display ("warnings: %0d, errors: %0d",warn_count,err_count);
+  begin
+     $display ("\n-------------------------------------------------");
+     $display ("Test Status");	  
+     $display ("warnings: %0d, errors: %0d",warn_count,err_count);
+  end
   endtask
 
   task test_finish;
