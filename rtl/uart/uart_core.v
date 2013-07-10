@@ -121,7 +121,8 @@ wire   [1:0] cfg_pri_mod          ; // priority mode, 0 -> nop, 1 -> Even, 2 -> 
 wire        frm_error_o          ; // framing error
 wire        par_error_o          ; // par error
 wire        rx_fifo_full_err_o   ; // rx fifo full error
-
+wire        rx_fifo_wr_full      ;
+wire        app_rxfifo_empty     ;
 
 
 uart_cfg u_cfg (

@@ -113,12 +113,12 @@ output           ext_reg_ack           ;
 //----------------------------------------
 output           phy_tx_en              ; // MAC Tx Enable
 output [7:0]     phy_txd                ; // MAC Tx Data
-output           phy_tx_clk             ; // MAC Tx Clock
+input           phy_tx_clk             ; // MAC Tx Clock
 
 //----------------------------------------
 // MAC Line Side Interface RX Path
 //----------------------------------------
-output           phy_rx_clk             ; // MAC Rx Clock
+input           phy_rx_clk             ; // MAC Rx Clock
 output           phy_rx_dv              ; // MAC Rx Dv
 output [7:0]     phy_rxd                ; // MAC Rxd
 
@@ -255,11 +255,11 @@ wire [3:0]       rx_qcnt    ;
 wire tx_q_empty  = (tx_qcnt == 0);
 wire rx_q_empty  = (rx_qcnt == 0);
 
-assign reg_rdata = (reg_mac_ack)  ? reg_mac_rdata :
+wire [31:0] reg_rdata = (reg_mac_ack)  ? reg_mac_rdata :
                    (reg_uart_ack) ? reg_uart_rdata :
                    (reg_spi_ack)  ? reg_spi_rdata : 'h0;
 
-assign reg_ack = reg_mac_ack | reg_uart_ack | reg_spi_ack;
+wire reg_ack = reg_mac_ack | reg_uart_ack | reg_spi_ack;
 
 
 assign reset_out_n = gen_resetn;
