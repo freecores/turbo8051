@@ -189,7 +189,7 @@ begin
  end else if ((wr) & !(wr_bit) & (wr_addr==`OC8051_SFR_TCON)) begin
    tcon_s <= #1 {data_in[6], data_in[4], data_in[2], data_in[0]};
  end else if ((wr) & (wr_bit) & (wr_addr[7:3]==`OC8051_SFR_B_TCON)) begin
-   case (wr_addr[2:0]) /* synopsys full_case parallel_case */
+   case (wr_addr[2:0]) /* synopsys parallel_case */
      3'b000: tcon_s[0] <= #1 bit_in;
      3'b010: tcon_s[1] <= #1 bit_in;
      3'b100: tcon_s[2] <= #1 bit_in;

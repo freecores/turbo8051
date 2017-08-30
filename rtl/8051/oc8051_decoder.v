@@ -2770,7 +2770,7 @@ begin
       2'b10: state <= #1 2'b01;
       2'b11: state <= #1 2'b10;
       2'b00:
-          casex (op_in) /* synopsys full_case parallel_case */
+          casex (op_in) /* synopsys parallel_case */
             `OC8051_ACALL   : state <= #1 2'b10;
             `OC8051_AJMP    : state <= #1 2'b10;
             `OC8051_CJNE_R  : state <= #1 2'b10;
