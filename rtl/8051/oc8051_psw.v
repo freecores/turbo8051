@@ -118,7 +118,7 @@ begin
     else if (wr & wr_bit & (wr_addr[7:3]==`OC8051_SFR_B_PSW))
       data[wr_addr[2:0]] <= #1 cy_in;
     else begin
-      case (set) /* synopsys full_case parallel_case */
+      case (set) /* synopsys parallel_case */
         `OC8051_PS_CY: begin
 //
 //write carry

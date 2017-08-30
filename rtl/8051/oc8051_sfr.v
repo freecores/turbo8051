@@ -590,7 +590,7 @@ begin
     wait_data <= #1 1'b1;
 
   end else begin
-    case (adr0) /* synopsys full_case parallel_case */
+    case (adr0) /* synopsys parallel_case */
       `OC8051_SFR_ACC: 		dat0 <= #1 acc;
       `OC8051_SFR_PSW: 		dat0 <= #1 psw;
 
@@ -666,7 +666,7 @@ begin
   else if ((adr1==adr0) & we & wr_bit_r)
     bit_out <= #1 bit_in;
   else
-    case (adr0[7:3]) /* synopsys full_case parallel_case */
+    case (adr0[7:3]) /* synopsys parallel_case */
       `OC8051_SFR_B_ACC:   bit_out <= #1 acc[adr0[2:0]];
       `OC8051_SFR_B_PSW:   bit_out <= #1 psw[adr0[2:0]];
 
